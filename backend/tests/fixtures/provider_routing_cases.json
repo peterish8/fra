@@ -1,0 +1,243 @@
+{
+  "provider_results": [
+    {
+      "id": "success",
+      "provider": "perplexity",
+      "operation": "search",
+      "status": "SUCCESS",
+      "payload": {
+        "items": [
+          {
+            "url": "https://news.example.test/evidence",
+            "title": "Independent evidence",
+            "snippet": "A bounded public result."
+          }
+        ]
+      },
+      "provider_request_id": "pplx_req_001",
+      "retrieved_at": "2026-09-01T09:00:00Z",
+      "latency_ms": 184.5,
+      "cost_usd_estimate": "0.0125",
+      "raw_metadata": {
+        "http_status": 200,
+        "result_count": 1,
+        "content_type": "application/json"
+      },
+      "error_code": null,
+      "retry_classification": "NOT_RETRYABLE",
+      "expected": {
+        "data_present": true,
+        "metadata_keys": ["http_status", "result_count", "content_type"]
+      }
+    },
+    {
+      "id": "no_results",
+      "provider": "brave",
+      "operation": "search",
+      "status": "NO_RESULTS",
+      "payload": null,
+      "provider_request_id": "brave_req_002",
+      "retrieved_at": "2026-09-01T09:00:01Z",
+      "latency_ms": 91,
+      "cost_usd_estimate": "0.0020",
+      "raw_metadata": {
+        "http_status": 200,
+        "result_count": 0
+      },
+      "error_code": "NO_RESULTS",
+      "retry_classification": "NOT_RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["http_status", "result_count"]
+      }
+    },
+    {
+      "id": "rate_limited",
+      "provider": "perplexity",
+      "operation": "search",
+      "status": "RATE_LIMITED",
+      "payload": null,
+      "provider_request_id": "pplx_req_003",
+      "retrieved_at": "2026-09-01T09:00:02Z",
+      "latency_ms": 44,
+      "cost_usd_estimate": "0.0000",
+      "raw_metadata": {
+        "http_status": 429,
+        "retry_after_seconds": 8
+      },
+      "error_code": "RATE_LIMITED",
+      "retry_classification": "RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["http_status", "retry_after_seconds"]
+      }
+    },
+    {
+      "id": "parse_failed",
+      "provider": "exa",
+      "operation": "extract",
+      "status": "PARSE_FAILED",
+      "payload": null,
+      "provider_request_id": "exa_req_004",
+      "retrieved_at": "2026-09-01T09:00:03Z",
+      "latency_ms": 320,
+      "cost_usd_estimate": "0.0150",
+      "raw_metadata": {
+        "http_status": 200,
+        "content_type": "application/json"
+      },
+      "error_code": "INVALID_PROVIDER_PAYLOAD",
+      "retry_classification": "NOT_RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["http_status", "content_type"]
+      }
+    },
+    {
+      "id": "timeout",
+      "provider": "firecrawl",
+      "operation": "extract",
+      "status": "TIMEOUT",
+      "payload": null,
+      "provider_request_id": "firecrawl_req_005",
+      "retrieved_at": "2026-09-01T09:00:04Z",
+      "latency_ms": 10000,
+      "cost_usd_estimate": "0.0200",
+      "raw_metadata": {
+        "timeout_ms": 10000
+      },
+      "error_code": "UPSTREAM_TIMEOUT",
+      "retry_classification": "RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["timeout_ms"]
+      }
+    },
+    {
+      "id": "permanent_failure",
+      "provider": "exa",
+      "operation": "search",
+      "status": "PERMANENT_FAILURE",
+      "payload": null,
+      "provider_request_id": "exa_req_006",
+      "retrieved_at": "2026-09-01T09:00:05Z",
+      "latency_ms": 211,
+      "cost_usd_estimate": "0.0030",
+      "raw_metadata": {
+        "http_status": 401
+      },
+      "error_code": "PROVIDER_AUTH_FAILED",
+      "retry_classification": "NOT_RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["http_status"]
+      }
+    },
+    {
+      "id": "access_restricted",
+      "provider": "firecrawl",
+      "operation": "extract",
+      "status": "ACCESS_RESTRICTED",
+      "payload": null,
+      "provider_request_id": "firecrawl_req_007",
+      "retrieved_at": "2026-09-01T09:00:06Z",
+      "latency_ms": 130,
+      "cost_usd_estimate": "0.0050",
+      "raw_metadata": {
+        "http_status": 403,
+        "restriction": "LOGIN_REQUIRED"
+      },
+      "error_code": "ACCESS_RESTRICTED",
+      "retry_classification": "NOT_RETRYABLE",
+      "expected": {
+        "data_present": false,
+        "metadata_keys": ["http_status", "restriction"]
+      }
+    }
+  ],
+  "routing_cases": [
+    {
+      "id": "search_falls_back_in_order",
+      "operation": "search",
+      "query": "Acme revenue FY2026",
+      "providers": [
+        {"name": "perplexity", "status": "RATE_LIMITED", "cost_usd_estimate": "0.0125"},
+        {"name": "brave", "status": "NO_RESULTS", "cost_usd_estimate": "0.0020"},
+        {"name": "exa", "status": "SUCCESS", "cost_usd_estimate": "0.0030"}
+      ],
+      "health": {"perplexity": "HEALTHY", "brave": "HEALTHY", "exa": "HEALTHY"},
+      "remaining_budget_usd": "1.00",
+      "expected_call_order": ["perplexity", "brave", "exa"],
+      "expected_status": "SUCCESS",
+      "expected_provider": "exa"
+    },
+    {
+      "id": "search_skips_unhealthy_primary",
+      "operation": "search",
+      "query": "Acme legal status",
+      "providers": [
+        {"name": "perplexity", "status": "SUCCESS", "cost_usd_estimate": "0.0125"},
+        {"name": "brave", "status": "SUCCESS", "cost_usd_estimate": "0.0020"},
+        {"name": "exa", "status": "SUCCESS", "cost_usd_estimate": "0.0030"}
+      ],
+      "health": {"perplexity": "UNHEALTHY", "brave": "HEALTHY", "exa": "HEALTHY"},
+      "remaining_budget_usd": "1.00",
+      "expected_call_order": ["brave"],
+      "expected_status": "SUCCESS",
+      "expected_provider": "brave"
+    },
+    {
+      "id": "search_skips_provider_over_budget",
+      "operation": "search",
+      "query": "Acme market share",
+      "providers": [
+        {"name": "perplexity", "status": "SUCCESS", "cost_usd_estimate": "1.25"},
+        {"name": "brave", "status": "SUCCESS", "cost_usd_estimate": "0.0020"},
+        {"name": "exa", "status": "SUCCESS", "cost_usd_estimate": "0.0030"}
+      ],
+      "health": {"perplexity": "HEALTHY", "brave": "HEALTHY", "exa": "HEALTHY"},
+      "remaining_budget_usd": "0.50",
+      "expected_call_order": ["brave"],
+      "expected_status": "SUCCESS",
+      "expected_provider": "brave"
+    },
+    {
+      "id": "extraction_falls_back_without_bypass",
+      "operation": "extract",
+      "url": "https://public.example.test/investor-relations",
+      "providers": [
+        {"name": "firecrawl", "status": "ACCESS_RESTRICTED", "cost_usd_estimate": "0.0200"},
+        {"name": "exa_contents", "status": "SUCCESS", "cost_usd_estimate": "0.0100"},
+        {"name": "permitted_browser", "status": "SUCCESS", "cost_usd_estimate": "0.0400"}
+      ],
+      "health": {"firecrawl": "HEALTHY", "exa_contents": "HEALTHY", "permitted_browser": "HEALTHY"},
+      "remaining_budget_usd": "1.00",
+      "expected_call_order": ["firecrawl", "exa_contents"],
+      "expected_status": "SUCCESS",
+      "expected_provider": "exa_contents",
+      "bypass_attempts_allowed": false
+    }
+  ],
+  "restricted_markers": [
+    {"id": "login", "marker": "Please log in to continue", "expected_status": "ACCESS_RESTRICTED"},
+    {"id": "paywall", "marker": "Subscribe to read the full article", "expected_status": "ACCESS_RESTRICTED"},
+    {"id": "captcha", "marker": "Complete the CAPTCHA to continue", "expected_status": "ACCESS_RESTRICTED"}
+  ],
+  "secret_metadata": {
+    "provider": "firecrawl",
+    "operation": "extract",
+    "provider_request_id": "firecrawl_req_secret_001",
+    "retrieved_at": "2026-09-01T09:00:00Z",
+    "latency_ms": 77,
+    "cost_usd_estimate": "0.0200",
+    "raw_metadata": {
+      "http_status": 200,
+      "authorization": "Bearer fixture-provider-token",
+      "cookie": "session=fixture-session-cookie",
+      "api_key": "fixture-api-key",
+      "access_token": "fixture-access-token",
+      "nested": {"secret": "fixture-nested-secret"}
+    },
+    "payload": {"text": "Safe public excerpt"}
+  }
+}

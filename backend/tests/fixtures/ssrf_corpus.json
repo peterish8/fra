@@ -1,0 +1,64 @@
+{
+  "url_cases": [
+    {"id": "valid_https", "url": "https://public.example.test/report", "addresses": ["93.184.216.34"], "expected_allowed": true},
+    {"id": "valid_http", "url": "http://public.example.test/report", "addresses": ["93.184.216.34"], "expected_allowed": true},
+    {"id": "ftp_scheme", "url": "ftp://public.example.test/report", "addresses": ["93.184.216.34"], "expected_allowed": false, "reason": "UNSUPPORTED_SCHEME"},
+    {"id": "missing_scheme", "url": "public.example.test/report", "addresses": ["93.184.216.34"], "expected_allowed": false, "reason": "INVALID_URL"},
+    {"id": "missing_host", "url": "https:///report", "addresses": [], "expected_allowed": false, "reason": "INVALID_URL"},
+    {"id": "loopback_ipv4", "url": "http://127.0.0.1/admin", "addresses": ["127.0.0.1"], "expected_allowed": false, "reason": "LOOPBACK"},
+    {"id": "zero_ipv4", "url": "http://0.0.0.0/admin", "addresses": ["0.0.0.0"], "expected_allowed": false, "reason": "UNSPECIFIED_OR_RESERVED"},
+    {"id": "private_10", "url": "http://10.0.0.8/admin", "addresses": ["10.0.0.8"], "expected_allowed": false, "reason": "PRIVATE"},
+    {"id": "private_172", "url": "http://172.16.1.10/admin", "addresses": ["172.16.1.10"], "expected_allowed": false, "reason": "PRIVATE"},
+    {"id": "private_192", "url": "http://192.168.1.10/admin", "addresses": ["192.168.1.10"], "expected_allowed": false, "reason": "PRIVATE"},
+    {"id": "loopback_ipv6", "url": "http://[::1]/admin", "addresses": ["::1"], "expected_allowed": false, "reason": "LOOPBACK"},
+    {"id": "private_ipv6", "url": "http://[fc00::1]/admin", "addresses": ["fc00::1"], "expected_allowed": false, "reason": "PRIVATE"},
+    {"id": "link_local_ipv6", "url": "http://[fe80::1]/admin", "addresses": ["fe80::1"], "expected_allowed": false, "reason": "LINK_LOCAL"},
+    {"id": "reserved_documentation_ipv6", "url": "http://[2001:db8::1]/report", "addresses": ["2001:db8::1"], "expected_allowed": false, "reason": "UNSPECIFIED_OR_RESERVED"},
+    {"id": "reserved_documentation_ipv4", "url": "http://192.0.2.1/report", "addresses": ["192.0.2.1"], "expected_allowed": false, "reason": "UNSPECIFIED_OR_RESERVED"},
+    {"id": "cloud_metadata_ipv4", "url": "http://169.254.169.254/latest/meta-data/", "addresses": ["169.254.169.254"], "expected_allowed": false, "reason": "LINK_LOCAL"},
+    {"id": "cloud_metadata_ipv6", "url": "http://[fd00:ec2::254]/latest/meta-data/", "addresses": ["fd00:ec2::254"], "expected_allowed": false, "reason": "PRIVATE"},
+    {"id": "nonstandard_port", "url": "https://public.example.test:8080/report", "addresses": ["93.184.216.34"], "expected_allowed": false, "reason": "PORT_NOT_ALLOWED"},
+    {"id": "explicit_https_port", "url": "https://public.example.test:443/report", "addresses": ["93.184.216.34"], "expected_allowed": true},
+    {"id": "explicit_http_port", "url": "http://public.example.test:80/report", "addresses": ["93.184.216.34"], "expected_allowed": true}
+  ],
+  "redirect_cases": [
+    {
+      "id": "public_redirect_is_rechecked",
+      "initial_url": "https://public.example.test/start",
+      "redirects": ["https://public.example.test/final"],
+      "addresses": {"public.example.test": ["93.184.216.34"]},
+      "expected_allowed": true,
+      "expected_resolver_calls": 2
+    },
+    {
+      "id": "private_redirect_is_blocked",
+      "initial_url": "https://public.example.test/start",
+      "redirects": ["http://192.168.1.10/private"],
+      "addresses": {"public.example.test": ["93.184.216.34"], "192.168.1.10": ["192.168.1.10"]},
+      "expected_allowed": false,
+      "reason": "PRIVATE_REDIRECT"
+    },
+    {
+      "id": "redirect_cap_is_enforced",
+      "initial_url": "https://public.example.test/0",
+      "redirects": [
+        "https://public.example.test/1",
+        "https://public.example.test/2",
+        "https://public.example.test/3",
+        "https://public.example.test/4"
+      ],
+      "addresses": {"public.example.test": ["93.184.216.34"]},
+      "max_redirects": 3,
+      "expected_allowed": false,
+      "reason": "REDIRECT_LIMIT_EXCEEDED"
+    },
+    {
+      "id": "dns_rebinding_is_rejected",
+      "initial_url": "https://rebind.example.test/report",
+      "redirects": [],
+      "resolver_sequences": {"rebind.example.test": [["93.184.216.34"], ["127.0.0.1"]]},
+      "expected_allowed": false,
+      "reason": "DNS_REBINDING"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ from typing import Any
 import pytest
 from pydantic import ValidationError
 
+from app.config.settings import Settings
+
 
 def test_missing_required_settings_fail_without_echoing_secret_values(
     valid_settings_values: dict[str, Any],
@@ -31,7 +33,7 @@ def test_missing_required_settings_fail_without_echoing_secret_values(
 
 
 def test_valid_settings_load_typed_values_without_network(
-    valid_settings,
+    valid_settings: Settings,
     valid_settings_values: dict[str, Any],
 ) -> None:
     assert valid_settings.app_env == valid_settings_values["app_env"]
@@ -42,7 +44,7 @@ def test_valid_settings_load_typed_values_without_network(
 
 
 def test_request_id_and_secret_redaction_are_present_in_response_and_logs(
-    client,
+    client: Any,
     caplog: pytest.LogCaptureFixture,
     valid_settings_values: dict[str, Any],
 ) -> None:

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Any
 
-def _assert_api_error(response, *, status_code: int, code: str) -> None:
+
+def _assert_api_error(response: Any, *, status_code: int, code: str) -> None:
     assert response.status_code == status_code
     body = response.json()
     assert body["error"]["code"] == code
@@ -11,14 +13,14 @@ def _assert_api_error(response, *, status_code: int, code: str) -> None:
     assert body["error"]["request_id"]
 
 
-def test_me_without_credentials_is_stably_unauthenticated(client) -> None:
+def test_me_without_credentials_is_stably_unauthenticated(client: Any) -> None:
     response = client.get("/v1/me")
 
     _assert_api_error(response, status_code=401, code="UNAUTHENTICATED")
 
 
 def test_me_with_malformed_bearer_token_is_stably_unauthenticated(
-    client,
+    client: Any,
 ) -> None:
     response = client.get(
         "/v1/me",
@@ -30,8 +32,8 @@ def test_me_with_malformed_bearer_token_is_stably_unauthenticated(
 
 
 def test_me_returns_fixture_identity_without_calling_supabase(
-    app,
-    auth_users,
+    app: Any,
+    auth_users: dict[str, dict[str, str]],
 ) -> None:
     from fastapi.testclient import TestClient
 

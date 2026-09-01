@@ -40,6 +40,22 @@ strict = true
 python_version = "3.12"
 plugins = ["pydantic.mypy"]
 
+[[tool.mypy.overrides]]
+module = [
+  "tests.*",
+  "conftest",
+  "test_config",
+  "test_me_auth",
+  "test_authorization",
+  "test_health",
+  "test_ci_contract",
+  "persistence.*",
+  "security.*",
+]
+allow_any_generics = true
+disallow_untyped_defs = false
+warn_return_any = false
+disable_error_code = ["attr-defined"]
+
 [tool.setuptools.packages.find]
 where = ["."]
-

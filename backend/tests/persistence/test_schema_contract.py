@@ -70,7 +70,7 @@ def test_schema_uses_uuid_timestamptz_and_decimal_patterns() -> None:
     assert re.search(r"\bnumeric\(\d+\s*,\s*\d+\)", sql, re.IGNORECASE), (
         "decimal financial precision must use an explicit numeric(p,s) declaration"
     )
-    assert re.search(r"\bnumeric\(38\s*,\s*12\)\b", _table_block(sql, "facts"), re.IGNORECASE)
+    assert re.search(r"\bnumeric\(38\s*,\s*12\)", _table_block(sql, "facts"), re.IGNORECASE)
     assert re.search(
         r"\bmax_cost_usd\s+numeric\(12\s*,\s*4\)", _table_block(sql, "research_runs"), re.IGNORECASE
     )
@@ -96,7 +96,7 @@ def test_historical_records_are_append_oriented_and_corrections_supersede() -> N
 
     for table in contract["immutable_tables"]:
         assert re.search(
-            rf"create\s+trigger\b[^;]*\bon\s+{re.escape(table)}\b[^;]*\bbefore\s+(?:update\s+or\s+delete|delete\s+or\s+update)\b",
+            rf"create\s+trigger\b[^;]*\bbefore\s+(?:update\s+or\s+delete|delete\s+or\s+update)\b[^;]*\bon\s+{re.escape(table)}\b",
             sql,
             re.IGNORECASE | re.DOTALL,
         ), f"{table} lacks a mutation guard for immutable historical records"

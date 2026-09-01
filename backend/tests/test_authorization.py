@@ -15,7 +15,9 @@ def _assert_owner_error(
     assert detail["error"]["request_id"] == "req_owner_fixture_001"
 
 
-def test_owner_authorization_allows_matching_user(auth_users) -> None:
+def test_owner_authorization_allows_matching_user(
+    auth_users: dict[str, dict[str, str]],
+) -> None:
     from app.api.dependencies import assert_owner
 
     user = auth_users["owner"]
@@ -27,7 +29,7 @@ def test_owner_authorization_allows_matching_user(auth_users) -> None:
 
 
 def test_owner_authorization_rejects_missing_identity_as_unauthenticated(
-    auth_users,
+    auth_users: dict[str, dict[str, str]],
 ) -> None:
     from app.api.dependencies import assert_owner
 
@@ -41,7 +43,9 @@ def test_owner_authorization_rejects_missing_identity_as_unauthenticated(
     _assert_owner_error(caught, status_code=401, code="UNAUTHENTICATED")
 
 
-def test_owner_authorization_rejects_wrong_owner_as_forbidden(auth_users) -> None:
+def test_owner_authorization_rejects_wrong_owner_as_forbidden(
+    auth_users: dict[str, dict[str, str]],
+) -> None:
     from app.api.dependencies import assert_owner
 
     with pytest.raises(Exception) as caught:

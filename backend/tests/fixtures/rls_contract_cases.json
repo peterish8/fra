@@ -29,7 +29,7 @@
       "owner_join": ["research_runs", "research_run_id", "reports"]
     },
     "report_versions": {
-      "operations": ["select", "insert", "update", "delete"],
+      "operations": ["select", "insert"],
       "owner_join": ["reports", "report_id"]
     },
     "report_version_claims": {

@@ -145,7 +145,7 @@ def test_immutable_truth_records_reject_in_place_correction_but_support_superses
     ]
     for table in immutable_tables:
         assert re.search(
-            rf"create\s+trigger\b[^;]*\bon\s+{table}\b[^;]*\bbefore\s+(?:update\s+or\s+delete|delete\s+or\s+update)\b",
+            rf"create\s+trigger\b[^;]*\bbefore\s+(?:update\s+or\s+delete|delete\s+or\s+update)\b[^;]*\bon\s+{table}\b",
             sql,
             re.IGNORECASE | re.DOTALL,
         ), f"{table} needs an in-place mutation safeguard"

@@ -11,11 +11,11 @@ def _assert_stable_health_response(response: Any) -> None:
     assert response.json() == {"status": "ok"}
 
 
-def test_health_returns_static_ok_payload(client) -> None:
+def test_health_returns_static_ok_payload(client: Any) -> None:
     _assert_stable_health_response(client.get("/health"))
 
 
-def test_versioned_health_matches_unversioned_health(client) -> None:
+def test_versioned_health_matches_unversioned_health(client: Any) -> None:
     health_response = client.get("/health")
     versioned_response = client.get("/v1/health")
 

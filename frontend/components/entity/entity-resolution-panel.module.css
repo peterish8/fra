@@ -1,0 +1,59 @@
+.panel { overflow: hidden; border: 1px solid var(--border, #e2e6ec); border-radius: 8px; background: var(--surface, #fff); color: var(--text, #111827); box-shadow: var(--shadow-subtle, 0 1px 2px rgb(16 24 40 / 4%)); }
+.panelHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 25px 28px 23px; border-bottom: 1px solid var(--border, #e2e6ec); }
+.eyebrow { margin: 0 0 7px; color: var(--text-muted, #667085); font-size: 11px; font-weight: 750; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; }
+.panelHeader h2 { margin: 0; color: var(--text, #111827); font-size: 21px; font-weight: 670; letter-spacing: -.03em; line-height: 1.25; }
+.headerDescription { max-width: 600px; margin: 7px 0 0; color: var(--text-muted, #667085); font-size: 13px; }
+.statusBadge { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 31px; padding: 5px 10px; border: 1px solid var(--border-strong, #d3d9e2); border-radius: 6px; color: var(--text-soft, #344054); font-size: 12px; font-weight: 750; }
+.statusIcon { display: inline-grid; width: 18px; height: 18px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 11px; line-height: 1; }
+.statusCode { color: inherit; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; letter-spacing: .04em; }
+.statusRESOLVED { color: var(--success, #18864b); }.statusAMBIGUOUS { color: var(--warning, #a66300); }.statusUNCONFIRMED { color: var(--info, #2563eb); }
+.stateBody { padding: 27px 28px 29px; }
+.stateLead { display: flex; align-items: flex-start; gap: 12px; }
+.stateIcon { display: inline-grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--text-muted, #667085); font-size: 13px; font-weight: 800; line-height: 1; }
+.stateLead h3 { margin: 0; color: var(--text-soft, #344054); font-size: 16px; font-weight: 670; letter-spacing: -.01em; line-height: 1.3; }
+.stateLead p { max-width: 720px; margin: 5px 0 0; color: var(--text-muted, #667085); font-size: 13px; line-height: 1.55; }
+.candidateGroup { margin: 26px 0 0; padding: 21px 0 0; border: 0; border-top: 1px solid var(--border, #e2e6ec); }
+.candidateGroup legend { padding: 0; color: var(--text-soft, #344054); font-size: 13px; font-weight: 750; }
+.fieldHint { margin: 4px 0 14px; color: var(--text-muted, #667085); font-size: 12px; }
+.candidateList { display: grid; gap: 10px; }
+.candidateCard { padding: 14px; border: 1px solid var(--border, #e2e6ec); border-radius: 7px; background: var(--surface, #fff); }
+.candidateCardSelected { border-color: var(--accent, #5b5bd6); background: var(--accent-soft, #eeeeff); }
+.candidateLabel { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.candidateLabel input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.radioMark { display: inline-grid; width: 17px; height: 17px; flex: 0 0 17px; place-items: center; border: 1px solid var(--border-strong, #d3d9e2); border-radius: 50%; background: var(--surface, #fff); }
+.candidateCardSelected .radioMark { border: 5px solid var(--accent, #5b5bd6); }
+.candidateLabel input:focus-visible + .radioMark { outline: 3px solid rgb(91 91 214 / 28%); outline-offset: 2px; }
+.candidateName { color: var(--text-soft, #344054); font-size: 15px; font-weight: 700; }
+.candidateDetails { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px 16px; margin: 16px 0 0 27px; }
+.candidateDetails > div,.legalDetails > div { min-width: 0; }
+.candidateDetails dt,.legalDetails dt { margin: 0 0 3px; color: var(--text-muted, #667085); font-size: 11px; font-weight: 650; }
+.candidateDetails dd,.legalDetails dd { margin: 0; color: var(--text-soft, #344054); font-size: 13px; line-height: 1.45; }
+.candidateDetails .detailWide { grid-column: 1 / -1; }
+.confidenceValue { font-variant-numeric: tabular-nums; font-weight: 750; }
+.reasonList,.evidenceList { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.reasonList li { display: grid; gap: 1px; }
+.reasonList strong { color: var(--text-soft, #344054); font-size: 12px; font-weight: 700; }
+.reasonList span { color: var(--text-muted, #667085); font-size: 12px; line-height: 1.45; }
+.evidenceList { display: flex; flex-wrap: wrap; gap: 6px; }
+.evidenceList code,.legalDetails code { overflow-wrap: anywhere; color: var(--text-soft, #344054); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; }
+.evidenceList code { padding: 3px 6px; border: 1px solid var(--border, #e2e6ec); border-radius: 4px; background: var(--surface-subtle, #f1f3f6); }
+.mutedValue { color: var(--text-muted, #667085); font-size: 12px; }
+.resolutionReasons { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border, #e2e6ec); }
+.resolutionReasons h3,.legalRecord h3 { margin: 0 0 9px; color: var(--text-soft, #344054); font-size: 13px; font-weight: 750; }
+.researchGate { display: flex; align-items: flex-start; gap: 10px; margin-top: 26px; padding: 13px 14px; border: 1px solid var(--border, #e2e6ec); border-radius: 6px; }
+.researchGateBlocked { background: #fffaf2; }.researchGateOpen { background: #f7fcf8; }
+.gateIcon { display: inline-grid; width: 18px; height: 18px; flex: 0 0 18px; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--text-muted, #667085); font-size: 11px; font-weight: 800; }
+.researchGate strong { color: var(--text-soft, #344054); font-size: 13px; }.researchGate p { margin: 2px 0 0; color: var(--text-muted, #667085); font-size: 12px; line-height: 1.45; }
+.confirmRow { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 20px; padding-top: 19px; border-top: 1px solid var(--border, #e2e6ec); }
+.confirmRow p { max-width: 510px; margin: 0; color: var(--text-muted, #667085); font-size: 12px; line-height: 1.45; }
+.primaryButton,.secondaryButton { min-height: 40px; border-radius: 6px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.primaryButton { flex: 0 0 auto; padding: 0 14px; border: 1px solid #4a4ab8; background: var(--accent, #5b5bd6); color: #fff; }.primaryButton:hover { background: #4a4ab8; }
+.primaryButton:disabled { cursor: not-allowed; opacity: .55; }
+.secondaryButton { margin-top: 12px; padding: 0 11px; border: 1px solid var(--border-strong, #d3d9e2); background: var(--surface, #fff); color: var(--text-soft, #344054); }.secondaryButton:hover { background: var(--surface-subtle, #f1f3f6); }
+.primaryButton:focus-visible,.secondaryButton:focus-visible { outline: 3px solid rgb(91 91 214 / 28%); outline-offset: 2px; }
+.nextStep { margin: 23px 0 0 37px; padding: 14px; border-left: 2px solid var(--border-strong, #d3d9e2); background: var(--surface-subtle, #f1f3f6); }.nextStep strong { color: var(--text-soft, #344054); font-size: 13px; }.nextStep p { max-width: 680px; margin: 4px 0 0; color: var(--text-muted, #667085); font-size: 12px; line-height: 1.5; }
+.legalRecord { margin-top: 26px; padding-top: 21px; border-top: 1px solid var(--border, #e2e6ec); }.subsectionHeading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }.subsectionHeading .eyebrow { margin-bottom: 5px; }.freshnessLabel { padding: 4px 7px; border: 1px solid var(--border, #e2e6ec); border-radius: 4px; color: var(--text-muted, #667085); font-size: 11px; font-weight: 700; }
+.legalDetails { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 16px; margin: 17px 0 0; }.legalDetails dd { font-size: 12px; }
+@media (max-width: 680px) { .panelHeader { display: block; padding: 20px; }.statusBadge { margin-top: 15px; }.stateBody { padding: 23px 20px 24px; }.candidateDetails,.legalDetails { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-left: 0; }.confirmRow { align-items: stretch; flex-direction: column; }.primaryButton { width: 100%; }.nextStep { margin-left: 0; } }
+@media (max-width: 430px) { .candidateDetails,.legalDetails { grid-template-columns: 1fr; }.candidateDetails .detailWide { grid-column: auto; } }
+@media (prefers-reduced-motion: reduce) { .panel *,.panel *::before,.panel *::after { scroll-behavior: auto!important; transition-duration: .01ms!important; } }

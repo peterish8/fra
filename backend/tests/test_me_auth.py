@@ -33,8 +33,9 @@ def test_me_returns_fixture_identity_without_calling_supabase(
     app,
     auth_users,
 ) -> None:
-    from app.security.auth import AuthenticatedUser, get_current_user
     from fastapi.testclient import TestClient
+
+    from app.security.auth import AuthenticatedUser, get_current_user
 
     user = auth_users["owner"]
     identity = AuthenticatedUser(

@@ -9,7 +9,6 @@ from typing import Any
 
 import pytest
 
-
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = Path(__file__).resolve().parent / "fixtures"
 

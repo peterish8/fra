@@ -5,10 +5,12 @@ from __future__ import annotations
 import pytest
 
 
-def _assert_owner_error(caught: pytest.ExceptionInfo[Exception], *, status_code: int, code: str) -> None:
+def _assert_owner_error(
+    caught: pytest.ExceptionInfo[Exception], *, status_code: int, code: str
+) -> None:
     error = caught.value
-    assert getattr(error, "status_code") == status_code
-    detail = getattr(error, "detail")
+    assert error.status_code == status_code
+    detail = error.detail
     assert detail["error"]["code"] == code
     assert detail["error"]["request_id"] == "req_owner_fixture_001"
 

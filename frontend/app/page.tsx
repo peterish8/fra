@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type NavigationItem = {
   label: string;
   href: string;
@@ -62,10 +64,10 @@ function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Research workspace sidebar">
       <div className="sidebar-top">
-        <a className="brand" href="/" aria-label="Financial Research Agent home">
+        <Link className="brand" href="/" aria-label="Financial Research Agent home">
           <BrandMark />
           <span>Financial Research</span>
-        </a>
+        </Link>
 
         <nav className="primary-nav" aria-label="Primary navigation">
           {navigationItems.map((item) => (

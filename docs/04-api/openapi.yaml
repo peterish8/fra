@@ -21,6 +21,12 @@ paths:
         - in: query
           name: q
           schema: {type: string}
+        - in: query
+          name: status
+          schema: {type: string, enum: [DRAFT, RESEARCHING, READY, VERIFIED, ARCHIVED]}
+        - in: query
+          name: company_id
+          schema: {type: string, format: uuid}
       responses:
         '200':
           description: Report page
@@ -251,10 +257,24 @@ components:
       allOf:
         - $ref: '#/components/schemas/ReportSummary'
         - type: object
+          required: [subject, focus, depth]
           properties:
-            company: {type: object, additionalProperties: true}
-            quality: {type: object, additionalProperties: true}
-            sections: {type: array, items: {type: object, additionalProperties: true}}
+            subject:
+              $ref: '#/components/schemas/ReportSubject'
+            focus:
+              type: array
+              items: {type: string}
+            depth: {type: string, enum: [FAST, STANDARD, DEEP]}
+            company_id: {type: string, format: uuid, nullable: true}
+    ReportSubject:
+      type: object
+      required: [query]
+      additionalProperties: false
+      properties:
+        query: {type: string, minLength: 1, maxLength: 200}
+        country_code: {type: string, minLength: 2, maxLength: 2, nullable: true}
+        ticker: {type: string, nullable: true}
+        domain: {type: string, nullable: true}
     ReportListResponse:
       type: object
       properties:

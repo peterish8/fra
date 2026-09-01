@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.api.reports import include_report_router
 from app.api.routes.health import router as health_router
 from app.api.routes.health import versioned_router as versioned_health_router
 from app.api.routes.me import router as me_router
@@ -88,6 +89,7 @@ def create_app(
     application.include_router(health_router)
     application.include_router(versioned_health_router)
     application.include_router(me_router)
+    include_report_router(application)
     return application
 
 

@@ -54,9 +54,13 @@ class ReportRepository(Protocol):
 class _CollectionReportRepository:
     """Shared behavior for local records and the frozen test repository."""
 
-    def __init__(self, records: MutableSequence[dict[str, Any]]) -> None:
+    def __init__(
+        self,
+        records: MutableSequence[dict[str, Any]],
+        idempotency: dict[tuple[str, str], tuple[str, ReportRecord]] | None = None,
+    ) -> None:
         self._records = records
-        self._idempotency: dict[tuple[str, str], tuple[str, ReportRecord]] = {}
+        self._idempotency = idempotency if idempotency is not None else {}
         self._lock = threading.RLock()
 
     def create_report(
@@ -153,7 +157,11 @@ class FixtureReportRepositoryAdapter(_CollectionReportRepository):
         records = getattr(fixture_repository, "reports", None)
         if not isinstance(records, list):
             raise ReportRepositoryUnavailable("fixture repository has no report collection")
-        super().__init__(cast(MutableSequence[dict[str, Any]], records))
+        idempotency = getattr(fixture_repository, "_report_idempotency", None)
+        if not isinstance(idempotency, dict):
+            idempotency = {}
+            vars(fixture_repository)["_report_idempotency"] = idempotency
+        super().__init__(cast(MutableSequence[dict[str, Any]], records), idempotency)
 
 
 def adapt_report_repository(repository: object) -> ReportRepository:

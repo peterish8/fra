@@ -116,5 +116,8 @@ export function createAuthenticatedApiClient({
         body: body === undefined ? undefined : JSON.stringify(body),
       });
     },
+    delete<T>(path: string, options?: Omit<RequestOptions, "method" | "body">) {
+      return request<T>(path, { ...options, method: "DELETE" });
+    },
   };
 }

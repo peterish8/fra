@@ -9,7 +9,7 @@ type NavigationItem = {
 
 const navigationItems: NavigationItem[] = [
   { label: "Discover", href: "/", icon: "discover", current: true },
-  { label: "My Research", href: "/#my-research", icon: "research" },
+  { label: "My Research", href: "/research", icon: "research" },
   { label: "Compare", href: "/#compare", icon: "compare" },
   { label: "Settings", href: "/#settings", icon: "settings" },
 ];

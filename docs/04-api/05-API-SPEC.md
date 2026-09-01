@@ -31,20 +31,30 @@ Response `201`:
 ```json
 {
   "report_id": "uuid",
+  "title": "NVIDIA — Deep Research",
   "status": "DRAFT"
 }
 ```
 
+The optional `Idempotency-Key` is scoped to the authenticated user and create
+request. Repeating the same key and payload returns the original workspace;
+reusing it with a different payload returns `IDEMPOTENCY_CONFLICT`.
+
 #### `GET /v1/reports`
 List user reports for sidebar/library.
 
-Filters: `company_id`, `status`, `q`, `cursor`, `limit`.
+Filters: `company_id`, `status`, `q`, `cursor`, `limit`. Results are scoped to
+the authenticated owner and exclude soft-deleted workspaces.
 
 #### `GET /v1/reports/{report_id}`
 Return workspace metadata and current version summary.
 
 #### `DELETE /v1/reports/{report_id}`
 Soft-delete user workspace. Must not destroy shared canonical evidence referenced elsewhere.
+
+Opening or deleting a workspace owned by another user is rejected by the
+backend authorization boundary; deleted workspaces are not returned by list,
+open, or repeat-delete operations.
 
 ### Research runs
 
@@ -216,4 +226,3 @@ Canonical codes include:
 - Rate-limit expensive research creation separately from read APIs.
 - Enforce request/response size bounds.
 - No provider credentials returned to frontend.
-

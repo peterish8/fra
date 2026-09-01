@@ -60,9 +60,7 @@ def _result_for(normalize: Any, provider: dict[str, Any], operation: str) -> Any
         cost_usd_estimate=provider["cost_usd_estimate"],
         raw_metadata={"fixture": True},
         error_code=None if provider["status"] == "SUCCESS" else provider["status"],
-        retry_classification=(
-            "NOT_RETRYABLE" if provider["status"] == "SUCCESS" else "RETRYABLE"
-        ),
+        retry_classification=("NOT_RETRYABLE" if provider["status"] == "SUCCESS" else "RETRYABLE"),
     )
 
 
@@ -93,11 +91,21 @@ def test_router_honors_fallback_order_health_cost_and_restriction_policy(
     operation = case["operation"]
     providers = [_FixtureProvider(item, operation, normalize) for item in case["providers"]]
 
+    # The fixture hostname is intentionally non-resolvable.  Inject a
+    # deterministic *allow* decision here; production construction uses the
+    # default SSRF-safe validator and never skips URL validation.
+    url_validator = (
+        (lambda url: {"allowed": True, "url": url, "addresses": ["93.184.216.34"]})
+        if operation == "extract"
+        else None
+    )
+
     router = router_type(
         search_providers=providers if operation == "search" else [],
         extraction_providers=providers if operation == "extract" else [],
         health_state=case["health"],
         remaining_cost_usd=Decimal(case["remaining_budget_usd"]),
+        url_validator=url_validator,
     )
     if operation == "search":
         result = router.search(case["query"])
@@ -106,9 +114,7 @@ def test_router_honors_fallback_order_health_cost_and_restriction_policy(
 
     result_map = _mapping(result)
     assert result_map["status"] == case["expected_status"]
-    assert result_map.get("provider", result_map.get("provider_name")) == case[
-        "expected_provider"
-    ]
+    assert result_map.get("provider", result_map.get("provider_name")) == case["expected_provider"]
     assert [provider.provider for provider in providers if provider.calls] == case[
         "expected_call_order"
     ]
@@ -119,3 +125,29 @@ def test_router_honors_fallback_order_health_cost_and_restriction_policy(
                 assert "bypass" not in call["kwargs"]
                 assert "captcha" not in call["kwargs"]
                 assert "cookie" not in call["kwargs"]
+
+
+def test_router_rejects_private_url_by_default_before_any_adapter_call() -> None:
+    router_type = _symbol("app.providers.router", "ProviderRouter")
+
+    class _UnexpectedCallProvider:
+        provider = "firecrawl"
+        estimated_cost_usd = Decimal("0.01")
+
+        def __init__(self) -> None:
+            self.called = False
+
+        def extract(self, url: str, **kwargs: Any) -> Any:
+            del url, kwargs
+            self.called = True
+            pytest.fail("unsafe URL reached an extraction adapter", pytrace=False)
+
+    provider = _UnexpectedCallProvider()
+    router = router_type(extraction_providers=[provider])
+
+    result = router.extract("http://127.0.0.1/metadata")
+
+    result_map = _mapping(result)
+    assert result_map["status"] == "ACCESS_RESTRICTED"
+    assert result_map["error_code"] == "URL_POLICY_REJECTED"
+    assert provider.called is False

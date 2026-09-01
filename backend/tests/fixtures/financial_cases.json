@@ -1,0 +1,41 @@
+{
+  "normalization_cases": [
+    {"id": "million_to_base", "raw_value": "130,497 million", "numeric_value": 130497, "unit": "million", "expected_value": 130497000000, "expected_unit": "RAW"},
+    {"id": "billion_to_base", "raw_value": "130.497 billion", "numeric_value": 130.497, "unit": "billion", "expected_value": 130497000000, "expected_unit": "RAW"},
+    {"id": "lakh_to_base", "raw_value": "25 lakh", "numeric_value": 25, "unit": "lakh", "expected_value": 2500000, "expected_unit": "RAW"},
+    {"id": "crore_to_base", "raw_value": "3.2 crore", "numeric_value": 3.2, "unit": "crore", "expected_value": 32000000, "expected_unit": "RAW"},
+    {"id": "negative_parentheses", "raw_value": "($20M)", "numeric_value": -20, "unit": "million", "expected_value": -20000000, "expected_unit": "RAW"},
+    {"id": "percent", "raw_value": "18.5%", "numeric_value": 18.5, "unit": "percent", "expected_value": 0.185, "expected_unit": "PERCENT"},
+    {"id": "basis_points", "raw_value": "125 bps", "numeric_value": 125, "unit": "bps", "expected_value": 0.0125, "expected_unit": "PERCENT"},
+    {"id": "missing_is_not_zero", "raw_value": null, "numeric_value": null, "unit": null, "expected_value": null, "expected_unit": "UNKNOWN"},
+    {"id": "explicit_zero", "raw_value": "$0", "numeric_value": 0, "unit": "raw", "currency": "USD", "expected_value": 0, "expected_unit": "RAW"}
+  ],
+  "period_cases": [
+    {"id": "fiscal_year", "label": "FY2026", "expected_kind": "FISCAL_YEAR"},
+    {"id": "calendar_year", "label": "CY2025", "expected_kind": "CALENDAR_YEAR"},
+    {"id": "quarter", "label": "Q3 FY2026", "expected_kind": "QUARTER"},
+    {"id": "trailing_twelve_months", "label": "TTM ended 2026-06-30", "expected_kind": "TTM"}
+  ],
+  "fx_cases": [
+    {"id": "explicit_fx", "value": 100, "currency": "USD", "target_currency": "INR", "fx_rate": 83.25, "fx_date": "2026-06-30", "expected_value": 8325},
+    {"id": "wrong_currency_without_rate", "value": 100, "currency": "USD", "target_currency": "INR", "fx_rate": null, "fx_date": null, "expected_error": "FX_RATE_REQUIRED"},
+    {"id": "fx_rate_without_date", "value": 100, "currency": "USD", "target_currency": "INR", "fx_rate": 83.25, "fx_date": null, "expected_error": "FX_DATE_REQUIRED"}
+  ],
+  "calculation_cases": [
+    {"id": "growth", "operation": "growth", "current": 130, "prior": 100, "expected": 0.3},
+    {"id": "margin", "operation": "margin", "numerator": 25, "denominator": 100, "expected": 0.25},
+    {"id": "ratio", "operation": "ratio", "numerator": 3, "denominator": 4, "expected": 0.75},
+    {"id": "divide_by_zero", "operation": "ratio", "numerator": 3, "denominator": 0, "expected_error": "DIVIDE_BY_ZERO"},
+    {"id": "unknown_input", "operation": "growth", "current": null, "prior": 100, "expected_error": "INSUFFICIENT_DATA"},
+    {"id": "tolerance_pass", "operation": "compare", "left": 130.497, "right": 130.5, "tolerance": 0.01, "expected": true},
+    {"id": "tolerance_fail", "operation": "compare", "left": 130.497, "right": 131.2, "tolerance": 0.01, "expected": false}
+  ],
+  "provider_cases": [
+    {"id": "official_success", "official_status": "SUCCESS", "fallback_status": "SUCCESS", "expected_provider": "OFFICIAL", "expected_status": "SUCCESS"},
+    {"id": "official_empty_uses_fallback", "official_status": "NO_RESULTS", "fallback_status": "SUCCESS", "expected_provider": "FALLBACK", "expected_status": "SUCCESS"},
+    {"id": "official_timeout_uses_fallback", "official_status": "TIMEOUT", "fallback_status": "SUCCESS", "expected_provider": "FALLBACK", "expected_status": "SUCCESS"},
+    {"id": "rate_limit_is_normalized", "official_status": "RATE_LIMITED", "fallback_status": "RATE_LIMITED", "expected_provider": null, "expected_status": "RATE_LIMITED"},
+    {"id": "malformed_payload_is_not_fact", "official_status": "MALFORMED", "fallback_status": "NO_RESULTS", "expected_provider": null, "expected_status": "MALFORMED"},
+    {"id": "provider_disagreement_is_preserved", "official_status": "SUCCESS", "fallback_status": "SUCCESS_DIFFERENT_VALUE", "expected_provider": "OFFICIAL", "expected_status": "DISAGREEMENT"}
+  ]
+}

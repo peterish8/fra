@@ -120,7 +120,7 @@ Which source snapshots were used by a research run and how they were discovered.
 ### `facts`
 Structured extracted facts before/alongside narrative claims.
 
-Key fields: company, metric code, raw value text, normalized decimal/text value, currency, unit, period start/end/label, accounting basis, entity scope, source snapshot, extraction confidence.
+Key fields: company, metric code, raw value text, explicit original numeric value/currency/unit, explicit normalized numeric value/currency/unit, period start/end/label, accounting basis, entity scope, source snapshot, nullable provider request lineage, and extraction confidence. Missing values stay absent; they never default to zero. Facts from official filings and commercial fallbacks remain separate observations.
 
 ### `claims`
 Stable claim identity for a company/topic.
@@ -145,7 +145,7 @@ Types: `SEMANTIC`, `NUMERIC`, `TEMPORAL`, `ADVERSARIAL`, `SOURCE_AUTHENTICITY`, 
 Stores outcome, score if applicable, details, verifier implementation/model/prompt version, created time.
 
 ### `calculations`
-Deterministic derivations with formula code/version, typed inputs, output and tolerance.
+Deterministic derivations with formula code/version, typed inputs, output and tolerance. `calculation_facts` records immutable input-fact references, allowing a derived amount to be reproduced from a formula version and the exact observations used.
 
 ### `conflicts`
 Disagreement group across facts/claims.
@@ -231,6 +231,7 @@ Minimum indexes:
 - source_snapshots source + retrieved_at desc
 - source_snapshots content_hash
 - facts company + metric + period
+- facts provider request lineage
 - claims company + canonical_key
 - claim_versions claim + created_at desc
 - claim_evidence claim_version

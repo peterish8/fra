@@ -143,6 +143,12 @@ Required financial fields when applicable:
 - accounting basis (`GAAP`, `NON_GAAP`, etc.)
 - entity scope (`CONSOLIDATED`, `PARENT`, `SUBSIDIARY`, `SEGMENT`)
 - source snapshot ID
+- provider request ID when an adapter supplied the observation
+
+The source representation and normalized representation are both durable. A
+conversion requires an explicit rate and rate date; the normalized value is
+never a replacement for the source value. Derived values record the formula
+version and immutable input-fact IDs in addition to their serialized inputs.
 
 Do not coerce unknown values to zero.
 
@@ -199,7 +205,7 @@ Code validates when possible:
 - totals/subtotals where input structure is reliable
 - tolerance-based rounded comparisons
 
-Store formula code, version, inputs and output.
+Store formula code, version, inputs, immutable input-fact references and output.
 
 Example:
 ```text
@@ -359,4 +365,3 @@ Coverage dimensions may include:
 - market/competition
 - risk evidence
 - recent developments
-

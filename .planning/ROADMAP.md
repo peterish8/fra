@@ -98,7 +98,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Build financial taxonomy/normalizers, deterministic calculators, and official/fallback adapters
+- [x] 05-01: Build financial taxonomy/normalizers, deterministic calculators, and official/fallback adapters
 - [ ] 05-02: Build reconciliation, conflict grouping/classification, and labeled conflict fixtures
 
 ### Phase 06: Durable Orchestration & Deep Verification

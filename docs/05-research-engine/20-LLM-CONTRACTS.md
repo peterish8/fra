@@ -72,7 +72,9 @@ Output fields:
 }
 ```
 
-Do not perform authoritative derived calculations in the model output. Numeric normalizer calculates later.
+Do not perform authoritative derived calculations in the model output. Numeric
+normalizer calculates later, retaining the model-extracted source observation
+separately from the deterministic normalized value and any versioned formula.
 
 ## 5. Atomic Claim Builder
 
@@ -202,4 +204,3 @@ Store on each critical LLM verification/extraction:
 - run ID
 
 Prompt/model changes require regression eval on golden cases before activation.
-

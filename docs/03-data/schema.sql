@@ -23,7 +23,7 @@ create type evidence_role as enum ('ORIGIN','SUPPORTS','CONTRADICTS','CONTEXT');
 create type verification_type as enum ('SEMANTIC','NUMERIC','TEMPORAL','ADVERSARIAL','SOURCE_AUTHENTICITY','ENTITY_SCOPE');
 create type verification_outcome as enum ('PASS','PARTIAL','FAIL','INSUFFICIENT','NOT_APPLICABLE');
 create type conflict_status as enum ('OPEN','RESOLVED','ACCEPTED_UNCERTAINTY');
-create type provider_status as enum ('PENDING','SUCCESS','NO_RESULTS','RATE_LIMITED','ACCESS_RESTRICTED','PARSE_FAILED','TEMPORARY_FAILURE','PERMANENT_FAILURE');
+create type provider_status as enum ('PENDING','SUCCESS','NO_RESULTS','RATE_LIMITED','ACCESS_RESTRICTED','PARSE_FAILED','TIMEOUT','TEMPORARY_FAILURE','PERMANENT_FAILURE');
 create type job_status as enum ('QUEUED','RUNNING','SUCCEEDED','FAILED','CANCELLED');
 
 create table profiles (
@@ -252,21 +252,29 @@ create table facts (
   metric_code text,
   fact_type text not null,
   raw_value_text text,
+  original_numeric_value numeric(38,12),
+  original_currency char(3),
+  original_unit text,
   numeric_value numeric(38,12),
+  normalized_numeric_value numeric(38,12),
   text_value text,
   currency char(3),
   unit text,
+  normalized_currency char(3),
+  normalized_unit text,
   period_start date,
   period_end date,
   period_label text,
   accounting_basis text,
   entity_scope text,
+  provider_request_id uuid references provider_requests(id) on delete set null,
   extraction_confidence numeric(5,4),
   extraction_metadata jsonb not null default '{}'::jsonb,
   metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
 create index facts_company_metric_period_idx on facts(company_id, metric_code, period_end desc);
+create index facts_provider_request_idx on facts(provider_request_id);
 
 create table claims (
   id uuid primary key default gen_random_uuid(),
@@ -343,6 +351,15 @@ create table calculations (
   outcome verification_outcome not null,
   created_at timestamptz not null default now()
 );
+
+create table calculation_facts (
+  calculation_id uuid not null references calculations(id) on delete cascade,
+  fact_id uuid not null references facts(id) on delete restrict,
+  input_name text not null,
+  created_at timestamptz not null default now(),
+  primary key(calculation_id, fact_id)
+);
+create index calculation_facts_fact_idx on calculation_facts(fact_id);
 
 create table conflicts (
   id uuid primary key default gen_random_uuid(),

@@ -28,6 +28,7 @@ All adapters return normalized statuses:
 - `RATE_LIMITED`
 - `ACCESS_RESTRICTED`
 - `PARSE_FAILED`
+- `TIMEOUT`
 - `TEMPORARY_FAILURE`
 - `PERMANENT_FAILURE`
 
@@ -85,6 +86,9 @@ For reported public-company numbers:
 4. company statement as origin/context, not independent cross-check
 
 If providers disagree, do not average. Run metric/period/currency/entity-scope reconciliation.
+Persist every usable official and commercial observation with its source and
+provider-request lineage; fallback selection only chooses the next retrieval
+attempt and never overwrites a prior observation.
 
 ## 8. Deep Research Routing
 
@@ -185,4 +189,3 @@ Track rolling metrics per provider/operation:
 - result usefulness/evidence yield
 
 Router may temporarily deprioritize unhealthy providers without changing domain semantics.
-

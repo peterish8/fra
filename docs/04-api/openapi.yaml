@@ -295,6 +295,7 @@ components:
               items: {type: string}
             depth: {type: string, enum: [FAST, STANDARD, DEEP]}
             company_id: {type: string, format: uuid, nullable: true}
+            verification_gate: {$ref: '#/components/schemas/VerificationGate'}
     ReportSubject:
       type: object
       required: [query]
@@ -387,3 +388,13 @@ components:
       properties:
         items: {type: array, items: {$ref: '#/components/schemas/ReportSourceSummary'}}
         next_cursor: {type: string, nullable: true}
+    VerificationGate:
+      type: object
+      required: [passed, citation_coverage, blocking_claims, critical_conflicts, reasons]
+      properties:
+        passed: {type: boolean}
+        citation_coverage: {type: number, minimum: 0, maximum: 100}
+        blocking_claims: {type: integer, minimum: 0}
+        critical_conflicts: {type: integer, minimum: 0}
+        reasons: {type: array, items: {type: string}}
+        blockers: {type: array, items: {type: string}}

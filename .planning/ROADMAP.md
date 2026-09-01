@@ -13,7 +13,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 - [x] **Phase 01: Foundation & Quality** — Establish the runnable Next.js/FastAPI/Supabase baseline, auth boundary, schema, RLS, and CI.
 - [x] **Phase 02: Workspace & Entity Resolution** — Create persistent report workspaces and resolve legal entities without guessing.
 - [x] **Phase 03: Retrieval & Source Ledger** — Add safe provider routing, public extraction, source snapshots, and source-family provenance.
-- [ ] **Phase 04: Claim & Verification Core** — Turn evidence into typed facts, atomic claims, verification records, and gated report output.
+- [x] **Phase 04: Claim & Verification Core** — Turn evidence into typed facts, atomic claims, verification records, and gated report output.
 - [ ] **Phase 05: Financial Reconciliation & Conflicts** — Normalize financial facts, integrate official/fallback data, and explain disagreements.
 - [ ] **Phase 06: Durable Orchestration & Deep Verification** — Make research resumable and budgeted, then add adversarial/follow-up/freshness behavior.
 - [ ] **Phase 07: Scores & Evidence-led Report UI** — Deliver deterministic score breakdowns and the core report/claim/evidence experience.
@@ -84,7 +84,7 @@ Plans:
 
 Plans:
 - [x] 04-01: Implement validated LLM envelopes, fact extraction, atomic claim construction, and evidence mapping
-- [ ] 04-02: Implement semantic verification, verdict rules, synthesis claim mapping, and publication gates
+- [x] 04-02: Implement semantic verification, verdict rules, synthesis claim mapping, and publication gates
 
 ### Phase 05: Financial Reconciliation & Conflicts
 **Goal**: Financial facts are comparable only after deterministic normalization, and genuine disagreements are classified rather than averaged away.
@@ -190,7 +190,7 @@ Plans:
 | 01 Foundation & Quality | 2/2 | Complete | 2026-09-01 |
 | 02 Workspace & Entity Resolution | 2/2 | Complete | 2026-09-01 |
 | 03 Retrieval & Source Ledger | 2/2 | Complete | 2026-09-01 |
-| 04 Claim & Verification Core | 1/2 | In progress | 2026-09-01 |
+| 04 Claim & Verification Core | 2/2 | Complete | 2026-09-01 |
 | 05 Financial Reconciliation & Conflicts | 0/2 | Not started | - |
 | 06 Durable Orchestration & Deep Verification | 0/2 | Not started | - |
 | 07 Scores & Evidence-led Report UI | 0/2 | Not started | - |

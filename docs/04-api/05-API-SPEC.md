@@ -203,7 +203,9 @@ If a client requests a verified report and gate conditions are unmet, return str
     "passed": false,
     "citation_coverage": 96.4,
     "blocking_claims": 3,
-    "critical_conflicts": 1
+    "critical_conflicts": 1,
+    "reasons": ["Citation verification coverage is below 100%."],
+    "blockers": ["CITATION_COVERAGE"]
   }
 }
 ```

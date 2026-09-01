@@ -330,6 +330,7 @@ create table verifications (
   created_at timestamptz not null default now()
 );
 create index verifications_claim_type_idx on verifications(claim_version_id, verification_type);
+create index verifications_claim_type_created_idx on verifications(claim_version_id, verification_type, created_at desc);
 
 create table calculations (
   id uuid primary key default gen_random_uuid(),
@@ -408,6 +409,7 @@ create table report_versions (
   sections jsonb not null default '[]'::jsonb,
   research_confidence numeric(6,3),
   evidence_coverage numeric(6,3),
+  verification_gate jsonb not null default '{}'::jsonb,
   generated_at timestamptz not null default now(),
   unique(report_id, version_number)
 );

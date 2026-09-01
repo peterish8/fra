@@ -1,0 +1,67 @@
+{
+  "semantic_cases": [
+    {
+      "id": "direct_support",
+      "claim": {"statement": "FY2026 revenue was $130,497 million.", "structured_value": {"metric": "revenue", "value": 130497, "unit": "million", "currency": "USD", "period": "FY2026"}},
+      "evidence": {"excerpt": "Revenue for FY2026 was $130,497 million.", "context": "Consolidated statements", "source_type": "FILING"},
+      "expected_outcome": "PASS",
+      "expected_support_type": "DIRECT",
+      "expected_supported_fields": ["metric", "value", "unit", "currency", "period"],
+      "expected_unsupported_fields": []
+    },
+    {
+      "id": "partial_support",
+      "claim": {"statement": "FY2026 revenue was $130,497 million and free cash flow was $20 million.", "structured_value": {"revenue": 130497, "free_cash_flow": 20}},
+      "evidence": {"excerpt": "Revenue for FY2026 was $130,497 million.", "context": "Consolidated statements", "source_type": "FILING"},
+      "expected_outcome": "PARTIAL",
+      "expected_support_type": "DIRECT",
+      "expected_supported_fields": ["revenue"],
+      "expected_unsupported_fields": ["free_cash_flow"]
+    },
+    {
+      "id": "contradictory_evidence",
+      "claim": {"statement": "FY2026 revenue was $130,497 million.", "structured_value": {"metric": "revenue", "value": 130497, "unit": "million", "currency": "USD", "period": "FY2026"}},
+      "evidence": {"excerpt": "FY2026 revenue was $120,000 million after the restatement.", "context": "Restated filing", "source_type": "FILING"},
+      "expected_outcome": "FAIL",
+      "expected_support_type": "CONTRADICTS",
+      "expected_supported_fields": [],
+      "expected_unsupported_fields": ["value"]
+    },
+    {
+      "id": "insufficient_context",
+      "claim": {"statement": "The company is profitable.", "structured_value": {}},
+      "evidence": {"excerpt": "The company continues to grow.", "context": "Marketing copy", "source_type": "COMPANY_WEBSITE"},
+      "expected_outcome": "INSUFFICIENT",
+      "expected_support_type": "NONE",
+      "expected_supported_fields": [],
+      "expected_unsupported_fields": ["profitability"]
+    },
+    {
+      "id": "outside_knowledge_cannot_rescue",
+      "claim": {"statement": "Acme is the market leader in Europe.", "structured_value": {"metric": "market_position", "value": "leader", "region": "Europe"}},
+      "evidence": {"excerpt": "Acme launched a new product.", "context": "Product announcement", "source_type": "COMPANY_WEBSITE"},
+      "expected_outcome": "INSUFFICIENT",
+      "expected_support_type": "NONE",
+      "expected_supported_fields": [],
+      "expected_unsupported_fields": ["market_position", "region"]
+    }
+  ],
+  "verdict_cases": [
+    {"id": "verified", "verification_outcome": "PASS", "independent_evidence": true, "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "freshness": "CURRENT", "expected_verdict": "VERIFIED"},
+    {"id": "partially_supported", "verification_outcome": "PARTIAL", "independent_evidence": true, "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "freshness": "CURRENT", "expected_verdict": "PARTIALLY_SUPPORTED"},
+    {"id": "contradicted", "verification_outcome": "FAIL", "independent_evidence": true, "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": true, "numeric_check": "PASS", "temporal_check": "PASS", "freshness": "CURRENT", "expected_verdict": "CONTRADICTED"},
+    {"id": "unverified", "verification_outcome": "FAIL", "independent_evidence": false, "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "freshness": "CURRENT", "expected_verdict": "UNVERIFIED"},
+    {"id": "insufficient_evidence", "verification_outcome": "INSUFFICIENT", "independent_evidence": false, "citation_coverage": 0.0, "identity_complete": false, "critical_conflict": false, "numeric_check": "NOT_APPLICABLE", "temporal_check": "NOT_APPLICABLE", "freshness": "CURRENT", "expected_verdict": "INSUFFICIENT_EVIDENCE"},
+    {"id": "stale", "verification_outcome": "PASS", "independent_evidence": true, "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "freshness": "STALE", "expected_verdict": "STALE"}
+  ],
+  "publication_cases": [
+    {"id": "all_gate_checks_pass", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": true, "expected_quality_state": "VERIFIED"},
+    {"id": "citation_coverage_blocker", "citation_coverage": 0.75, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "CITATION_COVERAGE"},
+    {"id": "identity_blocker", "citation_coverage": 1.0, "identity_complete": false, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "IDENTITY"},
+    {"id": "critical_conflict_blocker", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": true, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "CRITICAL_CONFLICT"},
+    {"id": "numeric_blocker", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "FAIL", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "NUMERIC"},
+    {"id": "temporal_blocker", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "FAIL", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "TEMPORAL"},
+    {"id": "version_metadata_blocker", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": null, "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": [], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "VERSION"},
+    {"id": "unmapped_synthesis_fact_blocker", "citation_coverage": 1.0, "identity_complete": true, "critical_conflict": false, "numeric_check": "PASS", "temporal_check": "PASS", "score_version": "score-v1", "prompt_version": "extraction-v1", "config_version": "config-v1", "unmapped_facts": ["Revenue doubled last year."], "expected_allowed": false, "expected_quality_state": "READY", "expected_blocker": "UNMAPPED_FACT"}
+  ]
+}

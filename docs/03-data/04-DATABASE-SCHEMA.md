@@ -103,6 +103,10 @@ Durable independent-origin grouping for syndicated, quoted, duplicate, or common
 
 `facts` preserve raw values alongside typed fields and validated extraction metadata. `claim_versions` record claim kind, versioned structured representation, and extraction metadata; prior versions remain immutable and corrections use supersession. `claim_version_facts` links each claim version to the fact records it relies on, while `claim_evidence` always points to a source snapshot and records evidence role, directness, and independence. The database constrains scalar confidence/directness ranges; domain persistence rejects self-reported sources as independent support.
 
+### Verification and publication quality
+
+`verifications` are append-only, versioned checks for semantic, numeric, temporal, adversarial, source-authenticity, and entity-scope evidence. `report_versions.verification_gate` records the deterministic gate result, coverage, blockers, conflicts, reasons, and implementation versions. A report version cannot persist as `VERIFIED` unless its gate explicitly passed; a blocked but useful report remains `READY`.
+
 Fields include source ID, content hash, published/retrieved dates, title, permitted extracted text or object-storage reference, metadata, redirect chain.
 
 ### `source_relationships`

@@ -10,24 +10,24 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 ## Current Position
 
 Phase: 04 of 10 (Claim & Verification Core)
-Plan: 1 of 2 in current phase
-Status: Plan 04-01 complete; Plan 04-02 ready for semantic verification and publication gates
-Last activity: 2026-09-01 — Completed validated fact/claim/evidence contracts and durable fact-to-claim provenance.
+Plan: 2 of 2 in current phase
+Status: Phase 04 complete; Plan 05-01 ready for financial taxonomy and normalization
+Last activity: 2026-09-01 — Completed semantic verification, canonical verdicts, and deterministic verified-report publication gates.
 
-Progress: [████░░░░░░] 35%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 0.7 hours
-- Total execution time: 4.9 hours
+- Total execution time: 5.6 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |---|---:|---:|---:|
-| 01–04 | 7 | 20 | 0.7 hours |
+| 01–04 | 8 | 20 | 0.7 hours |
 
 **Recent Trend:**
 - Last 5 plans: —

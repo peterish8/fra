@@ -45,7 +45,9 @@ Read source-of-truth docs → discuss the phase → plan the phase → execute b
 | 09 | Weekly Watchlist & Discover |
 | 10 | Hardening, Evaluation & Release |
 
-Start implementation with Phase 01 only. Use the phase plans as execution contracts and keep the original `docs/10-planning/` files as the detailed specification/backlog source. Provider, hosting, scoring-calibration, licensing, and policy choices listed in `docs/10-planning/21-OPEN-DECISIONS.md` must be resolved explicitly before they become production behavior.
+Start implementation with Phase 01, then advance one dependency-ordered phase at a time. Use the phase plans as execution contracts and keep the original `docs/10-planning/` files as the detailed specification/backlog source. Provider, hosting, scoring-calibration, licensing, and policy choices listed in `docs/10-planning/21-OPEN-DECISIONS.md` must be resolved explicitly before they become production behavior.
+
+Phase 01 Foundation & Quality is now complete. The local foundation includes the Next.js/FastAPI shells, typed auth boundary, Truth Ledger migration/RLS contract, migration safety checks, and pinned CI workflow. Continue with Phase 02 only after reviewing its test-first plan; live PostgreSQL/Supabase execution remains an environment-dependent verification step.
 
 ## Documentation groups
 

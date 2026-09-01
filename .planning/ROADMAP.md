@@ -10,7 +10,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 
 ## Phases
 
-- [ ] **Phase 01: Foundation & Quality** — Establish the runnable Next.js/FastAPI/Supabase baseline, auth boundary, schema, RLS, and CI.
+- [x] **Phase 01: Foundation & Quality** — Establish the runnable Next.js/FastAPI/Supabase baseline, auth boundary, schema, RLS, and CI.
 - [ ] **Phase 02: Workspace & Entity Resolution** — Create persistent report workspaces and resolve legal entities without guessing.
 - [ ] **Phase 03: Retrieval & Source Ledger** — Add safe provider routing, public extraction, source snapshots, and source-family provenance.
 - [ ] **Phase 04: Claim & Verification Core** — Turn evidence into typed facts, atomic claims, verification records, and gated report output.
@@ -36,7 +36,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 
 Plans:
 - [x] 01-01: Bootstrap application structure, typed configuration, auth boundary, and health endpoints
-- [ ] 01-02: Establish Truth Ledger schema/RLS, structured observability hooks, and CI quality gates
+- [x] 01-02: Establish Truth Ledger schema/RLS, structured observability hooks, and CI quality gates
 
 ### Phase 02: Workspace & Entity Resolution
 **Goal**: A user can create a report, find it in their library, and resolve the intended legal company or choose among ambiguous candidates.

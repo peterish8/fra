@@ -5,29 +5,29 @@
 See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 **Core value:** Every important report statement must let a researcher inspect its claim, evidence, conflicts, and confidence.
-**Current focus:** Phase 01 — Foundation & Quality
+**Current focus:** Phase 02 — Workspace & Entity Resolution
 
 ## Current Position
 
-Phase: 01 of 10 (Foundation & Quality)
-Plan: 1 of 2 in current phase
-Status: Plan 01 complete; Plan 02 ready for test-first execution
-Last activity: 2026-09-01 — Completed Phase 01 Plan 01 with Terra integration and verified foundation tests.
+Phase: 02 of 10 (Workspace & Entity Resolution)
+Plan: 0 of 2 in current phase
+Status: Phase 01 complete; Plan 02-01 ready for test-first execution
+Last activity: 2026-09-01 — Completed Phase 01 Plan 02 with schema/RLS/CI integration and verified quality gates.
 
-Progress: [█░░░░░░░░░] 5%
+Progress: [█░░░░░░░░░] 10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 0.5 hours
-- Total execution time: 0.5 hours
+- Total plans completed: 2
+- Average duration: 0.7 hours
+- Total execution time: 1.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |---|---:|---:|---:|
-| 01–10 | 1 | 20 | 0.5 hours |
+| 01–10 | 2 | 20 | 0.7 hours |
 
 **Recent Trend:**
 - Last 5 plans: —
@@ -40,7 +40,8 @@ Progress: [█░░░░░░░░░] 5%
 - The existing `docs/10-planning/17-IMPLEMENTATION-PLAN.md` is preserved as the source plan; `.planning/ROADMAP.md` is its GSD execution view.
 - Terra initialized Git intentionally and established the specification baseline at `34e08a6`.
 - The execution model is fixed: Terra orchestrator at `gpt-5.6-terra` high; all implementation, QA, UI, operations, and evaluation workers at `gpt-5.6-luna` high; maximum three concurrent workers.
-- Phase 01 Plan 01 is complete. Plan 02 owns schema/RLS/CI and must remain test-first.
+- Phase 01 Plans 01 and 02 are complete. Phase 02 Plan 01 owns report workspace behavior and must remain test-first.
+- Live PostgreSQL/Supabase RLS execution is still blocked until Docker Desktop or a configured Supabase project is available.
 - Provider and policy decisions listed in `docs/10-planning/21-OPEN-DECISIONS.md` remain open.
 
 ### Pending Todos
@@ -55,5 +56,5 @@ None yet. Use `.planning/todos/pending/` for newly discovered ideas during imple
 ## Session Continuity
 
 Last session: 2026-09-01
-Stopped at: Phase 01 Plan 01 integrated and verified; ready to start Plan 02 QA red-contract pass.
+Stopped at: Phase 01 complete and verified; ready to start Phase 02 Plan 01 QA red-contract pass.
 Resume file: None

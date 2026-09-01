@@ -9,14 +9,14 @@ These requirements turn the PRD, TRD, research specifications, UI specs, securit
 
 ### Foundation, auth, and data
 
-- [ ] **FND-01**: The application loads typed, validated configuration from environment names defined in `.env.example`.
-- [ ] **FND-02**: Frontend and FastAPI backend run locally with health endpoints and structured request/run identifiers.
-- [ ] **FND-03**: CI runs frontend, backend, schema, OpenAPI, security, and targeted research-quality checks.
+- [x] **FND-01**: The application loads typed, validated configuration from environment names defined in `.env.example`.
+- [x] **FND-02**: Frontend and FastAPI backend run locally with health endpoints and structured request/run identifiers.
+- [x] **FND-03**: CI runs frontend, backend, schema, OpenAPI, security, and targeted research-quality checks.
 - [ ] **AUTH-01**: A user can authenticate through Supabase Auth and retain a valid session across supported app navigation.
 - [ ] **AUTH-02**: Every user-owned report/run/claim access path rejects unauthenticated or unauthorized access server-side.
-- [ ] **DATA-01**: The PostgreSQL schema stores canonical companies, sources/snapshots, facts, claims/evidence, verifications, conflicts, scores, reports, runs, jobs, and audit events.
+- [x] **DATA-01**: The PostgreSQL schema stores canonical companies, sources/snapshots, facts, claims/evidence, verifications, conflicts, scores, reports, runs, jobs, and audit events.
 - [ ] **DATA-02**: User-owned data is protected with RLS plus backend authorization, while shared truth-ledger writes remain server-controlled.
-- [ ] **DATA-03**: Immutable source snapshots, report versions, verification/calculation records, score snapshots, and audit events are corrected by superseding records where practical.
+- [x] **DATA-03**: Immutable source snapshots, report versions, verification/calculation records, score snapshots, and audit events are corrected by superseding records where practical.
 
 ### Reports and entities
 
@@ -136,7 +136,10 @@ Deferred until OJT V1 validates the core traceable research pipeline:
 
 | Requirement group | Phase | Status |
 |---|---:|---|
-| FND-01..03, AUTH-01..02, DATA-01..03 | 01 | Pending |
+| FND-01..03 | 01 | Complete |
+| AUTH-01..02 | 01 | Pending — later report/session flows remain |
+| DATA-01, DATA-03 | 01 | Complete |
+| DATA-02 | 01 | Implemented contract; live RLS execution blocked |
 | RPT-01..03, ENT-01..05 | 02 | Pending |
 | SRC-01..07 | 03 | Pending |
 | CLM-01..07 | 04 | Pending |

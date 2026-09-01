@@ -35,7 +35,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Bootstrap application structure, typed configuration, auth boundary, and health endpoints
+- [x] 01-01: Bootstrap application structure, typed configuration, auth boundary, and health endpoints
 - [ ] 01-02: Establish Truth Ledger schema/RLS, structured observability hooks, and CI quality gates
 
 ### Phase 02: Workspace & Entity Resolution

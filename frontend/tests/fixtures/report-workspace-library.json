@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "report_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "title": "NVIDIA - Deep Research",
+      "status": "DRAFT",
+      "current_version": null,
+      "updated_at": "2026-09-01T08:00:00Z"
+    },
+    {
+      "report_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "title": "AMD - Risk Analysis",
+      "status": "READY",
+      "current_version": 1,
+      "updated_at": "2026-08-31T08:00:00Z"
+    }
+  ],
+  "next_cursor": null,
+  "created": {
+    "report_id": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+    "title": "Apple - Financial Health",
+    "status": "DRAFT",
+    "current_version": null,
+    "updated_at": "2026-09-01T09:00:00Z"
+  }
+}

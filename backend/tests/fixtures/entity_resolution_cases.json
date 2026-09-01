@@ -1,0 +1,393 @@
+{
+  "resolution_cases": [
+    {
+      "id": "canonical_name_exact",
+      "query": {"name": "Northstar Analytics Ltd", "country_code": "GB"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000001",
+          "canonical_name": "Northstar Analytics Ltd",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "GB",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["northstar.example"],
+          "aliases": [],
+          "registry_identifiers": [{"registry": "COMPANIES_HOUSE", "value": "12345678"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000001",
+        "reason_code": "CANONICAL_NAME_MATCH"
+      }
+    },
+    {
+      "id": "former_name_alias",
+      "query": {"name": "Old Harbor Labs", "country_code": "US"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000002",
+          "canonical_name": "Harbor Labs, Inc.",
+          "entity_type": "STARTUP",
+          "country_code": "US",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["harborlabs.example"],
+          "aliases": [
+            {
+              "value": "Old Harbor Labs",
+              "alias_type": "FORMER_NAME",
+              "valid_from": "2018-01-01",
+              "valid_to": "2022-06-30"
+            }
+          ],
+          "registry_identifiers": [{"registry": "DELAWARE", "value": "7654321"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000002",
+        "reason_code": "FORMER_NAME_ALIAS_MATCH"
+      }
+    },
+    {
+      "id": "ticker_exchange_match",
+      "query": {"name": "Aster Motors", "ticker": "ASTR", "exchange": "NYSE", "country_code": "US"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000003",
+          "canonical_name": "Aster Motors Corporation",
+          "entity_type": "PUBLIC_COMPANY",
+          "country_code": "US",
+          "primary_ticker": "ASTR",
+          "primary_exchange": "NYSE",
+          "domains": ["astermotors.example"],
+          "aliases": [{"value": "Aster Motors", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "SEC", "value": "0001234567"}]
+        },
+        {
+          "company_id": "10000000-0000-4000-8000-000000000004",
+          "canonical_name": "Aster Robotics GmbH",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "DE",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["asterrobotics.example"],
+          "aliases": [{"value": "Aster Motors", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "GERMANY", "value": "HRB 9988"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000003",
+        "reason_code": "TICKER_EXCHANGE_MATCH"
+      }
+    },
+    {
+      "id": "official_domain_match",
+      "query": {"name": "Kite Systems", "domain": "www.kitesystems.example", "country_code": "IN"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000005",
+          "canonical_name": "Kite Systems Private Limited",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "IN",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["kitesystems.example"],
+          "aliases": [{"value": "Kite Systems", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "MCA", "value": "U12345KA2020PTC012345"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000005",
+        "reason_code": "OFFICIAL_DOMAIN_MATCH"
+      }
+    },
+    {
+      "id": "registry_identifier_match",
+      "query": {"name": "Blue River Bank", "registry": "MCA", "registry_id": "U99999MH2010PLC012345"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000006",
+          "canonical_name": "Blue River Bank Limited",
+          "entity_type": "BANK",
+          "country_code": "IN",
+          "primary_ticker": "BLUERIVER",
+          "primary_exchange": "NSE",
+          "domains": ["blueriverbank.example"],
+          "aliases": [],
+          "registry_identifiers": [{"registry": "MCA", "value": "U99999MH2010PLC012345"}]
+        },
+        {
+          "company_id": "10000000-0000-4000-8000-000000000007",
+          "canonical_name": "Blue River Financial Services LLP",
+          "entity_type": "OTHER",
+          "country_code": "IN",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["blueriverfinancial.example"],
+          "aliases": [],
+          "registry_identifiers": [{"registry": "MCA", "value": "AAB-1234"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000006",
+        "reason_code": "REGISTRY_IDENTIFIER_MATCH"
+      }
+    },
+    {
+      "id": "same_name_jurisdiction_selected",
+      "query": {"name": "Meridian Foods", "country_code": "IN"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000008",
+          "canonical_name": "Meridian Foods Limited",
+          "entity_type": "PUBLIC_COMPANY",
+          "country_code": "IN",
+          "primary_ticker": "MERIFOOD",
+          "primary_exchange": "NSE",
+          "domains": ["meridianfoods.in.example"],
+          "aliases": [{"value": "Meridian Foods", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "MCA", "value": "L12345DL2001PLC000001"}]
+        },
+        {
+          "company_id": "10000000-0000-4000-8000-000000000009",
+          "canonical_name": "Meridian Foods, Inc.",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "US",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["meridianfoods.us.example"],
+          "aliases": [{"value": "Meridian Foods", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "DELAWARE", "value": "0000009"}]
+        }
+      ],
+      "expected": {
+        "status": "RESOLVED",
+        "company_id": "10000000-0000-4000-8000-000000000008",
+        "reason_code": "JURISDICTION_MATCH"
+      }
+    },
+    {
+      "id": "same_name_without_jurisdiction_ambiguous",
+      "query": {"name": "Meridian Foods"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000008",
+          "canonical_name": "Meridian Foods Limited",
+          "entity_type": "PUBLIC_COMPANY",
+          "country_code": "IN",
+          "primary_ticker": "MERIFOOD",
+          "primary_exchange": "NSE",
+          "domains": ["meridianfoods.in.example"],
+          "aliases": [{"value": "Meridian Foods", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "MCA", "value": "L12345DL2001PLC000001"}]
+        },
+        {
+          "company_id": "10000000-0000-4000-8000-000000000009",
+          "canonical_name": "Meridian Foods, Inc.",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "US",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["meridianfoods.us.example"],
+          "aliases": [{"value": "Meridian Foods", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "DELAWARE", "value": "0000009"}]
+        }
+      ],
+      "expected": {"status": "AMBIGUOUS", "company_id": null, "reason_code": "JURISDICTION_REQUIRED"}
+    },
+    {
+      "id": "sparse_identity_unconfirmed",
+      "query": {"name": "Quiet Meadow AI"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000010",
+          "canonical_name": "Quiet Meadow AI",
+          "entity_type": "STARTUP",
+          "country_code": null,
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": [],
+          "aliases": [],
+          "registry_identifiers": []
+        }
+      ],
+      "expected": {"status": "UNCONFIRMED", "company_id": null, "reason_code": "INSUFFICIENT_IDENTITY_EVIDENCE"}
+    },
+    {
+      "id": "contradictory_identity_unconfirmed",
+      "query": {"name": "Orchid Commerce", "ticker": "ORCH", "domain": "orchid-commerce-copy.example"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000011",
+          "canonical_name": "Orchid Commerce plc",
+          "entity_type": "PUBLIC_COMPANY",
+          "country_code": "GB",
+          "primary_ticker": "ORCH",
+          "primary_exchange": "LSE",
+          "domains": ["orchidcommerce.example"],
+          "aliases": [{"value": "Orchid Commerce", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "COMPANIES_HOUSE", "value": "87654321"}]
+        },
+        {
+          "company_id": "10000000-0000-4000-8000-000000000012",
+          "canonical_name": "Orchid Commerce Copycat LLC",
+          "entity_type": "PRIVATE_COMPANY",
+          "country_code": "US",
+          "primary_ticker": null,
+          "primary_exchange": null,
+          "domains": ["orchid-commerce-copy.example"],
+          "aliases": [{"value": "Orchid Commerce", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "DELAWARE", "value": "0000012"}]
+        }
+      ],
+      "expected": {"status": "UNCONFIRMED", "company_id": null, "reason_code": "IDENTITY_CONFLICT"}
+    },
+    {
+      "id": "unverified_copycat_domain_unconfirmed",
+      "query": {"name": "Acme Corporation", "domain": "acme-copycat.example", "country_code": "US"},
+      "candidates": [
+        {
+          "company_id": "10000000-0000-4000-8000-000000000021",
+          "canonical_name": "Acme Corporation",
+          "entity_type": "PUBLIC_COMPANY",
+          "country_code": "US",
+          "primary_ticker": "ACME",
+          "primary_exchange": "NASDAQ",
+          "domains": ["acme.example"],
+          "aliases": [{"value": "Acme", "alias_type": "COMMON"}],
+          "registry_identifiers": [{"registry": "SEC", "value": "0000021"}]
+        }
+      ],
+      "expected": {"status": "UNCONFIRMED", "company_id": null, "reason_code": "DOMAIN_UNCONFIRMED"}
+    }
+  ],
+  "registry_cases": [
+    {
+      "id": "official_current",
+      "provider": "COMPANIES_HOUSE",
+      "payload": {
+        "company_number": "12345678",
+        "company_name": "Northstar Analytics Ltd",
+        "jurisdiction": "GB",
+        "company_status": "active",
+        "date_of_creation": "2017-04-12"
+      },
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "freshness_policy_days": 30,
+      "expected": {
+        "status": "SUCCESS",
+        "legal_name": "Northstar Analytics Ltd",
+        "registration_number": "12345678",
+        "jurisdiction": "GB",
+        "legal_status": "ACTIVE",
+        "freshness": "CURRENT",
+        "source": "COMPANIES_HOUSE",
+        "retrieved_at": "2026-09-01T10:00:00Z"
+      }
+    },
+    {
+      "id": "stale_cached_record",
+      "provider": "MCA",
+      "payload": {
+        "cin": "U12345KA2020PTC012345",
+        "legal_name": "Kite Systems Private Limited",
+        "jurisdiction": "IN",
+        "status": "Active"
+      },
+      "retrieved_at": "2025-01-01T10:00:00Z",
+      "freshness_policy_days": 30,
+      "as_of": "2026-09-01T10:00:00Z",
+      "expected": {
+        "status": "SUCCESS",
+        "legal_name": "Kite Systems Private Limited",
+        "registration_number": "U12345KA2020PTC012345",
+        "jurisdiction": "IN",
+        "legal_status": "ACTIVE",
+        "freshness": "STALE",
+        "source": "MCA",
+        "retrieved_at": "2025-01-01T10:00:00Z"
+      }
+    },
+    {
+      "id": "no_results",
+      "provider": "SEC",
+      "payload": null,
+      "provider_status": "NO_RESULTS",
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "expected": {"status": "LEGAL_ENTITY_UNCONFIRMED", "legal_record": null}
+    },
+    {
+      "id": "rate_limited",
+      "provider": "SEC",
+      "payload": null,
+      "provider_status": "RATE_LIMITED",
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "expected": {"status": "LEGAL_ENTITY_UNCONFIRMED", "legal_record": null}
+    },
+    {
+      "id": "access_restricted",
+      "provider": "MCA",
+      "payload": null,
+      "provider_status": "ACCESS_RESTRICTED",
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "expected": {"status": "LEGAL_ENTITY_UNCONFIRMED", "legal_record": null}
+    },
+    {
+      "id": "parse_failure",
+      "provider": "GLEIF",
+      "payload": {"unexpected": ["shape"]},
+      "provider_status": "PARSE_FAILED",
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "expected": {"status": "LEGAL_ENTITY_UNCONFIRMED", "legal_record": null}
+    }
+  ],
+  "relationship_cases": [
+    {
+      "id": "relationship_history_preserves_scope_and_dates",
+      "relationships": [
+        {
+          "from_company_id": "10000000-0000-4000-8000-000000000013",
+          "to_company_id": "10000000-0000-4000-8000-000000000014",
+          "relationship_type": "PARENT_SUBSIDIARY",
+          "entity_scope": "SUBSIDIARY",
+          "effective_from": "2020-01-01",
+          "effective_to": null,
+          "evidence_refs": ["snapshot-parent-001"]
+        },
+        {
+          "from_company_id": "10000000-0000-4000-8000-000000000015",
+          "to_company_id": "10000000-0000-4000-8000-000000000016",
+          "relationship_type": "FORMER_NAME",
+          "entity_scope": "SAME_LEGAL_ENTITY",
+          "effective_from": "2016-01-01",
+          "effective_to": "2021-05-31",
+          "evidence_refs": ["snapshot-name-001"]
+        },
+        {
+          "from_company_id": "10000000-0000-4000-8000-000000000017",
+          "to_company_id": "10000000-0000-4000-8000-000000000018",
+          "relationship_type": "ACQUISITION",
+          "entity_scope": "ACQUIRED_ENTITY",
+          "effective_from": "2024-03-15",
+          "effective_to": null,
+          "evidence_refs": ["snapshot-acquisition-001"]
+        },
+        {
+          "from_company_id": "10000000-0000-4000-8000-000000000019",
+          "to_company_id": "10000000-0000-4000-8000-000000000020",
+          "relationship_type": "MERGER",
+          "entity_scope": "PRE_POST_ENTITY",
+          "effective_from": "2022-09-30",
+          "effective_to": "2022-09-30",
+          "evidence_refs": ["snapshot-merger-001"]
+        }
+      ]
+    }
+  ]
+}

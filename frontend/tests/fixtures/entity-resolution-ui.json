@@ -1,0 +1,64 @@
+{
+  "ambiguous": {
+    "status": "AMBIGUOUS",
+    "selected_company_id": null,
+    "research_allowed": false,
+    "abstention_reason": "Choose the intended legal entity before research begins.",
+    "match_reasons": [{"code": "JURISDICTION_REQUIRED", "detail": "The name matches entities in India and the United States."}],
+    "candidates": [
+      {
+        "company_id": "10000000-0000-4000-8000-000000000008",
+        "canonical_name": "Meridian Foods Limited",
+        "country_code": "IN",
+        "entity_type": "PUBLIC_COMPANY",
+        "confidence": 0.74,
+        "match_reasons": [{"code": "ALIAS_MATCH", "detail": "The supplied name is a common alias."}],
+        "evidence_refs": ["registry-mca-meridian-001"]
+      },
+      {
+        "company_id": "10000000-0000-4000-8000-000000000009",
+        "canonical_name": "Meridian Foods, Inc.",
+        "country_code": "US",
+        "entity_type": "PRIVATE_COMPANY",
+        "confidence": 0.71,
+        "match_reasons": [{"code": "ALIAS_MATCH", "detail": "The supplied name is a common alias."}],
+        "evidence_refs": ["registry-delaware-meridian-001"]
+      }
+    ]
+  },
+  "unconfirmed": {
+    "status": "UNCONFIRMED",
+    "selected_company_id": null,
+    "research_allowed": false,
+    "abstention_reason": "Not enough identity evidence was found to identify a legal entity.",
+    "match_reasons": [{"code": "INSUFFICIENT_IDENTITY_EVIDENCE", "detail": "No jurisdiction, domain, ticker, or registry identifier was supplied or confirmed."}],
+    "candidates": []
+  },
+  "resolved": {
+    "status": "RESOLVED",
+    "selected_company_id": "10000000-0000-4000-8000-000000000001",
+    "research_allowed": true,
+    "abstention_reason": null,
+    "match_reasons": [{"code": "REGISTRY_IDENTIFIER_MATCH", "detail": "The registry identifier exactly matches the legal record."}],
+    "candidates": [
+      {
+        "company_id": "10000000-0000-4000-8000-000000000001",
+        "canonical_name": "Northstar Analytics Ltd",
+        "country_code": "GB",
+        "entity_type": "PRIVATE_COMPANY",
+        "confidence": 0.99,
+        "match_reasons": [{"code": "REGISTRY_IDENTIFIER_MATCH", "detail": "The registry identifier exactly matches the legal record."}],
+        "evidence_refs": ["registry-companies-house-northstar-001"]
+      }
+    ],
+    "legal_record": {
+      "legal_name": "Northstar Analytics Ltd",
+      "registration_number": "12345678",
+      "jurisdiction": "GB",
+      "legal_status": "ACTIVE",
+      "source": "COMPANIES_HOUSE",
+      "retrieved_at": "2026-09-01T10:00:00Z",
+      "freshness": "CURRENT"
+    }
+  }
+}

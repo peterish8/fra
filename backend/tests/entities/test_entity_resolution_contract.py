@@ -84,9 +84,7 @@ def test_supported_identifiers_resolve_to_canonical_company(case_id: str) -> Non
 
 def test_jurisdiction_disambiguates_same_name_without_merging_entities() -> None:
     cases = _load_cases()["resolution_cases"]
-    selected_case = next(
-        item for item in cases if item["id"] == "same_name_jurisdiction_selected"
-    )
+    selected_case = next(item for item in cases if item["id"] == "same_name_jurisdiction_selected")
     ambiguous_case = next(
         item for item in cases if item["id"] == "same_name_without_jurisdiction_ambiguous"
     )

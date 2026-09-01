@@ -107,11 +107,28 @@ Response may be:
 ```json
 {
   "status": "AMBIGUOUS",
+  "selected_company_id": null,
+  "research_allowed": false,
+  "abstention_reason": "Choose the intended legal entity before research begins.",
   "candidates": [
-    {"company_id":"...","name":"...","country_code":"IN","confidence":0.84}
+    {
+      "company_id":"...",
+      "canonical_name":"Meridian Foods Limited",
+      "country_code":"IN",
+      "entity_type":"PUBLIC_COMPANY",
+      "confidence":0.74,
+      "match_reasons":[{"code":"ALIAS_MATCH","detail":"The supplied name is a common alias."}],
+      "evidence_refs":["registry-mca-meridian-001"]
+    }
   ]
 }
 ```
+
+Resolution is conservative: `RESOLVED` is the only state that permits
+high-confidence research, while `AMBIGUOUS` requires an explicit candidate
+choice and `UNCONFIRMED` asks for more identity evidence. Registry failures
+normalize to `LEGAL_ENTITY_UNCONFIRMED`; they never create a negative or fake
+company conclusion.
 
 #### `GET /v1/companies/{company_id}`
 Canonical identity, registry status, domains and high-level research metadata.

@@ -1,0 +1,34 @@
+{
+  "frontend": {
+    "name_markers": ["frontend"],
+    "commands": ["yarn lint", "yarn typecheck", "yarn test", "yarn build"]
+  },
+  "backend": {
+    "name_markers": ["backend"],
+    "commands": ["ruff format --check", "ruff check", "mypy app tests", "python -m pytest"]
+  },
+  "schema_migration": {
+    "name_markers": ["schema", "migration"],
+    "alternatives": ["supabase/migrations", "migration validation", "schema validation"]
+  },
+  "openapi": {
+    "name_markers": ["openapi"],
+    "alternatives": ["docs/04-api/openapi.yaml", "openapi.yaml"]
+  },
+  "secret_scan": {
+    "name_markers": ["secret"],
+    "alternatives": ["gitleaks", "trufflehog", "secret scan"]
+  },
+  "dependency_scan": {
+    "name_markers": ["dependenc"],
+    "alternatives": ["pip-audit", "yarn audit", "npm audit", "osv-scanner", "dependency scan"]
+  },
+  "research_evaluation": {
+    "name_markers": ["evaluation", "research"],
+    "alternatives": ["evaluation", "research-eval", "smoke"]
+  },
+  "pinned_installs": {
+    "name_markers": ["install"],
+    "alternatives": ["--frozen-lockfile", "pip install", "requirements"]
+  }
+}

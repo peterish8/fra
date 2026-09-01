@@ -1,0 +1,73 @@
+{
+  "owner_tables": {
+    "profiles": {
+      "operations": ["select", "update"],
+      "identity": "auth.uid() = id"
+    },
+    "reports": {
+      "operations": ["select", "insert", "update", "delete"],
+      "identity": "auth.uid() = owner_user_id"
+    },
+    "report_companies": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["reports", "report_id"]
+    },
+    "research_runs": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["reports", "report_id"]
+    },
+    "research_run_stages": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["research_runs", "research_run_id", "reports"]
+    },
+    "provider_requests": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["research_runs", "research_run_id", "reports"]
+    },
+    "run_sources": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["research_runs", "research_run_id", "reports"]
+    },
+    "report_versions": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["reports", "report_id"]
+    },
+    "report_version_claims": {
+      "operations": ["select", "insert", "update", "delete"],
+      "owner_join": ["report_versions", "report_version_id", "reports"]
+    }
+  },
+  "shared_truth_tables": [
+    "companies",
+    "company_aliases",
+    "company_domains",
+    "company_relationships",
+    "sources",
+    "source_snapshots",
+    "source_relationships",
+    "legal_entity_records",
+    "facts",
+    "claims",
+    "claim_versions",
+    "claim_evidence",
+    "verifications",
+    "calculations",
+    "conflicts",
+    "conflict_members",
+    "claim_scores",
+    "disclosure_score_snapshots",
+    "company_score_snapshots",
+    "watchlist_runs",
+    "watchlist_entries"
+  ],
+  "cross_user_role_cases": [
+    {"role": "authenticated", "actor": "owner", "table": "reports", "operation": "select", "expected": "allow"},
+    {"role": "authenticated", "actor": "other_user", "table": "reports", "operation": "select", "expected": "deny"},
+    {"role": "authenticated", "actor": "other_user", "table": "report_versions", "operation": "update", "expected": "deny"},
+    {"role": "anon", "actor": "anonymous", "table": "reports", "operation": "select", "expected": "deny"},
+    {"role": "authenticated", "actor": "owner", "table": "sources", "operation": "insert", "expected": "deny"},
+    {"role": "service_role", "actor": "backend", "table": "sources", "operation": "insert", "expected": "allow"},
+    {"role": "authenticated", "actor": "owner", "table": "claim_versions", "operation": "update", "expected": "deny"},
+    {"role": "service_role", "actor": "backend", "table": "claim_versions", "operation": "insert_superseding", "expected": "allow"}
+  ]
+}

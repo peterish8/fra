@@ -84,6 +84,7 @@ create table company_relationships (
 
 create table sources (
   id uuid primary key default gen_random_uuid(),
+  identity_key text not null unique,
   canonical_url text,
   external_document_id text,
   publisher text,
@@ -106,6 +107,8 @@ create table source_snapshots (
   content_hash text not null,
   extracted_text text,
   storage_ref text,
+  retention_mode text not null default 'METADATA_ONLY'
+    check (retention_mode in ('FULL_TEXT', 'EXCERPT_ONLY', 'METADATA_ONLY', 'STORAGE_REFERENCE')),
   redirect_chain jsonb not null default '[]'::jsonb,
   metadata jsonb not null default '{}'::jsonb,
   unique(source_id, content_hash)
@@ -126,6 +129,25 @@ create table source_relationships (
   confidence numeric(5,4),
   created_at timestamptz not null default now(),
   check (from_source_id <> to_source_id)
+);
+
+create table source_families (
+  id uuid primary key default gen_random_uuid(),
+  canonical_root text not null,
+  family_type text not null default 'INDEPENDENT',
+  explanation text,
+  created_at timestamptz not null default now(),
+  unique(canonical_root, family_type)
+);
+
+create table source_family_members (
+  source_family_id uuid not null references source_families(id) on delete cascade,
+  source_id uuid not null references sources(id) on delete cascade,
+  membership_reason text not null,
+  confidence numeric(5,4) not null check (confidence between 0 and 1),
+  created_at timestamptz not null default now(),
+  primary key (source_family_id, source_id),
+  unique(source_id)
 );
 
 create table legal_entity_records (

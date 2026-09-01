@@ -162,6 +162,24 @@ paths:
         - $ref: '#/components/parameters/ReportId'
       responses:
         '200': {description: Versions}
+  /reports/{reportId}/sources:
+    parameters:
+      - $ref: '#/components/parameters/ReportId'
+    get:
+      summary: List retention-safe source lineage for a report
+      parameters:
+        - in: query
+          name: limit
+          schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+        - in: query
+          name: cursor
+          schema: {type: string}
+      responses:
+        '200':
+          description: Owner-authorized source page
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ReportSourcePage'}
   /reports/{reportId}/diff:
     get:
       summary: Compare report versions
@@ -338,3 +356,34 @@ components:
             progress: {type: object, additionalProperties: true}
             estimated_cost_usd: {type: number}
             degradation: {type: array, items: {type: string}}
+    SourceSnapshotSummary:
+      type: object
+      required: [snapshot_id, retrieved_at, content_hash, retention_mode]
+      properties:
+        snapshot_id: {type: string, format: uuid}
+        retrieved_at: {type: string, format: date-time}
+        published_at: {type: string, format: date-time, nullable: true}
+        content_hash: {type: string}
+        retention_mode: {type: string, enum: [FULL_TEXT, EXCERPT_ONLY, METADATA_ONLY, STORAGE_REFERENCE]}
+        provider_request_id: {type: string, format: uuid, nullable: true}
+    ReportSourceSummary:
+      type: object
+      required: [source_id, identity_key, publisher, source_type, authority_tier, ownership_relation, latest_snapshot]
+      properties:
+        source_id: {type: string, format: uuid}
+        identity_key: {type: string}
+        canonical_url: {type: string, nullable: true}
+        publisher: {type: string}
+        domain: {type: string, nullable: true}
+        source_type: {type: string}
+        authority_tier: {type: string}
+        ownership_relation: {type: string}
+        source_family_id: {type: string, format: uuid, nullable: true}
+        source_family_reason: {type: string, nullable: true}
+        latest_snapshot: {$ref: '#/components/schemas/SourceSnapshotSummary'}
+    ReportSourcePage:
+      type: object
+      required: [items]
+      properties:
+        items: {type: array, items: {$ref: '#/components/schemas/ReportSourceSummary'}}
+        next_cursor: {type: string, nullable: true}

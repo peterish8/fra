@@ -90,10 +90,14 @@ Audit of third-party calls. Store metadata, status, estimated cost, latency and 
 ### `sources`
 Stable logical source/document/publisher record.
 
-Fields include canonical URL, publisher, source type, authority tier, ownership relationship, language, primary/secondary indicator.
+Fields include an immutable normalized `identity_key`, canonical URL/document identity, publisher, source type, authority tier, ownership relationship, language, and primary/secondary indicator. The identity key deduplicates the same document across provider runs without treating provider agreement as independent evidence.
 
 ### `source_snapshots`
-Immutable retrieval version.
+Immutable retrieval version. It stores a content hash, retrieval and publication timestamps, redirect lineage, permitted metadata, and an explicit retention mode: `FULL_TEXT`, `EXCERPT_ONLY`, `METADATA_ONLY`, or `STORAGE_REFERENCE`. Retention mode records what is permitted to be stored; it is never inferred from public accessibility.
+
+### `source_families` and `source_family_members`
+
+Durable independent-origin grouping for syndicated, quoted, duplicate, or common-root material. One source belongs to one canonical family; the membership reason, confidence, and explanation remain inspectable. Downstream verification counts source families, not URLs or providers.
 
 Fields include source ID, content hash, published/retrieved dates, title, permitted extracted text or object-storage reference, metadata, redirect chain.
 
@@ -254,4 +258,3 @@ Corrections create superseding records rather than rewriting historical truth wh
 - Shared public-source metadata may remain if independently collected and policy/licensing allows.
 - Full crawled content retention depends on source terms/licensing; prefer hashes + excerpts + storage pointers where uncertain.
 - Provider logs have configurable retention and secret redaction.
-

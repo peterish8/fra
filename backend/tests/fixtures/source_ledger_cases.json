@@ -1,0 +1,70 @@
+{
+  "canonical_identity_cases": [
+    {
+      "id": "tracking_and_fragment_are_removed",
+      "input_url": "HTTPS://Example.com:443/reports/annual?utm_source=newsletter#summary",
+      "expected_canonical_url": "https://example.com/reports/annual",
+      "expected_identity_key": "url:https://example.com/reports/annual"
+    },
+    {
+      "id": "default_http_port_is_removed",
+      "input_url": "http://example.com:80/reports/annual",
+      "expected_canonical_url": "http://example.com/reports/annual",
+      "expected_identity_key": "url:http://example.com/reports/annual"
+    },
+    {
+      "id": "document_identifier_is_preserved",
+      "input_url": "https://filings.example.test/annual",
+      "document_id": "filing-2025-001",
+      "expected_canonical_url": "https://filings.example.test/annual",
+      "expected_identity_key": "document:filing-2025-001"
+    }
+  ],
+  "snapshot_cases": [
+    {
+      "id": "permitted_snapshot_preserves_provenance",
+      "source_url": "https://news.example.test/article/42",
+      "content": "Revenue increased 20 percent in FY2025.",
+      "retrieved_at": "2026-09-01T09:00:00Z",
+      "provider": "fixture-extractor",
+      "provider_request_id": "fixture-request-42",
+      "redirect_chain": ["https://news.example.test/article/42"],
+      "retention_mode": "EXCERPT_ONLY",
+      "permitted_excerpt": "Revenue increased 20 percent in FY2025.",
+      "expected": {
+        "retention_mode": "EXCERPT_ONLY",
+        "content_hash": "beba4fa3c76e2fb9b076486ce8ffb1c2f730d34a44ee97ce6f23954c85540c88"
+      }
+    },
+    {
+      "id": "metadata_only_never_retains_full_content",
+      "source_url": "https://paywalled.example.test/article/7",
+      "content": "Licensed article body must not be retained in full.",
+      "retrieved_at": "2026-09-01T09:05:00Z",
+      "provider": "fixture-extractor",
+      "provider_request_id": "fixture-request-7",
+      "redirect_chain": [],
+      "retention_mode": "METADATA_ONLY",
+      "permitted_excerpt": null,
+      "expected": {
+        "retention_mode": "METADATA_ONLY",
+        "content_hash": "ee17fd19bae320d8f833c35c831420b14a05fa8fe2363abbd1797034a5918f8a"
+      }
+    }
+  ],
+  "repeated_content_cases": [
+    {
+      "id": "same_content_different_urls",
+      "first": {
+        "source_url": "https://news-one.example.test/story",
+        "content": "The same wire copy appears here."
+      },
+      "second": {
+        "source_url": "https://news-two.example.test/story",
+        "content": "The same wire copy appears here."
+      },
+      "expected_same_content_hash": true,
+      "expected_relationship": "DUPLICATE_CONTENT"
+    }
+  ]
+}

@@ -146,6 +146,9 @@ Return added/updated/invalidated/unchanged claims and score changes.
 
 ### Claims/evidence
 
+#### `GET /v1/reports/{report_id}/sources`
+Owner-authorized, cursor-paginated source lineage for a report. Returns source identity, publisher, authority and ownership classification, source-family explanation, and a retention-safe latest snapshot summary. It never returns retained full text or exposes a snapshot by UUID without proving report ownership through its research-run linkage.
+
 #### `GET /v1/reports/{report_id}/claims`
 Filters: `verdict`, `origin`, `materiality`, `freshness`, `section`, `q`.
 

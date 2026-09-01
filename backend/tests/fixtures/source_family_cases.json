@@ -1,0 +1,63 @@
+{
+  "ownership_cases": [
+    {
+      "id": "official_company_press_release",
+      "source_url": "https://acme.example.com/news/launch",
+      "confirmed_official_domains": ["acme.example.com"],
+      "expected_ownership": "SELF_REPORTED",
+      "expected_authority_tier": "D1"
+    },
+    {
+      "id": "independent_regulatory_filing",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/acme/annual.htm",
+      "confirmed_official_domains": ["acme.example.com"],
+      "authoritative_domains": ["sec.gov"],
+      "source_type": "FILING",
+      "expected_ownership": "FILING",
+      "expected_authority_tier": "A2"
+    },
+    {
+      "id": "unconfirmed_candidate_domain",
+      "source_url": "https://acme-news.example.net/about",
+      "confirmed_official_domains": [],
+      "source_type": "COMPANY_BLOG",
+      "expected_ownership": "UNCONFIRMED",
+      "expected_authority_tier": "E2"
+    }
+  ],
+  "family_cases": [
+    {
+      "id": "company_pr_copied_by_blogs",
+      "sources": [
+        {"url": "https://acme.example.com/news/launch", "content": "Acme launches Product X.", "origin": "company"},
+        {"url": "https://blog-one.example.test/acme-launch", "content": "Acme launches Product X.", "origin": "blog"},
+        {"url": "https://blog-two.example.test/acme-launch", "content": "Acme launches Product X.", "origin": "blog"}
+      ],
+      "expected_family_count": 1,
+      "expected_independent_family_count": 0,
+      "expected_relationship": "DERIVED_FROM"
+    },
+    {
+      "id": "reuters_syndication_is_one_family",
+      "sources": [
+        {"url": "https://www.reuters.com/world/acme-results", "content": "Acme reports results.", "origin": "reuters"},
+        {"url": "https://finance-one.example.test/acme-results", "content": "Acme reports results.", "origin": "syndicated"},
+        {"url": "https://markets-two.example.test/acme-results", "content": "Acme reports results.", "origin": "syndicated"}
+      ],
+      "expected_family_count": 1,
+      "expected_independent_family_count": 1,
+      "expected_relationship": "SYNDICATED_FROM"
+    },
+    {
+      "id": "providers_citing_one_article_are_not_consensus",
+      "sources": [
+        {"url": "https://www.reuters.com/world/acme-results", "content": "Acme reports results.", "origin": "reuters", "provider": "perplexity"},
+        {"url": "https://www.reuters.com/world/acme-results", "content": "Acme reports results.", "origin": "reuters", "provider": "gemini"},
+        {"url": "https://www.sec.gov/Archives/edgar/data/acme/annual.htm", "content": "Acme annual filing.", "origin": "filing", "provider": "direct"}
+      ],
+      "expected_family_count": 2,
+      "expected_independent_family_count": 2,
+      "expected_relationship": "DUPLICATE_OF"
+    }
+  ]
+}

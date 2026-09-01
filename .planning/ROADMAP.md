@@ -12,7 +12,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 
 - [x] **Phase 01: Foundation & Quality** — Establish the runnable Next.js/FastAPI/Supabase baseline, auth boundary, schema, RLS, and CI.
 - [x] **Phase 02: Workspace & Entity Resolution** — Create persistent report workspaces and resolve legal entities without guessing.
-- [ ] **Phase 03: Retrieval & Source Ledger** — Add safe provider routing, public extraction, source snapshots, and source-family provenance.
+- [x] **Phase 03: Retrieval & Source Ledger** — Add safe provider routing, public extraction, source snapshots, and source-family provenance.
 - [ ] **Phase 04: Claim & Verification Core** — Turn evidence into typed facts, atomic claims, verification records, and gated report output.
 - [ ] **Phase 05: Financial Reconciliation & Conflicts** — Normalize financial facts, integrate official/fallback data, and explain disagreements.
 - [ ] **Phase 06: Durable Orchestration & Deep Verification** — Make research resumable and budgeted, then add adversarial/follow-up/freshness behavior.
@@ -67,8 +67,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Build provider contracts, search/extraction adapters, safe URL policy, and fixture tests
-- [ ] 03-02: Build source/snapshot ledger, domain verification, self-reported capture, and source-family lineage
+- [x] 03-01: Build provider contracts, search/extraction adapters, safe URL policy, and fixture tests
+- [x] 03-02: Build source/snapshot ledger, domain verification, self-reported capture, and source-family lineage
 
 ### Phase 04: Claim & Verification Core
 **Goal**: Retrieved evidence becomes typed facts and atomic claims whose semantic verification and publication status are deterministic and inspectable.
@@ -189,7 +189,7 @@ Plans:
 |---|---:|---|---|
 | 01 Foundation & Quality | 2/2 | Complete | 2026-09-01 |
 | 02 Workspace & Entity Resolution | 2/2 | Complete | 2026-09-01 |
-| 03 Retrieval & Source Ledger | 0/2 | Not started | - |
+| 03 Retrieval & Source Ledger | 2/2 | Complete | 2026-09-01 |
 | 04 Claim & Verification Core | 0/2 | Not started | - |
 | 05 Financial Reconciliation & Conflicts | 0/2 | Not started | - |
 | 06 Durable Orchestration & Deep Verification | 0/2 | Not started | - |

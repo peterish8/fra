@@ -24,11 +24,11 @@ These requirements turn the PRD, TRD, research specifications, UI specs, securit
 - [x] **RPT-02**: A user can search, filter, open, and revisit their report library/sidebar.
 - [x] **RPT-03**: A user can soft-delete a workspace without destroying shared evidence referenced by other reports.
 - [ ] **RPT-04**: A report can expose its current version and immutable version history with exact claim-version references.
-- [ ] **ENT-01**: Company search considers canonical names, aliases, tickers, domains, and supported registry identifiers.
-- [ ] **ENT-02**: Entity resolution returns `RESOLVED`, `AMBIGUOUS`, or `UNCONFIRMED` with explainable candidate confidence.
-- [ ] **ENT-03**: Ambiguous identity pauses expensive research and requires an explicit candidate choice rather than guessing.
-- [ ] **ENT-04**: Legal verification stores jurisdiction, legal name, registration identifier/status, retrieval time, freshness, and source.
-- [ ] **ENT-05**: Parent/subsidiary, former-name, acquisition, and merger relationships preserve entity scope and effective dates.
+- [x] **ENT-01**: Company search considers canonical names, aliases, tickers, domains, and supported registry identifiers.
+- [x] **ENT-02**: Entity resolution returns `RESOLVED`, `AMBIGUOUS`, or `UNCONFIRMED` with explainable candidate confidence.
+- [x] **ENT-03**: Ambiguous identity pauses expensive research and requires an explicit candidate choice rather than guessing.
+- [x] **ENT-04**: Legal verification stores jurisdiction, legal name, registration identifier/status, retrieval time, freshness, and source.
+- [x] **ENT-05**: Parent/subsidiary, former-name, acquisition, and merger relationships preserve entity scope and effective dates.
 
 ### Retrieval and source ledger
 
@@ -140,7 +140,7 @@ Deferred until OJT V1 validates the core traceable research pipeline:
 | AUTH-01..02 | 01 | Pending — later report/session flows remain |
 | DATA-01, DATA-03 | 01 | Complete |
 | DATA-02 | 01 | Implemented contract; live RLS execution blocked |
-| RPT-01..03, ENT-01..05 | 02 | RPT-01..03 complete; ENT-01..05 pending |
+| RPT-01..03, ENT-01..05 | 02 | Complete |
 | SRC-01..07 | 03 | Pending |
 | CLM-01..07 | 04 | Pending |
 | FIN-01..06, VER-01..02 | 05 | Pending |

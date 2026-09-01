@@ -11,7 +11,7 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 ## Phases
 
 - [x] **Phase 01: Foundation & Quality** — Establish the runnable Next.js/FastAPI/Supabase baseline, auth boundary, schema, RLS, and CI.
-- [ ] **Phase 02: Workspace & Entity Resolution** — Create persistent report workspaces and resolve legal entities without guessing.
+- [x] **Phase 02: Workspace & Entity Resolution** — Create persistent report workspaces and resolve legal entities without guessing.
 - [ ] **Phase 03: Retrieval & Source Ledger** — Add safe provider routing, public extraction, source snapshots, and source-family provenance.
 - [ ] **Phase 04: Claim & Verification Core** — Turn evidence into typed facts, atomic claims, verification records, and gated report output.
 - [ ] **Phase 05: Financial Reconciliation & Conflicts** — Normalize financial facts, integrate official/fallback data, and explain disagreements.
@@ -52,7 +52,7 @@ Plans:
 
 Plans:
 - [x] 02-01: Implement report workspace CRUD, library queries, soft deletion, and protected API contracts
-- [ ] 02-02: Implement entity resolution, registry adapters, relationship history, and ambiguity UX
+- [x] 02-02: Implement entity resolution, registry adapters, relationship history, and ambiguity UX
 
 ### Phase 03: Retrieval & Source Ledger
 **Goal**: The system can safely discover and extract permitted public evidence while preserving source lineage and independence.
@@ -188,7 +188,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |---|---:|---|---|
 | 01 Foundation & Quality | 2/2 | Complete | 2026-09-01 |
-| 02 Workspace & Entity Resolution | 1/2 | In progress | - |
+| 02 Workspace & Entity Resolution | 2/2 | Complete | 2026-09-01 |
 | 03 Retrieval & Source Ledger | 0/2 | Not started | - |
 | 04 Claim & Verification Core | 0/2 | Not started | - |
 | 05 Financial Reconciliation & Conflicts | 0/2 | Not started | - |

@@ -1,0 +1,5 @@
+---
+description: Financial Research Agent repository rules
+alwaysApply: true
+---
+Read `AGENTS.md` before coding. Treat `docs/` as durable project context. Never treat company self-reported content as independent evidence; never bypass access controls; keep provider integrations server-side; run required tests before completion.

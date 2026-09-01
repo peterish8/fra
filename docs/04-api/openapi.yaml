@@ -1,0 +1,279 @@
+openapi: 3.1.0
+info:
+  title: Financial Research Agent API
+  version: 1.0.0
+  description: Core public contract. Detailed domain behavior lives in docs/.
+servers:
+  - url: /v1
+security:
+  - bearerAuth: []
+paths:
+  /reports:
+    get:
+      summary: List reports
+      parameters:
+        - in: query
+          name: limit
+          schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+        - in: query
+          name: cursor
+          schema: {type: string}
+        - in: query
+          name: q
+          schema: {type: string}
+      responses:
+        '200':
+          description: Report page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportListResponse'
+    post:
+      summary: Create report workspace
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateReportRequest'}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ReportSummary'}
+  /reports/{reportId}:
+    parameters:
+      - $ref: '#/components/parameters/ReportId'
+    get:
+      summary: Get report workspace
+      responses:
+        '200':
+          description: Report
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ReportDetail'}
+    delete:
+      summary: Soft-delete report workspace
+      responses:
+        '204': {description: Deleted}
+  /reports/{reportId}/research-runs:
+    parameters:
+      - $ref: '#/components/parameters/ReportId'
+    post:
+      summary: Start research run
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/StartResearchRequest'}
+      responses:
+        '202':
+          description: Queued
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResearchRunSummary'}
+  /reports/{reportId}/refresh:
+    parameters:
+      - $ref: '#/components/parameters/ReportId'
+    post:
+      summary: Refresh a living report
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode: {type: string, enum: [FULL, AFFECTED_ONLY], default: AFFECTED_ONLY}
+                sections: {type: array, items: {type: string}}
+      responses:
+        '202':
+          description: Queued
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResearchRunSummary'}
+  /research-runs/{runId}:
+    get:
+      summary: Get research progress
+      parameters:
+        - in: path
+          name: runId
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Status
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResearchRunDetail'}
+  /companies/search:
+    get:
+      summary: Search canonical companies
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema: {type: string, minLength: 2}
+      responses:
+        '200':
+          description: Candidates
+  /companies/resolve:
+    post:
+      summary: Resolve legal entity candidates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query: {type: string}
+                country_code: {type: string, minLength: 2, maxLength: 2}
+                domain: {type: string}
+                ticker: {type: string}
+      responses:
+        '200': {description: Resolution result}
+  /reports/{reportId}/versions:
+    get:
+      summary: List report versions
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      responses:
+        '200': {description: Versions}
+  /reports/{reportId}/diff:
+    get:
+      summary: Compare report versions
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+        - in: query
+          name: from
+          required: true
+          schema: {type: integer, minimum: 1}
+        - in: query
+          name: to
+          required: true
+          schema: {type: integer, minimum: 1}
+      responses:
+        '200': {description: Diff}
+  /reports/{reportId}/claims:
+    get:
+      summary: List report claims
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+        - in: query
+          name: verdict
+          schema: {$ref: '#/components/schemas/ClaimVerdict'}
+      responses:
+        '200': {description: Claims}
+  /claims/{claimVersionId}:
+    get:
+      summary: Inspect claim
+      parameters:
+        - in: path
+          name: claimVersionId
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Claim detail}
+  /claims/{claimVersionId}/evidence:
+    get:
+      summary: Inspect claim evidence
+      parameters:
+        - in: path
+          name: claimVersionId
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Evidence}
+  /watchlists/latest:
+    get:
+      security: []
+      summary: Get latest public research watchlist
+      responses:
+        '200': {description: Watchlist}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ReportId:
+      in: path
+      name: reportId
+      required: true
+      schema: {type: string, format: uuid}
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: false
+      schema: {type: string, minLength: 8, maxLength: 128}
+  schemas:
+    ClaimVerdict:
+      type: string
+      enum: [UNVERIFIED, VERIFIED, PARTIALLY_SUPPORTED, CONTRADICTED, INSUFFICIENT_EVIDENCE, STALE]
+    CreateReportRequest:
+      type: object
+      required: [title, subject]
+      properties:
+        title: {type: string, minLength: 1, maxLength: 180}
+        subject:
+          type: object
+          required: [query]
+          properties:
+            query: {type: string}
+            country_code: {type: string, minLength: 2, maxLength: 2}
+            ticker: {type: string}
+            domain: {type: string}
+        focus: {type: array, items: {type: string}}
+        depth: {type: string, enum: [FAST, STANDARD, DEEP], default: STANDARD}
+    StartResearchRequest:
+      type: object
+      properties:
+        depth: {type: string, enum: [FAST, STANDARD, DEEP], default: STANDARD}
+        focus: {type: array, items: {type: string}}
+        max_cost_usd: {type: number, minimum: 0}
+    ReportSummary:
+      type: object
+      required: [report_id, title, status]
+      properties:
+        report_id: {type: string, format: uuid}
+        title: {type: string}
+        status: {type: string}
+        current_version: {type: integer, nullable: true}
+        updated_at: {type: string, format: date-time}
+    ReportDetail:
+      allOf:
+        - $ref: '#/components/schemas/ReportSummary'
+        - type: object
+          properties:
+            company: {type: object, additionalProperties: true}
+            quality: {type: object, additionalProperties: true}
+            sections: {type: array, items: {type: object, additionalProperties: true}}
+    ReportListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/ReportSummary'}
+        next_cursor: {type: string, nullable: true}
+    ResearchRunSummary:
+      type: object
+      required: [research_run_id, status]
+      properties:
+        research_run_id: {type: string, format: uuid}
+        status: {type: string}
+    ResearchRunDetail:
+      allOf:
+        - $ref: '#/components/schemas/ResearchRunSummary'
+        - type: object
+          properties:
+            stage: {type: string, nullable: true}
+            progress: {type: object, additionalProperties: true}
+            estimated_cost_usd: {type: number}
+            degradation: {type: array, items: {type: string}}

@@ -1,0 +1,47 @@
+{
+  "mode": "interactive",
+  "granularity": "fine",
+  "workflow": {
+    "research": false,
+    "plan_check": true,
+    "verifier": true,
+    "auto_advance": false,
+    "nyquist_validation": true,
+    "security_enforcement": true,
+    "security_asvs_level": 1,
+    "security_block_on": "high",
+    "discuss_mode": "discuss",
+    "research_before_questions": false
+  },
+  "planning": {
+    "commit_docs": true,
+    "search_gitignored": false,
+    "sub_repos": []
+  },
+  "git": {
+    "branching_strategy": "none",
+    "base_branch": null,
+    "phase_branch_template": "gsd/phase-{phase}-{slug}",
+    "milestone_branch_template": "gsd/{milestone}-{slug}"
+  },
+  "parallelization": {
+    "enabled": true,
+    "plan_level": true,
+    "task_level": false,
+    "skip_checkpoints": true,
+    "max_concurrent_agents": 3,
+    "min_plans_for_parallel": 2
+  },
+  "hooks": {
+    "context_warnings": true
+  },
+  "project_code": "FRA",
+  "agent_skills": {
+    "required_context": [
+      "AGENTS.md",
+      "README.md",
+      "docs/00-project/01-PRD.md",
+      "docs/08-quality/19-DEFINITION-OF-DONE.md"
+    ]
+  }
+}

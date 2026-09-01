@@ -1,0 +1,161 @@
+# Design System
+
+## 1. Visual Direction
+
+Professional financial research + modern developer-tool clarity.
+
+Keywords:
+- precise
+- calm
+- evidence-first
+- dense but not cramped
+- editorial report readability
+- minimal chrome
+
+Avoid:
+- gradients
+- glassmorphism
+- glow
+- excessive card nesting
+- decorative 3D
+- hover scaling
+- stock-market casino aesthetics
+
+## 2. Typography
+
+Recommended:
+- UI/body: **Geist Sans** or Inter
+- numeric/tabular data: enable tabular numerals
+- code/IDs: Geist Mono or equivalent
+
+Hierarchy:
+- page title: 28–32px desktop
+- section title: 20–24px
+- card metric: 24–30px
+- body: 14–16px
+- evidence metadata: 12–13px, never below accessible readability
+
+Use sentence case. Avoid all-caps except tiny status/metadata labels sparingly.
+
+## 3. Color Tokens
+
+Use semantic tokens rather than hard-coded component colors.
+
+Suggested light theme:
+```text
+--bg: #F7F8FA
+--surface: #FFFFFF
+--surface-subtle: #F1F3F6
+--border: #E2E6EC
+--text: #111827
+--text-muted: #667085
+--accent: #5B5BD6
+--accent-soft: #EEEEFF
+
+--success: #18864B
+--warning: #A66300
+--danger: #B42318
+--info: #2563EB
+```
+
+Status colors are supportive only; always show label/icon/text.
+
+Dark mode can follow later using token inversion; do not duplicate component logic.
+
+## 4. Spacing & Layout
+
+- 4px base spacing system.
+- Main report reading width ~760–900px; evidence/detail workspace can use wider split layout.
+- Sidebar ~260px desktop.
+- Header/actions remain compact.
+- Use generous vertical separation between report sections, tighter spacing inside data tables.
+
+## 5. Surfaces
+
+Use three elevation levels:
+1. page background
+2. primary surface/card
+3. overlay/drawer/popover
+
+Prefer 1px borders and subtle shadow only for overlays. Avoid every section becoming a boxed card.
+
+## 6. Components
+
+Core reusable components:
+- `AppSidebar`
+- `ResearchCommandBar`
+- `ResearchProgressTimeline`
+- `QualityMetricCard`
+- `VerdictBadge`
+- `MaterialityBadge`
+- `EvidenceCoverageBar`
+- `ClaimTable`
+- `ClaimInspectorDrawer`
+- `SourceChip`
+- `SourceAuthorityLabel`
+- `ConflictCard`
+- `FinancialMetricTable`
+- `EvidenceLinkedChart`
+- `ReportVersionTimeline`
+- `DiffSummary`
+- `WatchlistTable`
+- `RankDelta`
+- `EmptyEvidenceState`
+
+Use shadcn primitives where suitable but build domain components above them.
+
+## 7. Status Semantics
+
+Verdict presentation:
+- Verified: check icon + “Verified”
+- Partial: half/alert icon + “Partially supported”
+- Contradicted: X/alert icon + “Contradicted”
+- Unverified: question icon + “Unverified”
+- Insufficient: info icon + “Insufficient evidence”
+- Stale: clock icon + “Stale”
+
+Never use “red = bad company.” Red indicates a specific evidence problem, not moral judgment.
+
+## 8. Tables
+
+- Sticky header for long lists.
+- Right-align numeric values.
+- Tabular numerals.
+- Keep units visible.
+- Do not hide period/currency in hover-only UI.
+- User can open evidence from any material numeric cell.
+- Sort/filter affordances must be obvious.
+
+## 9. Charts
+
+Only use charts when they answer a question better than a table.
+
+Rules:
+- no 3D
+- no dual y-axis unless unavoidable and clearly explained
+- source-linked datapoints
+- show missing data as missing, not zero
+- distinguish actual vs estimate/forecast
+- show period granularity clearly
+
+## 10. Motion
+
+Use motion for orientation only:
+- drawer open/close
+- stage progress transition
+- diff highlight fade
+
+150–220ms typical. Respect reduced-motion preferences.
+
+## 11. Design QA Checklist
+
+Before approving a screen:
+- Can user tell what is verified vs merely reported?
+- Can user find evidence in <=2 interactions?
+- Are uncertainty and missing data explicit?
+- Is there any score without an explanation path?
+- Does mobile preserve the core meaning?
+- Does keyboard navigation work?
+- Is status readable without color?
+- Are dense tables still scannable?
+

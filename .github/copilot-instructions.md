@@ -1,0 +1,1 @@
+Follow `/AGENTS.md` as the canonical project instructions. Before implementing a change, read the relevant specification under `/docs`. Preserve the modular-monolith architecture, verification semantics, security boundaries, and Definition of Done. Do not invent product behavior not present in the specs.

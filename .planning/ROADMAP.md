@@ -83,7 +83,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Implement validated LLM envelopes, fact extraction, atomic claim construction, and evidence mapping
+- [x] 04-01: Implement validated LLM envelopes, fact extraction, atomic claim construction, and evidence mapping
 - [ ] 04-02: Implement semantic verification, verdict rules, synthesis claim mapping, and publication gates
 
 ### Phase 05: Financial Reconciliation & Conflicts
@@ -190,7 +190,7 @@ Plans:
 | 01 Foundation & Quality | 2/2 | Complete | 2026-09-01 |
 | 02 Workspace & Entity Resolution | 2/2 | Complete | 2026-09-01 |
 | 03 Retrieval & Source Ledger | 2/2 | Complete | 2026-09-01 |
-| 04 Claim & Verification Core | 0/2 | Not started | - |
+| 04 Claim & Verification Core | 1/2 | In progress | 2026-09-01 |
 | 05 Financial Reconciliation & Conflicts | 0/2 | Not started | - |
 | 06 Durable Orchestration & Deep Verification | 0/2 | Not started | - |
 | 07 Scores & Evidence-led Report UI | 0/2 | Not started | - |

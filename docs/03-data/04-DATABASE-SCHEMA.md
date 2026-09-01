@@ -99,6 +99,10 @@ Immutable retrieval version. It stores a content hash, retrieval and publication
 
 Durable independent-origin grouping for syndicated, quoted, duplicate, or common-root material. One source belongs to one canonical family; the membership reason, confidence, and explanation remain inspectable. Downstream verification counts source families, not URLs or providers.
 
+### Fact, claim, and evidence provenance
+
+`facts` preserve raw values alongside typed fields and validated extraction metadata. `claim_versions` record claim kind, versioned structured representation, and extraction metadata; prior versions remain immutable and corrections use supersession. `claim_version_facts` links each claim version to the fact records it relies on, while `claim_evidence` always points to a source snapshot and records evidence role, directness, and independence. The database constrains scalar confidence/directness ranges; domain persistence rejects self-reported sources as independent support.
+
 Fields include source ID, content hash, published/retrieved dates, title, permitted extracted text or object-storage reference, metadata, redirect chain.
 
 ### `source_relationships`

@@ -262,6 +262,7 @@ create table facts (
   accounting_basis text,
   entity_scope text,
   extraction_confidence numeric(5,4),
+  extraction_metadata jsonb not null default '{}'::jsonb,
   metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
@@ -285,7 +286,10 @@ create table claim_versions (
   statement text not null,
   structured_value jsonb not null default '{}'::jsonb,
   verdict claim_verdict not null default 'UNVERIFIED',
+  claim_kind text not null default 'QUALITATIVE'
+    check (claim_kind in ('QUALITATIVE', 'QUANTITATIVE', 'HISTORICAL_FACT', 'FORECAST', 'GUIDANCE', 'ESTIMATE')),
   freshness freshness_state not null default 'CURRENT',
+  extraction_metadata jsonb not null default '{}'::jsonb,
   supersedes_claim_version_id uuid references claim_versions(id) on delete set null,
   created_at timestamptz not null default now()
 );
@@ -303,6 +307,15 @@ create table claim_evidence (
   created_at timestamptz not null default now()
 );
 create index claim_evidence_claim_idx on claim_evidence(claim_version_id);
+
+create table claim_version_facts (
+  claim_version_id uuid not null references claim_versions(id) on delete cascade,
+  fact_id uuid not null references facts(id) on delete restrict,
+  relationship_role text not null default 'SOURCE_FACT',
+  created_at timestamptz not null default now(),
+  primary key (claim_version_id, fact_id)
+);
+create index claim_version_facts_fact_idx on claim_version_facts(fact_id);
 
 create table verifications (
   id uuid primary key default gen_random_uuid(),

@@ -9,25 +9,25 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 ## Current Position
 
-Phase: 03 of 10 (Retrieval & Source Ledger)
-Plan: 2 of 2 in current phase
-Status: Phase 03 complete; Plan 04-01 ready for claim-core implementation
-Last activity: 2026-09-01 — Completed source/snapshot provenance, ownership and source-family contracts, plus owner-scoped source lineage access.
+Phase: 04 of 10 (Claim & Verification Core)
+Plan: 1 of 2 in current phase
+Status: Plan 04-01 complete; Plan 04-02 ready for semantic verification and publication gates
+Last activity: 2026-09-01 — Completed validated fact/claim/evidence contracts and durable fact-to-claim provenance.
 
-Progress: [███░░░░░░░] 30%
+Progress: [████░░░░░░] 35%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 0.7 hours
-- Total execution time: 4.2 hours
+- Total execution time: 4.9 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |---|---:|---:|---:|
-| 01–03 | 6 | 20 | 0.7 hours |
+| 01–04 | 7 | 20 | 0.7 hours |
 
 **Recent Trend:**
 - Last 5 plans: —

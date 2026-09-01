@@ -4,10 +4,15 @@ from __future__ import annotations
 
 import json
 import sys
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pytest
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from app.config.settings import Settings
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = Path(__file__).resolve().parent / "fixtures"
@@ -23,31 +28,29 @@ def _load_json(name: str) -> Any:
 
 @pytest.fixture
 def auth_users() -> dict[str, dict[str, str]]:
-    return _load_json("auth_users.json")
+    return cast(dict[str, dict[str, str]], _load_json("auth_users.json"))
 
 
 @pytest.fixture
 def valid_settings_values() -> dict[str, Any]:
-    return _load_json("config_valid.json")
+    return cast(dict[str, Any], _load_json("config_valid.json"))
 
 
 @pytest.fixture
-def valid_settings(valid_settings_values: dict[str, Any]):
+def valid_settings(valid_settings_values: dict[str, Any]) -> Settings:
     from app.config.settings import Settings
 
     return Settings(**valid_settings_values)
 
 
 @pytest.fixture
-def app(valid_settings):
+def app(valid_settings: Settings) -> FastAPI:
     from app.main import create_app
 
     return create_app(settings=valid_settings)
 
 
 @pytest.fixture
-def client(app):
-    from fastapi.testclient import TestClient
-
+def client(app: FastAPI) -> Iterator[TestClient]:
     with TestClient(app) as test_client:
         yield test_client

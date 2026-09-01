@@ -51,7 +51,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Implement report workspace CRUD, library queries, soft deletion, and protected API contracts
+- [x] 02-01: Implement report workspace CRUD, library queries, soft deletion, and protected API contracts
 - [ ] 02-02: Implement entity resolution, registry adapters, relationship history, and ambiguity UX
 
 ### Phase 03: Retrieval & Source Ledger
@@ -187,8 +187,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |---|---:|---|---|
-| 01 Foundation & Quality | 0/2 | Not started | - |
-| 02 Workspace & Entity Resolution | 0/2 | Not started | - |
+| 01 Foundation & Quality | 2/2 | Complete | 2026-09-01 |
+| 02 Workspace & Entity Resolution | 1/2 | In progress | - |
 | 03 Retrieval & Source Ledger | 0/2 | Not started | - |
 | 04 Claim & Verification Core | 0/2 | Not started | - |
 | 05 Financial Reconciliation & Conflicts | 0/2 | Not started | - |

@@ -20,9 +20,9 @@ These requirements turn the PRD, TRD, research specifications, UI specs, securit
 
 ### Reports and entities
 
-- [ ] **RPT-01**: A user can create a persistent report workspace with a title, subject query, focus, and depth.
-- [ ] **RPT-02**: A user can search, filter, open, and revisit their report library/sidebar.
-- [ ] **RPT-03**: A user can soft-delete a workspace without destroying shared evidence referenced by other reports.
+- [x] **RPT-01**: A user can create a persistent report workspace with a title, subject query, focus, and depth.
+- [x] **RPT-02**: A user can search, filter, open, and revisit their report library/sidebar.
+- [x] **RPT-03**: A user can soft-delete a workspace without destroying shared evidence referenced by other reports.
 - [ ] **RPT-04**: A report can expose its current version and immutable version history with exact claim-version references.
 - [ ] **ENT-01**: Company search considers canonical names, aliases, tickers, domains, and supported registry identifiers.
 - [ ] **ENT-02**: Entity resolution returns `RESOLVED`, `AMBIGUOUS`, or `UNCONFIRMED` with explainable candidate confidence.
@@ -140,7 +140,7 @@ Deferred until OJT V1 validates the core traceable research pipeline:
 | AUTH-01..02 | 01 | Pending — later report/session flows remain |
 | DATA-01, DATA-03 | 01 | Complete |
 | DATA-02 | 01 | Implemented contract; live RLS execution blocked |
-| RPT-01..03, ENT-01..05 | 02 | Pending |
+| RPT-01..03, ENT-01..05 | 02 | RPT-01..03 complete; ENT-01..05 pending |
 | SRC-01..07 | 03 | Pending |
 | CLM-01..07 | 04 | Pending |
 | FIN-01..06, VER-01..02 | 05 | Pending |
@@ -157,4 +157,4 @@ Deferred until OJT V1 validates the core traceable research pipeline:
 
 ---
 *Requirements defined: 2026-09-01*  
-*Last updated: 2026-09-01 after initial GSD roadmap creation*
+*Last updated: 2026-09-01 after Phase 02 Plan 01 integration*

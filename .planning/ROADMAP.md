@@ -131,7 +131,7 @@ Plans:
 
 Plans:
 - [x] 07-01: Implement versioned score engines, coverage/reliability gates, and deterministic breakdown APIs
-- [ ] 07-02: Implement report reader, quality cards, claims table, inspector, financial/conflict/source views, and honest states
+- [x] 07-02: Implement report reader, quality cards, claims table, inspector, financial/conflict/source views, and honest states
 
 ### Phase 08: Living Reports & Comparison
 **Goal**: A report can be refreshed without erasing history, and multiple companies/versions can be compared without hiding incompatibility.

@@ -10,16 +10,16 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 ## Current Position
 
 Phase: 07 of 10 (Scores & Evidence-led Report UI)
-Plan: 1 of 2 in current phase
-Status: Plan 07-01 complete; Plan 07-02 ready for report reader UI
-Last activity: 2026-09-02 — Completed deterministic score engines and protected score breakdown contracts.
+Plan: 2 of 2 in current phase
+Status: Phase 07 complete; Plan 08-01 ready for living reports
+Last activity: 2026-09-02 — Completed evidence-led report reader, claims table, and keyboard-accessible inspector.
 
-Progress: [███████░░░] 65%
+Progress: [███████░░░] 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

@@ -146,7 +146,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: Implement refresh/version persistence, affected-claim planning, history timeline, and diff API/UI
+- [x] 08-01: Implement refresh/version persistence, affected-claim planning, history timeline, and diff API/UI
 - [ ] 08-02: Implement normalized comparison workspace, cohort warnings, responsive behavior, and accessibility pass
 
 ### Phase 09: Weekly Watchlist & Discover

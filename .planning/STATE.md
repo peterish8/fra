@@ -5,21 +5,21 @@
 See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 **Core value:** Every important report statement must let a researcher inspect its claim, evidence, conflicts, and confidence.
-**Current focus:** Phase 07 — Scores & Evidence-led Report UI
+**Current focus:** Phase 08 — Living Reports & Comparison
 
 ## Current Position
 
-Phase: 07 of 10 (Scores & Evidence-led Report UI)
-Plan: 2 of 2 in current phase
-Status: Phase 07 complete; Plan 08-01 ready for living reports
-Last activity: 2026-09-02 — Completed evidence-led report reader, claims table, and keyboard-accessible inspector.
+Phase: 08 of 10 (Living Reports & Comparison)
+Plan: 1 of 2 in current phase
+Status: Plan 08-01 complete; Plan 08-02 ready for comparison
+Last activity: 2026-09-02 — Added immutable version/diff helpers, affected-only refresh planning, and history UI.
 
-Progress: [███████░░░] 70%
+Progress: [███████░░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

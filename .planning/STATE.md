@@ -10,16 +10,16 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 ## Current Position
 
 Phase: 08 of 10 (Living Reports & Comparison)
-Plan: 1 of 2 in current phase
-Status: Plan 08-01 complete; Plan 08-02 ready for comparison
-Last activity: 2026-09-02 — Added immutable version/diff helpers, affected-only refresh planning, and history UI.
+Plan: 2 of 2 in current phase
+Status: Phase 08 complete; Plan 09-01 ready for watchlist engine
+Last activity: 2026-09-02 — Added cohort-aware normalized comparison domain/API/UI with explicit incompatibility warnings.
 
-Progress: [███████░░░] 75%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
+- Total plans completed: 16
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

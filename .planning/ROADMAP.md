@@ -130,7 +130,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: Implement versioned score engines, coverage/reliability gates, and deterministic breakdown APIs
+- [x] 07-01: Implement versioned score engines, coverage/reliability gates, and deterministic breakdown APIs
 - [ ] 07-02: Implement report reader, quality cards, claims table, inspector, financial/conflict/source views, and honest states
 
 ### Phase 08: Living Reports & Comparison

@@ -1,0 +1,50 @@
+{
+  "claim_cases": [
+    {
+      "id": "na_dimensions_renormalize",
+      "dimensions": {"semantic": 90, "authority": 80, "independence": 80, "numeric": null, "temporal": null, "agreement": 90, "freshness": 80, "adversarial": 90},
+      "materiality": "MEDIUM", "conflict": null, "expected_min": 80, "expected_max": 100
+    },
+    {
+      "id": "high_conflict_cap",
+      "dimensions": {"semantic": 100, "authority": 100, "independence": 100, "numeric": 100, "temporal": 100, "agreement": 100, "freshness": 100, "adversarial": 100},
+      "materiality": "HIGH", "conflict": "HIGH", "expected_max": 69
+    },
+    {
+      "id": "critical_conflict_cap",
+      "dimensions": {"semantic": 100, "authority": 100, "independence": 100, "numeric": 100, "temporal": 100, "agreement": 100, "freshness": 100, "adversarial": 100},
+      "materiality": "CRITICAL", "conflict": "CRITICAL", "expected_max": 49
+    },
+    {
+      "id": "stale_evidence",
+      "dimensions": {"semantic": 90, "authority": 90, "independence": 90, "numeric": 90, "temporal": 90, "agreement": 90, "freshness": 20, "adversarial": 90},
+      "materiality": "HIGH", "freshness": "STALE", "expected_max": 85
+    },
+    {
+      "id": "unresolved_identity",
+      "dimensions": {"semantic": 95, "authority": 95, "independence": 95, "numeric": 95, "temporal": 95, "agreement": 95, "freshness": 95, "adversarial": 95},
+      "materiality": "HIGH", "identity_resolved": false, "expected_max": 69
+    },
+    {
+      "id": "complete_verified_report",
+      "dimensions": {"semantic": 98, "authority": 96, "independence": 96, "numeric": 98, "temporal": 98, "agreement": 96, "freshness": 95, "adversarial": 95},
+      "materiality": "MEDIUM", "identity_resolved": true, "citation_coverage": 1.0, "expected_min": 90
+    }
+  ],
+  "disclosure_cases": [
+    {"id": "no_self_reported_claims", "claims": [], "expected_state": "NOT_ENOUGH_DATA"},
+    {"id": "two_claim_sample", "claims": [{"materiality": "HIGH", "origin": "SELF_REPORTED", "outcome": "VERIFIED"}, {"materiality": "MEDIUM", "origin": "SELF_REPORTED", "outcome": "PARTIALLY_SUPPORTED"}], "expected_state": "NOT_ENOUGH_DATA"},
+    {"id": "critical_contradiction", "claims": [{"materiality": "CRITICAL", "origin": "SELF_REPORTED", "outcome": "CONTRADICTED"}, {"materiality": "HIGH", "origin": "SELF_REPORTED", "outcome": "VERIFIED"}, {"materiality": "MEDIUM", "origin": "SELF_REPORTED", "outcome": "VERIFIED"}, {"materiality": "MEDIUM", "origin": "SELF_REPORTED", "outcome": "VERIFIED"}, {"materiality": "LOW", "origin": "SELF_REPORTED", "outcome": "VERIFIED"}], "expected_state": "SCORED", "expected_badge": "CRITICAL_CONTRADICTION"}
+  ],
+  "research_cases": [
+    {"id": "tiny_coverage", "claims": [{"confidence": 95, "materiality": "HIGH", "evidence_coverage": 0.1}], "identity_resolved": true, "citation_coverage": 0.1, "expected_max": 50},
+    {"id": "unresolved_identity", "claims": [{"confidence": 95, "materiality": "HIGH", "evidence_coverage": 1.0}], "identity_resolved": false, "citation_coverage": 1.0, "expected_max": 69},
+    {"id": "complete_verified", "claims": [{"confidence": 95, "materiality": "HIGH", "evidence_coverage": 1.0}, {"confidence": 92, "materiality": "MEDIUM", "evidence_coverage": 1.0}], "identity_resolved": true, "citation_coverage": 1.0, "expected_min": 85}
+  ],
+  "business_cases": [
+    {"id": "public_company", "cohort": "PUBLIC", "stage": null, "financials": {"revenue_growth": 0.2, "margin": 0.18, "cash_flow": 0.12}, "expected_cohort": "PUBLIC"},
+    {"id": "private_company", "cohort": "PRIVATE", "stage": "GROWTH", "financials": {"revenue_growth": 0.2, "traction": 0.8, "funding": 0.7}, "expected_cohort": "PRIVATE"},
+    {"id": "startup_tiny_base", "cohort": "STARTUP", "stage": "SEED", "financials": {"revenue_growth": 4.0, "revenue_base": 1000, "traction": 0.4}, "expected_cohort": "STARTUP"},
+    {"id": "missing_private_financials", "cohort": "PRIVATE", "stage": "EARLY", "financials": {}, "expected_cohort": "PRIVATE", "expected_missing": true}
+  ]
+}

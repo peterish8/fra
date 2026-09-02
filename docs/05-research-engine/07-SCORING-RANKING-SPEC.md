@@ -209,3 +209,12 @@ Store:
 
 Historical report scores are not recomputed silently when methodology changes. New methodology creates a new score snapshot/version.
 
+## 12. Implemented v1 contract
+
+The backend scoring package implements these dimensions as deterministic pure
+engines. Every result carries `score_version`, a SHA-256 `config_hash`, input IDs,
+materiality-weighted coverage, and a machine-readable breakdown. Missing dimensions
+are re-normalized rather than treated as zero. High and critical unresolved conflicts
+cap claim confidence at 69 and 49 respectively. Disclosure Reliability returns
+`NOT_ENOUGH_DATA` until its sample and weighted-coverage gates pass, while critical
+contradictions remain an explicit badge.

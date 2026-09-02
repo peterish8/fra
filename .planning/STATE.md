@@ -5,21 +5,21 @@
 See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 **Core value:** Every important report statement must let a researcher inspect its claim, evidence, conflicts, and confidence.
-**Current focus:** Phase 05 — Financial Reconciliation & Conflicts
+**Current focus:** Phase 07 — Scores & Evidence-led Report UI
 
 ## Current Position
 
-Phase: 05 of 10 (Financial Reconciliation & Conflicts)
-Plan: 2 of 2 in current phase
-Status: Phase 06 complete; Plan 07-01 ready for versioned score engines
-Last activity: 2026-09-02 — Completed deep/adversarial routing, bounded follow-up, and freshness targeting contracts.
+Phase: 07 of 10 (Scores & Evidence-led Report UI)
+Plan: 1 of 2 in current phase
+Status: Plan 07-01 complete; Plan 07-02 ready for report reader UI
+Last activity: 2026-09-02 — Completed deterministic score engines and protected score breakdown contracts.
 
-Progress: [██████░░░░] 60%
+Progress: [███████░░░] 65%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

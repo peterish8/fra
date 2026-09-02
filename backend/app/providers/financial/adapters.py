@@ -17,7 +17,6 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from app.providers.contracts import ProviderStatus
-from app.providers.registries.sec import normalize_sec_company_facts
 
 from .contracts import FinancialProviderResult, normalize_financial_result
 
@@ -170,6 +169,10 @@ class SECCompanyFactsHttpAdapter:
                 retrieved_at=retrieved_at,
                 latency_ms=(monotonic() - started) * 1000,
             )
+
+        # Import lazily: the SEC parser imports the provider-neutral financial
+        # contracts, while this module is re-exported by that package.
+        from app.providers.registries.sec import normalize_sec_company_facts
 
         result = normalize_sec_company_facts(payload, cik=cik)
         return result.model_copy(

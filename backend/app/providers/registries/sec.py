@@ -42,6 +42,12 @@ def parse_sec_company_facts(
         if not isinstance(definition, Mapping):
             continue
         metric = _TAG_METRICS.get(str(tag), str(tag).casefold())
+        # The normalized financial contract intentionally bounds metric
+        # identifiers. SEC taxonomy tags can be extremely verbose; omit those
+        # unmappable dimensions rather than failing an otherwise usable
+        # Company Facts response.
+        if len(metric) > 120:
+            continue
         units = definition.get("units", {})
         if not isinstance(units, Mapping):
             continue

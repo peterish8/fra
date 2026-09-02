@@ -1,5 +1,6 @@
 """Official-first registry adapter contracts."""
 
+from .companies_house import CompaniesHouseHttpAdapter
 from .contracts import (
     LegalEntityRecord,
     NormalizedRegistryResult,
@@ -15,5 +16,6 @@ __all__ = [
     "ProviderStatus",
     "RegistryAdapter",
     "GLEIFHttpAdapter",
+    "CompaniesHouseHttpAdapter",
     "normalize_registry_result",
 ]

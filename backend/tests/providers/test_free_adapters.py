@@ -8,6 +8,7 @@ from urllib.request import Request
 
 from app.providers.contracts import ProviderStatus
 from app.providers.financial.adapters import SECCompanyFactsHttpAdapter
+from app.providers.registries.companies_house import CompaniesHouseHttpAdapter
 from app.providers.registries.gleif import GLEIFHttpAdapter
 
 
@@ -113,3 +114,28 @@ def test_gleif_invalid_lei_abstains_without_network() -> None:
     assert result.status == "LEGAL_ENTITY_UNCONFIRMED"
     assert result.legal_record is None
     assert called is False
+
+
+def test_companies_house_uses_server_side_basic_auth_and_normalizes_record() -> None:
+    def transport(request: Request, timeout: float) -> bytes:
+        assert timeout == 2.0
+        assert request.full_url.endswith("/company/00000006")
+        assert request.get_header("Authorization", "").startswith("Basic ")
+        return json.dumps(
+            {
+                "company_name": "BBC LIMITED",
+                "company_number": "00000006",
+                "company_status": "active",
+                "date_of_creation": "1922-01-01",
+            }
+        ).encode()
+
+    result = CompaniesHouseHttpAdapter(
+        api_key="free-user-key", timeout_seconds=2.0, transport=transport
+    ).resolve({"company_number": "00000006"})
+
+    assert result.status == "SUCCESS"
+    assert result.legal_record is not None
+    assert result.legal_record.legal_name == "BBC LIMITED"
+    assert result.legal_record.registration_number == "00000006"
+    assert result.legal_record.jurisdiction == "GB"

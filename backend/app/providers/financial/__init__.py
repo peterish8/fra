@@ -5,6 +5,7 @@ from .adapters import (
     FinancialProviderRouter,
     FixtureFinancialAdapter,
     OfficialFilingAdapter,
+    SECCompanyFactsHttpAdapter,
     TwelveDataAdapter,
     route_financial_facts,
 )
@@ -26,6 +27,7 @@ __all__ = [
     "FinancialRouter",
     "FixtureFinancialAdapter",
     "OfficialFilingAdapter",
+    "SECCompanyFactsHttpAdapter",
     "ProviderStatus",
     "TwelveDataAdapter",
     "normalize_financial_result",

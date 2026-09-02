@@ -194,3 +194,12 @@ Track rolling metrics per provider/operation:
 - result usefulness/evidence yield
 
 Router may temporarily deprioritize unhealthy providers without changing domain semantics.
+
+## 16. Keyless/public adapters implemented in the local build
+
+The backend includes transport-injectable adapters for direct SEC EDGAR
+Company Facts requests and direct GLEIF LEI lookups. SEC requests require only
+the `SEC_USER_AGENT` identity string; neither adapter accepts credentials from
+the browser. The adapters normalize timeouts, rate limits, malformed payloads,
+and unavailable records into the provider contracts. Paid search, extraction,
+LLM, and commercial financial adapters remain replaceable and credential-gated.

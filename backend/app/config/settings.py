@@ -50,6 +50,9 @@ class Settings(BaseSettings):
     supabase_anon_key: SecretStr
     supabase_service_role_key: SecretStr
     database_url: SecretStr
+    # Required by SEC EDGAR's fair-access policy; this is an identity string,
+    # not a credential (for example: ``Product Name contact@example.com``).
+    sec_user_agent: str | None = None
 
     perplexity_api_key: SecretStr
     brave_search_api_key: SecretStr

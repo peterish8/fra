@@ -7,11 +7,13 @@ from .contracts import (
     RegistryAdapter,
     normalize_registry_result,
 )
+from .gleif import GLEIFHttpAdapter
 
 __all__ = [
     "LegalEntityRecord",
     "NormalizedRegistryResult",
     "ProviderStatus",
     "RegistryAdapter",
+    "GLEIFHttpAdapter",
     "normalize_registry_result",
 ]

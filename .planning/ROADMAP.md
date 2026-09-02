@@ -99,7 +99,7 @@ Plans:
 
 Plans:
 - [x] 05-01: Build financial taxonomy/normalizers, deterministic calculators, and official/fallback adapters
-- [ ] 05-02: Build reconciliation, conflict grouping/classification, and labeled conflict fixtures
+- [x] 05-02: Build reconciliation, conflict grouping/classification, and labeled conflict fixtures
 
 ### Phase 06: Durable Orchestration & Deep Verification
 **Goal**: Research runs survive worker/provider failures and can spend bounded resources on deep, adversarial, freshness-driven follow-up.

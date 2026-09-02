@@ -10,25 +10,25 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 ## Current Position
 
 Phase: 05 of 10 (Financial Reconciliation & Conflicts)
-Plan: 1 of 2 in current phase
-Status: Plan 05-01 complete; Plan 05-02 ready for reconciliation and conflict classification
-Last activity: 2026-09-01 — Completed deterministic financial normalization, versioned calculations, and official-first provider contracts.
+Plan: 2 of 2 in current phase
+Status: Phase 05 complete; Plan 06-01 ready for durable work orchestration
+Last activity: 2026-09-02 — Completed typed financial reconciliation, source-family-aware conflict support, and labeled conflict benchmarks.
 
-Progress: [████▌░░░░░] 45%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 0.7 hours
-- Total execution time: 6.3 hours
+- Total execution time: 7.0 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |---|---:|---:|---:|
 | 01–04 | 8 | 20 | 0.7 hours |
-| 05 | 1 | 20 | 0.7 hours |
+| 05 | 2 | 20 | 0.7 hours |
 
 **Recent Trend:**
 - Last 5 plans: —
@@ -41,7 +41,7 @@ Progress: [████▌░░░░░] 45%
 - The existing `docs/10-planning/17-IMPLEMENTATION-PLAN.md` is preserved as the source plan; `.planning/ROADMAP.md` is its GSD execution view.
 - Terra initialized Git intentionally and established the specification baseline at `34e08a6`.
 - The execution model is fixed: Terra orchestrator at `gpt-5.6-terra` high; all implementation, QA, UI, operations, and evaluation workers at `gpt-5.6-luna` high; maximum three concurrent workers.
-- Phases 01–04 are complete. Phase 05 Plan 01 owns deterministic normalization and provider-neutral official-first financial adapters; Phase 05 Plan 02 must classify, not average, preserved disagreements.
+- Phases 01–05 are complete. Financial reconciliation classifies mismatches before value conflicts, counts source-family roots rather than provider multiplicity, and never averages conflicting observations.
 - Live PostgreSQL/Supabase RLS execution is still blocked until Docker Desktop or a configured Supabase project is available.
 - Provider and policy decisions listed in `docs/10-planning/21-OPEN-DECISIONS.md` remain open.
 
@@ -58,5 +58,5 @@ None yet. Use `.planning/todos/pending/` for newly discovered ideas during imple
 ## Session Continuity
 
 Last session: 2026-09-01
-Stopped at: Plan 05-01 complete and verified; ready to start Plan 05-02 conflict reconciliation.
+Stopped at: Phase 05 complete and verified; ready to start Plan 06-01 durable jobs.
 Resume file: None

@@ -233,6 +233,7 @@ Do not compare Q1 to FY or FY2025 to CY2025 without explicit transformation/labe
 Facts/claims are candidates for conflict only if they refer to sufficiently comparable dimensions.
 
 Conflict classes:
+- `NO_CONFLICT` (including an inspectable `ROUNDING_DIFFERENCE`)
 - `VALUE_CONFLICT`
 - `PERIOD_MISMATCH`
 - `CURRENCY_MISMATCH`
@@ -242,8 +243,15 @@ Conflict classes:
 - `ENTITY_SCOPE_DIFFERENCE`
 - `RESTATEMENT`
 - `DEFINITION_MISMATCH`
+- `INSUFFICIENT_EVIDENCE`
 
-The resolver first checks whether disagreement is only apparent. If methodologies genuinely differ, represent a range/uncertainty instead of fabricating a midpoint.
+The resolver first checks metric definition, period, currency/Fx date, entity
+scope, accounting basis, methodology, source date, and explicit restatement
+lineage. Only like-for-like observations can become a `VALUE_CONFLICT`.
+Source-family roots, not URLs or providers, determine independent support and
+conflict severity. If methodologies genuinely differ, represent a
+range/uncertainty instead of fabricating a midpoint. A restatement preserves
+the older fact and records the superseding fact; it does not erase history.
 
 ## 14. Adversarial Verification
 

@@ -150,7 +150,7 @@ Deterministic derivations with formula code/version, typed inputs, output and to
 ### `conflicts`
 Disagreement group across facts/claims.
 
-Fields: conflict type, severity, status (`OPEN`, `RESOLVED`, `ACCEPTED_UNCERTAINTY`), explanation, canonical resolution if any.
+Fields: conflict type, severity, status (`OPEN`, `RESOLVED`, `ACCEPTED_UNCERTAINTY`), explanation, canonical resolution if any. Conflict creation records the comparability dimensions, both observed values, source-family-root count, and any restatement supersession in the resolution payload; it never stores a fabricated midpoint.
 
 ### `conflict_members`
 Claims/facts participating in a conflict.

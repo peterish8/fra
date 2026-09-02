@@ -178,6 +178,7 @@ def test_provider_agreement_on_one_article_is_not_independent_consensus() -> Non
     source_type = _symbol("app.domain.sources.models", "SourceRecord")
     classifier_type = _symbol("app.domain.sources.families", "SourceFamilyClassifier")
     connected = _symbol("app.domain.sources.families", "connected_source_families")
+    independent_count = _symbol("app.domain.sources.families", "independent_family_count")
     sources = [
         source_type(
             canonical_url=source["url"],
@@ -197,4 +198,5 @@ def test_provider_agreement_on_one_article_is_not_independent_consensus() -> Non
     family_groups = connected([source.source_id for source in sources], relationships)
 
     assert len(family_groups) == 2
+    assert independent_count([source.source_id for source in sources], relationships) == 2
     assert any(relationship.relationship_type == "DUPLICATE_OF" for relationship in relationships)

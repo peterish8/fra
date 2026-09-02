@@ -67,7 +67,7 @@ def score_disclosure_reliability(
         for item in self_reported
         if first(item, "claim_version_id", "claim_id", "id") is not None
     )
-    breakdown = {
+    breakdown: dict[str, Any] = {
         "total_self_reported_claims": len(self_reported),
         "assessed_claims": len(assessed),
         "total_materiality_weight": total_weight,

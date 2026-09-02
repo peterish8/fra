@@ -29,7 +29,9 @@ def _field(value: Any, name: str) -> Any:
 
 def _queue() -> InMemoryJobQueue:
     # Keep retry jitter deterministic while exercising the production policy.
-    return InMemoryJobQueue(random_source=lambda: 0.5)
+    # Pin the queue clock too: the scenarios use a fixed ``NOW`` and must not
+    # become unavailable merely because wall-clock time moved past the fixture.
+    return InMemoryJobQueue(clock=lambda: NOW, random_source=lambda: 0.5)
 
 
 def test_concurrent_workers_can_claim_a_ready_job_only_once() -> None:

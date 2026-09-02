@@ -10,7 +10,7 @@ report they own.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Request
@@ -183,7 +183,7 @@ def _get_projection(repository: object, report_id: UUID) -> object | None:
         getter = getattr(repository, "get_scores", None)
     if not callable(getter):
         return None
-    return getter(report_id=report_id)
+    return cast(object | None, getter(report_id=report_id))
 
 
 @router.get("/{report_id}/scores", response_model=ReportScoreResponse)

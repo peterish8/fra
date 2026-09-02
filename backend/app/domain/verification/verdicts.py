@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -36,9 +35,7 @@ class VerdictDecision(BaseModel):
     blocking: bool
 
 
-def determine_verdict(
-    value: VerdictInput | None = None, **legacy: Any
-) -> VerdictDecision:
+def determine_verdict(value: VerdictInput | None = None, **legacy: Any) -> VerdictDecision:
     """Apply canonical outcomes before any numerical confidence score."""
 
     if value is None:
@@ -116,8 +113,12 @@ def _legacy_verdict_input(values: dict[str, Any]) -> VerdictInput:
         has_independent_evidence=bool(values.get("independent_evidence", False)),
         critical_conflict=bool(values.get("critical_conflict", False)),
         identity_passed=bool(values.get("identity_complete", True)),
-        numeric_passed=None if numeric in (None, "NOT_APPLICABLE") else str(numeric).upper() == "PASS",
-        temporal_passed=None if temporal in (None, "NOT_APPLICABLE") else str(temporal).upper() == "PASS",
+        numeric_passed=None
+        if numeric in (None, "NOT_APPLICABLE")
+        else str(numeric).upper() == "PASS",
+        temporal_passed=None
+        if temporal in (None, "NOT_APPLICABLE")
+        else str(temporal).upper() == "PASS",
         freshness=ClaimFreshness(str(values.get("freshness", ClaimFreshness.CURRENT)).upper()),
     )
 

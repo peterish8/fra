@@ -49,7 +49,11 @@ def score_business(
         values[key] = val
     applicable = [(key, weight, values[key]) for key, weight in fields if values[key] is not None]
     total = sum(weight for _, weight, _ in applicable)
-    score = sum(value * weight for _, weight, value in applicable) / total * 100 if total else None
+    score = (
+        sum((value or 0.0) * weight for _, weight, value in applicable) / total * 100
+        if total
+        else None
+    )
     coverage = total * 100
     status = ScoreStatus.AVAILABLE if score is not None else ScoreStatus.NOT_ENOUGH_DATA
     breakdown = {

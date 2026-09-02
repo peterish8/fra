@@ -37,7 +37,7 @@ def diff_versions(
     old: Mapping[str, Any] | None, new: Mapping[str, Any]
 ) -> dict[str, list[dict[str, Any]]]:
     before = old or {}
-    changes = {
+    changes: dict[str, list[dict[str, Any]]] = {
         key: []
         for key in (
             "unchanged",

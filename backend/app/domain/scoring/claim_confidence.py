@@ -78,7 +78,7 @@ def score_claim_confidence(
     if materiality is not None:
         data["materiality"] = materiality
     configured = dict(DEFAULT_WEIGHTS if weights is None else weights)
-    dimensions = [
+    dimension_inputs: list[tuple[str, float, float | None, str]] = [
         (
             "semantic",
             configured.get("semantic", 30),
@@ -130,7 +130,7 @@ def score_claim_confidence(
             "Survival of configured adversarial follow-ups.",
         ),
     ]
-    raw_score, dimension_records = weighted_dimensions(dimensions)
+    raw_score, dimension_records = weighted_dimensions(dimension_inputs)
     cap = _conflict_cap(first(data, "conflict_severity", "unresolved_conflict_severity"))
     capped_score = raw_score
     if capped_score is not None and cap is not ConflictCap.NONE:

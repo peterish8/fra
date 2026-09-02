@@ -46,7 +46,7 @@ class RetryPolicy(BaseModel):
             self.base_delay_seconds * (2 ** (attempt_count - 1)),
         )
         bounded_jitter = max(-1.0, min(1.0, jitter)) * self.jitter_ratio
-        return max(0.0, min(self.max_delay_seconds, exponential * (1 + bounded_jitter)))
+        return float(max(0.0, min(self.max_delay_seconds, exponential * (1 + bounded_jitter))))
 
 
 class JobRecord(BaseModel):

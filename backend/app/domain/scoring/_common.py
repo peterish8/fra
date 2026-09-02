@@ -5,18 +5,20 @@ from __future__ import annotations
 import hashlib
 import json
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, cast
 
 from .models import ScoreDimension, ScoreResult, ScoreStatus
 
 
 def as_mapping(value: Any) -> Mapping[str, Any]:
     if isinstance(value, Mapping):
-        return value
+        return cast(Mapping[str, Any], value)
     if hasattr(value, "model_dump"):
-        return value.model_dump()
+        dumped = value.model_dump()
+        if isinstance(dumped, Mapping):
+            return cast(Mapping[str, Any], dumped)
     if hasattr(value, "__dict__"):
-        return vars(value)
+        return cast(Mapping[str, Any], vars(value))
     raise TypeError("score input must be a mapping or typed model")
 
 

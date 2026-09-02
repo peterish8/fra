@@ -14,7 +14,6 @@ from app.domain.financial import FinancialUnit
 from app.providers.contracts import ProviderStatus
 from app.providers.financial.contracts import FinancialProviderResult, normalize_financial_result
 
-
 _TAG_METRICS = {
     "Revenues": "revenue",
     "RevenueFromContractWithCustomerExcludingAssessedTax": "revenue",
@@ -59,7 +58,19 @@ def parse_sec_company_facts(
                     "unit": FinancialUnit.RAW.value,
                     "currency": "USD" if str(unit_name).upper() == "USD" else None,
                     "period": _period_label(observation),
-                    "accounting_basis": "GAAP" if str(tag).startswith(("Revenue", "Sales", "Net", "Assets", "Liabilities", "Stockholders", "Operating")) else None,
+                    "accounting_basis": "GAAP"
+                    if str(tag).startswith(
+                        (
+                            "Revenue",
+                            "Sales",
+                            "Net",
+                            "Assets",
+                            "Liabilities",
+                            "Stockholders",
+                            "Operating",
+                        )
+                    )
+                    else None,
                     "entity_scope": "CONSOLIDATED",
                     "source_snapshot_id": str(observation.get("filed", "")) or None,
                     "sec_cik": cik,
@@ -122,7 +133,11 @@ def _period_label(observation: Mapping[str, Any]) -> str | None:
     if isinstance(frame, str) and frame.startswith("CY"):
         return frame
     if fy is not None and fp:
-        return f"{str(fp).upper()}{fy}" if str(fp).upper() == "FY" else f"Q{str(fp).upper().lstrip('Q') } FY{fy}"
+        return (
+            f"{str(fp).upper()}{fy}"
+            if str(fp).upper() == "FY"
+            else f"Q{str(fp).upper().lstrip('Q')} FY{fy}"
+        )
     return None
 
 

@@ -44,7 +44,9 @@ def score_research_confidence(
     ids = tuple(str(record.input_id) for record in records if record.input_id)
     coverage_result = calculate_evidence_coverage(records) if coverage is None else coverage
     coverage_pct = (
-        coverage_result.score if isinstance(coverage_result, ScoreResult) else float(coverage or 0)
+        (coverage_result.score if coverage_result.score is not None else 0.0)
+        if isinstance(coverage_result, ScoreResult)
+        else float(coverage) if isinstance(coverage, (int, float)) else 0.0
     )
     quality_denominator = sum(
         materiality_weight(record.materiality)

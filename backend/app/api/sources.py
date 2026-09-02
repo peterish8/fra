@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Protocol
+from typing import Annotated, Protocol, cast
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Request
 from pydantic import BaseModel, ConfigDict
 
 from app.api.dependencies import assert_owner
-from app.domain.reports import ReportRepository, ReportRepositoryUnavailable, adapt_report_repository
+from app.domain.reports import (
+    ReportRepository,
+    ReportRepositoryUnavailable,
+    adapt_report_repository,
+)
 from app.security.auth import AuthenticatedUser, get_current_user
 from app.security.errors import stable_http_error
 
@@ -91,7 +95,7 @@ def _source_repository(request: Request) -> ReportSourceRepository:
             message="Source lineage storage is not configured.",
             request_id=_request_id(request),
         )
-    return repository
+    return cast(ReportSourceRepository, repository)
 
 
 @router.get("/{report_id}/sources", response_model=ReportSourcePage)

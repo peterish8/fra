@@ -5,21 +5,21 @@
 See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 **Core value:** Every important report statement must let a researcher inspect its claim, evidence, conflicts, and confidence.
-**Current focus:** Phase 08 — Living Reports & Comparison
+**Current focus:** Phase 09 — Weekly Watchlist & Discover
 
 ## Current Position
 
-Phase: 08 of 10 (Living Reports & Comparison)
+Phase: 09 of 10 (Weekly Watchlist & Discover)
 Plan: 2 of 2 in current phase
-Status: Phase 08 complete; Plan 09-01 ready for watchlist engine
-Last activity: 2026-09-02 — Added cohort-aware normalized comparison domain/API/UI with explicit incompatibility warnings.
+Status: Phase 09 complete; Phase 10 hardening and release readiness remain
+Last activity: 2026-09-02 — Added staged watchlist funnel, weekly idempotency, atomic publication, and transparent Discover UI.
 
-Progress: [████████░░] 80%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 18
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

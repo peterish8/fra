@@ -17,6 +17,7 @@ from app.api.routes.health import versioned_router as versioned_health_router
 from app.api.routes.me import router as me_router
 from app.api.scoring import include_score_router
 from app.api.sources import include_source_router
+from app.api.watchlists import router as watchlists_router
 from app.config.settings import Settings, get_settings
 from app.observability.middleware import RequestLoggingMiddleware
 from app.security.auth import AuthenticatedUser, TokenVerifier, verify_access_token
@@ -96,6 +97,7 @@ def create_app(
     include_company_router(application)
     include_report_router(application)
     application.include_router(comparisons_router)
+    application.include_router(watchlists_router)
     include_source_router(application)
     include_score_router(application)
     return application

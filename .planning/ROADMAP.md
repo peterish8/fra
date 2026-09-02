@@ -162,8 +162,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: Implement scheduled watchlist funnel, eligibility, cohort scoring, atomic publication, and rank history
-- [ ] 09-02: Implement Discover/watchlist UI, methodology disclosure, filters, quality notes, and degraded states
+- [x] 09-01: Implement scheduled watchlist funnel, eligibility, cohort scoring, atomic publication, and rank history
+- [x] 09-02: Implement Discover/watchlist UI, methodology disclosure, filters, quality notes, and degraded states
 
 ### Phase 10: Hardening, Evaluation & Release
 **Goal**: The product is demonstrably safe, testable, observable, deployable, and honest enough for an OJT release.

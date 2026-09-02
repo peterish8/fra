@@ -178,8 +178,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 10-01: Run security hardening, deterministic/evidence evaluation, chaos tests, and release-quality browser checks
-- [ ] 10-02: Complete observability, deployment/rollback, policy documentation, final DoD audit, and OJT demo readiness
+- [x] 10-01: Run security hardening, deterministic/evidence evaluation, chaos tests, and release-quality browser checks
+- [x] 10-02: Complete observability, deployment/rollback, policy documentation, final DoD audit, and OJT demo readiness
 
 ## Progress
 

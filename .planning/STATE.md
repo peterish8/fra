@@ -5,21 +5,21 @@
 See: `.planning/PROJECT.md` (updated 2026-09-01)
 
 **Core value:** Every important report statement must let a researcher inspect its claim, evidence, conflicts, and confidence.
-**Current focus:** Phase 09 — Weekly Watchlist & Discover
+**Current focus:** Phase 10 — Hardening, Evaluation & Release
 
 ## Current Position
 
-Phase: 09 of 10 (Weekly Watchlist & Discover)
+Phase: 10 of 10 (Hardening, Evaluation & Release)
 Plan: 2 of 2 in current phase
-Status: Phase 09 complete; Phase 10 hardening and release readiness remain
-Last activity: 2026-09-02 — Added staged watchlist funnel, weekly idempotency, atomic publication, and transparent Discover UI.
+Status: Phase 10 implementation complete; credentialed infrastructure validation remains explicitly deferred
+Last activity: 2026-09-02 — Added redacted diagnostics, deployment/rollback contracts, policy checklist, security/evaluation fixtures, and release runbook.
 
-Progress: [█████████░] 90%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 20
 - Average duration: 0.7 hours
 - Total execution time: 8.4 hours
 

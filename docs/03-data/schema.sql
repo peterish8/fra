@@ -471,6 +471,7 @@ create table watchlist_entries (
 
 create table jobs (
   id uuid primary key default gen_random_uuid(),
+  research_run_id uuid references research_runs(id) on delete cascade,
   job_type text not null,
   idempotency_key text not null unique,
   status job_status not null default 'QUEUED',
@@ -486,6 +487,7 @@ create table jobs (
   updated_at timestamptz not null default now()
 );
 create index jobs_ready_idx on jobs(status, priority, available_at);
+create index jobs_research_run_idx on jobs(research_run_id, created_at desc);
 
 create table audit_events (
   id uuid primary key default gen_random_uuid(),

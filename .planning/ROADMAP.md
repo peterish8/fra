@@ -114,7 +114,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: Implement durable queue, stage checkpoints, leases, idempotency, retries, budgets, and provider health
+- [x] 06-01: Implement durable queue, stage checkpoints, leases, idempotency, retries, budgets, and provider health
 - [ ] 06-02: Implement deep-research routing, adversarial verification, follow-up loops, and freshness policies
 
 ### Phase 07: Scores & Evidence-led Report UI

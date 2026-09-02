@@ -1,0 +1,16 @@
+{
+  "queue_cases": {
+    "priority_order": [
+      {"idempotency_key": "low", "priority": 10},
+      {"idempotency_key": "high", "priority": 100},
+      {"idempotency_key": "urgent", "priority": 1000}
+    ],
+    "retryable_error": {"error_code": "TIMEOUT", "retryable": true},
+    "permanent_error": {"error_code": "INVALID_PAYLOAD", "retryable": false},
+    "max_attempts": 2
+  },
+  "research_cases": {
+    "checkpoint": {"stage": "RETRIEVING", "checkpoint": {"cursor": "page-3", "items": 24}},
+    "budget": {"max_cost_usd": 1.0, "stage_cost_usd": 1.25, "error_code": "COST_BUDGET_EXCEEDED"}
+  }
+}

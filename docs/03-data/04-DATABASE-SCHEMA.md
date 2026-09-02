@@ -179,7 +179,10 @@ One weekly ranking job. Has methodology version and publish status.
 Company rank, cohort, score, eligibility info, previous-rank delta, linked report/version.
 
 ### `jobs`
-Durable background queue.
+Durable background queue linked to an optional `research_run_id`. Jobs use
+priority, availability, leases, attempt counts, idempotency keys, and safe
+error summaries. PostgreSQL workers claim with row locking; the service role
+owns queue writes and client roles cannot read or mutate delivery state.
 
 ### `audit_events`
 User/admin/system event trail for report operations, score overrides/config changes and publication actions.

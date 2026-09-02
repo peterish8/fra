@@ -10,18 +10,18 @@ See: `.planning/PROJECT.md` (updated 2026-09-01)
 ## Current Position
 
 Phase: 05 of 10 (Financial Reconciliation & Conflicts)
-Plan: 1 of 2 in current phase
-Status: Plan 06-01 complete; Plan 06-02 ready for deep/adversarial verification and freshness policies
-Last activity: 2026-09-02 — Completed durable job delivery, resumable run checkpoints, idempotency, and budget-aware lifecycle contracts.
+Plan: 2 of 2 in current phase
+Status: Phase 06 complete; Plan 07-01 ready for versioned score engines
+Last activity: 2026-09-02 — Completed deep/adversarial routing, bounded follow-up, and freshness targeting contracts.
 
-Progress: [█████▌░░░░] 55%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
+- Total plans completed: 12
 - Average duration: 0.7 hours
-- Total execution time: 7.7 hours
+- Total execution time: 8.4 hours
 
 **By Phase:**
 
@@ -29,7 +29,7 @@ Progress: [█████▌░░░░] 55%
 |---|---:|---:|---:|
 | 01–04 | 8 | 20 | 0.7 hours |
 | 05 | 2 | 20 | 0.7 hours |
-| 06 | 1 | 20 | 0.7 hours |
+| 06 | 2 | 20 | 0.7 hours |
 
 **Recent Trend:**
 - Last 5 plans: —
@@ -42,7 +42,7 @@ Progress: [█████▌░░░░] 55%
 - The existing `docs/10-planning/17-IMPLEMENTATION-PLAN.md` is preserved as the source plan; `.planning/ROADMAP.md` is its GSD execution view.
 - Terra initialized Git intentionally and established the specification baseline at `34e08a6`.
 - The execution model is fixed: Terra orchestrator at `gpt-5.6-terra` high; all implementation, QA, UI, operations, and evaluation workers at `gpt-5.6-luna` high; maximum three concurrent workers.
-- Phases 01–05 are complete. Plan 06-01 adds lease-safe durable jobs and a checkpoint-first, idempotent research lifecycle; full local test execution is queued for the deferred test strategy.
+- Phases 01–06 are complete. Deep research remains non-authoritative, follow-up is bounded by explicit stop reasons, and freshness selects affected claims without rewriting history.
 - Live PostgreSQL/Supabase RLS execution is still blocked until Docker Desktop or a configured Supabase project is available.
 - Provider and policy decisions listed in `docs/10-planning/21-OPEN-DECISIONS.md` remain open.
 
@@ -59,5 +59,5 @@ None yet. Use `.planning/todos/pending/` for newly discovered ideas during imple
 ## Session Continuity
 
 Last session: 2026-09-01
-Stopped at: Plan 06-01 implementation complete; ready to start Plan 06-02 deep verification.
+Stopped at: Phase 06 complete and verified; ready to start Plan 07-01 score engines.
 Resume file: None

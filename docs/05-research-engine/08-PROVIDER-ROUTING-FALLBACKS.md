@@ -100,6 +100,11 @@ Use Gemini Deep Research for:
 
 Do not run expensive deep research across the entire weekly candidate universe.
 
+Deep output is evidence discovery only. It cannot set a claim verdict or
+replace semantic, numeric, temporal, entity-scope, or conflict verification.
+Adversarial follow-up is reserved for unresolved material claims, high-authority
+conflicts, failed deterministic checks, and low-independence evidence.
+
 ## 9. Weekly Cost Funnel
 
 Illustrative funnel:

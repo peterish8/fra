@@ -115,7 +115,7 @@ Plans:
 
 Plans:
 - [x] 06-01: Implement durable queue, stage checkpoints, leases, idempotency, retries, budgets, and provider health
-- [ ] 06-02: Implement deep-research routing, adversarial verification, follow-up loops, and freshness policies
+- [x] 06-02: Implement deep-research routing, adversarial verification, follow-up loops, and freshness policies
 
 ### Phase 07: Scores & Evidence-led Report UI
 **Goal**: Users can read a report and understand evidence quality through separate, explainable score cards and claim inspection.

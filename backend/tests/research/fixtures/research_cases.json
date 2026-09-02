@@ -1,0 +1,32 @@
+{
+  "routing_cases": [
+    {"id": "standard_run", "request": {"query": "standard claim", "depth": "STANDARD", "materiality": "MEDIUM", "watchlist_finalist": false, "complex_risk": false}, "expected_eligible": false},
+    {"id": "user_deep", "request": {"query": "deep claim", "depth": "DEEP", "materiality": "MEDIUM", "watchlist_finalist": false, "complex_risk": false}, "expected_eligible": true},
+    {"id": "high_materiality_unresolved", "request": {"query": "high risk claim", "depth": "STANDARD", "materiality": "HIGH", "unresolved": true, "watchlist_finalist": false, "complex_risk": false}, "expected_eligible": true},
+    {"id": "watchlist_finalist", "request": {"query": "watchlist claim", "depth": "STANDARD", "materiality": "MEDIUM", "watchlist_finalist": true, "complex_risk": false}, "expected_eligible": true},
+    {"id": "complex_risk", "request": {"query": "complex risk claim", "depth": "STANDARD", "materiality": "MEDIUM", "watchlist_finalist": false, "complex_risk": true}, "expected_eligible": true},
+    {"id": "low_materiality_resolved", "request": {"query": "low claim", "depth": "STANDARD", "materiality": "LOW", "unresolved": false, "watchlist_finalist": false, "complex_risk": false}, "expected_eligible": false}
+  ],
+  "adversarial_intents": [
+    "explicit contradiction",
+    "newer evidence",
+    "narrower or broader metric definition",
+    "market exits or declines",
+    "regulatory actions",
+    "restatements",
+    "alternative estimates",
+    "counterexamples"
+  ],
+  "follow_up_cases": [
+    {"id": "sufficient", "gaps": ["UNSUPPORTED"], "results": [{"new_evidence": true, "lineage_id": "evidence-2"}], "max_loops": 4, "expected_stop": "SUFFICIENT"},
+    {"id": "no_progress", "gaps": ["LOW_INDEPENDENCE"], "results": [{"new_evidence": false}, {"new_evidence": false}], "max_loops": 4, "expected_stop": "NO_PROGRESS"},
+    {"id": "loop_budget", "gaps": ["HIGH_AUTHORITY_CONFLICT"], "results": [{"new_evidence": true}, {"new_evidence": true}, {"new_evidence": true}], "max_loops": 2, "expected_stop": "LOOP_BUDGET_EXCEEDED"},
+    {"id": "provider_degraded", "gaps": ["NUMERIC_VALIDATION_FAILED"], "results": [{"provider_status": "TEMPORARY_FAILURE", "new_evidence": false}], "max_loops": 1, "expected_stop": "PROVIDER_DEGRADED"}
+  ],
+  "freshness_cases": [
+    {"id": "current_annual_revenue", "claim_type": "ANNUAL_REVENUE", "age_days": 30, "expected_state": "CURRENT"},
+    {"id": "aging_customer_count", "claim_type": "CUSTOMER_COUNT", "age_days": 120, "expected_state": "AGING"},
+    {"id": "stale_customer_count", "claim_type": "CUSTOMER_COUNT", "age_days": 500, "expected_state": "STALE"},
+    {"id": "invalidated_source", "claim_type": "ANNUAL_REVENUE", "age_days": 30, "invalidated": true, "expected_state": "INVALIDATED"}
+  ]
+}

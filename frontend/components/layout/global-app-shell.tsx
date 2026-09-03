@@ -27,12 +27,16 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    if (mobileOpen) document.body.style.overflow = "hidden";
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") setMobileOpen(false);
     }
-    document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
+    if (mobileOpen) document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+    };
   }, [mobileOpen]);
 
   function toggleCollapsed() {
@@ -48,7 +52,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
             <Link className="global-brand" href="/" onClick={() => setMobileOpen(false)}>
               <BrandMark /><span className="global-nav-label">Financial Research</span>
             </Link>
-            <button className="global-collapse-button" type="button" onClick={toggleCollapsed} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="global-primary-nav" aria-pressed={collapsed}>
+            <button className="global-collapse-button" type="button" onClick={toggleCollapsed} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="global-primary-nav" aria-expanded={!collapsed} aria-pressed={collapsed}>
               <span aria-hidden="true">{collapsed ? "→" : "←"}</span>
             </button>
           </div>

@@ -1,2 +1,4 @@
 import { WatchlistTable } from "@/components/watchlist/watchlist-table";
-export default function DiscoverPage() { return <WatchlistTable entries={[]} />; }
+import { demoWatchlist } from "@/lib/demo-data";
+
+export default function DiscoverPage() { return <WatchlistTable entries={demoWatchlist} />; }

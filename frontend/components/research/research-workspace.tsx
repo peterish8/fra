@@ -166,8 +166,8 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
         <nav aria-label="Primary navigation" className={styles.primaryNav}>
           <Link href="/" className={styles.navItem}><span aria-hidden="true">⌕</span>Discover</Link>
           <Link href="/research" className={`${styles.navItem} ${styles.navItemCurrent}`} aria-current="page"><span aria-hidden="true">▤</span>My Research</Link>
-          <Link href="/#compare" className={styles.navItem}><span aria-hidden="true">⇄</span>Compare</Link>
-          <Link href="/#settings" className={styles.navItem}><span aria-hidden="true">⚙</span>Settings</Link>
+          <Link href="/compare" className={styles.navItem}><span aria-hidden="true">⇄</span>Compare</Link>
+          <Link href="/" className={styles.navItem}><span aria-hidden="true">⚙</span>Settings</Link>
         </nav>
         <div className={styles.sidebarLibrary}>
           <div className={styles.sidebarHeading}><span>Recent research</span><span>{reports.length}</span></div>

@@ -1,5 +1,5 @@
-import ResearchWorkspace from "@/components/research/research-workspace";
+import { DemoResearchPage } from "@/components/research/demo-research-page";
 
 export default function ResearchPage() {
-  return <ResearchWorkspace />;
+  return <DemoResearchPage />;
 }

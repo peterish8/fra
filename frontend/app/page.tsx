@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { demoWatchlist } from "@/lib/demo-data";
+
 type NavigationItem = {
   label: string;
   href: string;
@@ -10,8 +12,8 @@ type NavigationItem = {
 const navigationItems: NavigationItem[] = [
   { label: "Discover", href: "/", icon: "discover", current: true },
   { label: "My Research", href: "/research", icon: "research" },
-  { label: "Compare", href: "/#compare", icon: "compare" },
-  { label: "Settings", href: "/#settings", icon: "settings" },
+  { label: "Compare", href: "/compare", icon: "compare" },
+  { label: "Settings", href: "/", icon: "settings" },
 ];
 
 function NavigationIcon({ name }: { name: NavigationItem["icon"] }) {
@@ -168,6 +170,24 @@ export default function HomePage() {
                 claims. Uncertainty will remain visible as the workspace grows.
               </p>
             </div>
+          </section>
+
+          <section className="demo-snapshot" aria-labelledby="snapshot-title">
+            <div className="panel-heading">
+              <div><p className="panel-label">Demo data · local only</p><h2 id="snapshot-title">Research watchlist snapshot</h2></div>
+              <Link className="text-link" href="/discover">Open Discover →</Link>
+            </div>
+            <div className="snapshot-grid">
+              {demoWatchlist.slice(0, 3).map((entry) => (
+                <article className="snapshot-card" key={entry.company_id}>
+                  <div><span className="snapshot-rank">#{entry.rank}</span><strong>{entry.name}</strong></div>
+                  <span className={entry.score == null ? "snapshot-score snapshot-score-muted" : "snapshot-score"}>{entry.score == null ? "—" : `${entry.score}/100`}</span>
+                  <p>{entry.explanation}</p>
+                  <small>{entry.coverage}% evidence coverage · {entry.state?.replaceAll("_", " ")}</small>
+                </article>
+              ))}
+            </div>
+            <div className="demo-links"><Link href="/reports">View sample report</Link><Link href="/compare">Compare companies</Link><Link href="/research">Open research workspace</Link></div>
           </section>
 
           <footer className="page-footer">

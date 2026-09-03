@@ -181,8 +181,16 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
         <div className={styles.contentFrame}>
           <section className={styles.hero} aria-labelledby="research-page-title">
             <div><p className={styles.eyebrow}>Phase 02 · Workspace and entity resolution</p><h1 id="research-page-title">Research that stays inspectable.</h1><p>Build a persistent company workspace before the evidence work begins. Start with identifiers, choose your focus, and keep uncertainty visible.</p></div>
-            <div className={styles.heroAside}><span aria-hidden="true">01</span><p>Workspace first<br /><strong>Evidence next</strong></p></div>
+            <div className={styles.heroAside}><span aria-hidden="true">01</span><p>Workspace first<br /><strong>Evidence next</strong></p><small>Private by default</small></div>
           </section>
+
+          <div className={styles.signalStrip} aria-label="Research workflow">
+            <div className={styles.signalItem}><span>01</span><strong>Subject</strong><small>Who is being researched</small></div>
+            <div className={styles.signalRule} aria-hidden="true" />
+            <div className={styles.signalItem}><span>02</span><strong>Evidence</strong><small>What can be supported</small></div>
+            <div className={styles.signalRule} aria-hidden="true" />
+            <div className={styles.signalItem}><span>03</span><strong>Report</strong><small>What remains uncertain</small></div>
+          </div>
 
           <ResearchForm disabled={isCreating} error={formError} onSubmit={createReport} />
           {feedback ? <div className={styles.successNotice} role="status"><span aria-hidden="true">✓</span><span>{feedback}</span><button type="button" onClick={() => setFeedback(null)} aria-label="Dismiss notification">×</button></div> : null}

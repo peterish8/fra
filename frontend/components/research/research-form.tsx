@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useId, useState } from "react";
+import { FormEvent, useEffect, useId, useState } from "react";
 
 import {
   DEPTH_OPTIONS,
@@ -16,11 +16,12 @@ type ResearchFormProps = {
   disabled?: boolean;
   error?: string | null;
   initialQuery?: string;
+  initialTicker?: string;
   initialMode?: ResearchMode;
   onSubmit: (request: CreateReportRequest) => Promise<void>;
 };
 
-type FormValues = {
+export type FormValues = {
   title: string;
   query: string;
   countryCode: string;
@@ -61,8 +62,20 @@ function generatedTitle(values: FormValues): string {
   return `${values.query.trim()} - ${focus}`;
 }
 
-export function ResearchForm({ disabled = false, error, initialQuery = "", initialMode = "INITIATION", onSubmit }: ResearchFormProps) {
-  const [values, setValues] = useState<FormValues>(() => ({ ...initialValues, query: initialQuery.trim(), researchMode: initialMode }));
+export function applyResearchHandoff(
+  values: FormValues,
+  initialQuery: string,
+  initialTicker: string,
+  initialMode: ResearchMode,
+): FormValues {
+  const query = initialQuery.trim();
+  const ticker = initialTicker.trim().toUpperCase();
+  if (values.query === query && values.ticker === ticker && values.researchMode === initialMode) return values;
+  return { ...values, query, ticker, researchMode: initialMode };
+}
+
+export function ResearchForm({ disabled = false, error, initialQuery = "", initialTicker = "", initialMode = "INITIATION", onSubmit }: ResearchFormProps) {
+  const [values, setValues] = useState<FormValues>(() => applyResearchHandoff(initialValues, initialQuery, initialTicker, initialMode));
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const queryId = useId();
@@ -71,6 +84,13 @@ export function ResearchForm({ disabled = false, error, initialQuery = "", initi
   const tickerId = useId();
   const domainId = useId();
   const formErrorId = useId();
+
+  // Coverage links update the URL without remounting this client component.
+  // Keep that explicit navigation handoff visible in the intake form.
+  useEffect(() => {
+    setValues((current) => applyResearchHandoff(current, initialQuery, initialTicker, initialMode));
+    setValidationError(null);
+  }, [initialMode, initialQuery, initialTicker]);
 
   function update<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((current) => ({ ...current, [key]: value }));

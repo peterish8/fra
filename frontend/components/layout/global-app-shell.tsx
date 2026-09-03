@@ -100,7 +100,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
               <div className="global-nav-group" key={group.label}>
                 <p className="global-nav-section">{group.label}</p>
                 {group.items.map((item) => {
-                  const current = isCurrent(pathname, item.href) && item.label !== "Settings";
+                  const current = isCurrent(pathname, item.href);
                   return <Link key={item.label} className={`global-nav-item${current ? " global-nav-item-current" : ""}`} href={item.href} data-tooltip={item.label} title={collapsed ? item.label : undefined} aria-current={current ? "page" : undefined} onClick={() => setMobileOpen(false)}>
                     <span className="global-nav-icon" aria-hidden="true"><NavIcon name={item.icon} /></span><span className="global-nav-label">{item.label}</span>
                   </Link>;

@@ -76,6 +76,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
   const [detailError, setDetailError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const initialQuery = searchParams.get("company") ?? searchParams.get("ticker") ?? "";
+  const initialTicker = searchParams.get("ticker") ?? "";
   const requestedMode = searchParams.get("mode");
   const initialMode: ResearchMode = requestedMode === "UPDATE" || requestedMode === "EARNINGS" || requestedMode === "EVENT" || requestedMode === "SECTOR" || requestedMode === "DILIGENCE" ? requestedMode : "INITIATION";
 
@@ -215,7 +216,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
             <div className={styles.signalItem}><span>03</span><strong>Report</strong><small>What remains uncertain</small></div>
           </div>
 
-          <ResearchForm disabled={isCreating} error={formError} initialQuery={initialQuery} initialMode={initialMode} onSubmit={createReport} />
+          <ResearchForm disabled={isCreating} error={formError} initialQuery={initialQuery} initialTicker={initialTicker} initialMode={initialMode} onSubmit={createReport} />
           {feedback ? <div className={styles.successNotice} role="status"><span aria-hidden="true">✓</span><span>{feedback}</span><button type="button" onClick={() => setFeedback(null)} aria-label="Dismiss notification">×</button></div> : null}
 
           <ResearchLibrary

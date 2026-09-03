@@ -1,4 +1,3 @@
-import { WatchlistTable } from "@/components/watchlist/watchlist-table";
-import { demoWatchlist } from "@/lib/demo-data";
+import { DiscoverHome } from "@/components/discover/discover-home";
 
-export default function DiscoverPage() { return <WatchlistTable entries={demoWatchlist} />; }
+export default function DiscoverPage() { return <DiscoverHome />; }

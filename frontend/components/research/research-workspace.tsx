@@ -100,6 +100,15 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
     return () => window.clearTimeout(timer);
   }, [loadReports, query]);
 
+  useEffect(() => {
+    if (!isNavOpen) return;
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsNavOpen(false);
+    }
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [isNavOpen]);
+
   async function createReport(request: CreateReportRequest) {
     if (!apiClient) {
       setFormError("Your authenticated API client is not connected. The workspace was not created.");
@@ -181,7 +190,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
 
       <main className={styles.mainContent} id="research-main">
         <header className={styles.topBar}>
-          <button className={styles.navToggle} type="button" onClick={() => { setIsNavOpen(true); setIsNavCollapsed((current) => !current); }} aria-label={isNavCollapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="research-navigation" aria-pressed={isNavCollapsed}>
+          <button className={styles.navToggle} type="button" onClick={() => { setIsNavOpen(true); setIsNavCollapsed((current) => !current); }} aria-label="Toggle navigation" aria-controls="research-navigation" aria-pressed={isNavCollapsed}>
             <span aria-hidden="true">{isNavCollapsed ? "→" : "←"}</span><span className={styles.navToggleLabel}>{isNavCollapsed ? "Open rail" : "Collapse"}</span>
           </button>
           <div><span>Workspace</span><span aria-hidden="true">/</span><strong>My Research</strong></div><span className={styles.connectionStatus}><span aria-hidden="true">{apiClient ? "●" : "○"}</span>{librarySummary}</span>

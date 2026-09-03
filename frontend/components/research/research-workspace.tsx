@@ -58,6 +58,8 @@ function DetailPanel({ report, isLoading, error, onClose }: { report: ReportSumm
 }
 
 export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavCollapsed, setIsNavCollapsed] = useState(false);
   const [reports, setReports] = useState<ReportSummary[]>([]);
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("");
@@ -159,15 +161,16 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
   }, [apiClient, isLoading, reports.length]);
 
   return (
-    <div className={styles.pageShell}>
+    <div className={`${styles.pageShell} ${isNavCollapsed ? styles.navCollapsed : ""}`}>
       <a className={styles.skipLink} href="#research-main">Skip to research workspace</a>
-      <aside className={styles.sidebar} aria-label="Research navigation">
-        <Link href="/" className={styles.brand}><span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span><span>Financial Research</span></Link>
+      {isNavOpen ? <button className={styles.navScrim} type="button" aria-label="Close navigation" onClick={() => setIsNavOpen(false)} /> : null}
+      <aside className={`${styles.sidebar} ${isNavOpen ? styles.sidebarOpen : ""}`} aria-label="Research navigation">
+        <Link href="/" className={styles.brand} onClick={() => setIsNavOpen(false)}><span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span><span className={styles.navLabel}>Financial Research</span></Link>
         <nav aria-label="Primary navigation" className={styles.primaryNav}>
-          <Link href="/" className={styles.navItem}><span aria-hidden="true">⌕</span>Discover</Link>
-          <Link href="/research" className={`${styles.navItem} ${styles.navItemCurrent}`} aria-current="page"><span aria-hidden="true">▤</span>My Research</Link>
-          <Link href="/compare" className={styles.navItem}><span aria-hidden="true">⇄</span>Compare</Link>
-          <Link href="/" className={styles.navItem}><span aria-hidden="true">⚙</span>Settings</Link>
+          <Link href="/" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⌕</span><span className={styles.navLabel}>Discover</span></Link>
+          <Link href="/research" className={`${styles.navItem} ${styles.navItemCurrent}`} aria-current="page" onClick={() => setIsNavOpen(false)}><span aria-hidden="true">▤</span><span className={styles.navLabel}>My Research</span></Link>
+          <Link href="/compare" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⇄</span><span className={styles.navLabel}>Compare</span></Link>
+          <Link href="/" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⚙</span><span className={styles.navLabel}>Settings</span></Link>
         </nav>
         <div className={styles.sidebarLibrary}>
           <div className={styles.sidebarHeading}><span>Recent research</span><span>{reports.length}</span></div>
@@ -177,7 +180,12 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
       </aside>
 
       <main className={styles.mainContent} id="research-main">
-        <header className={styles.topBar}><div><span>Workspace</span><span aria-hidden="true">/</span><strong>My Research</strong></div><span className={styles.connectionStatus}><span aria-hidden="true">{apiClient ? "●" : "○"}</span>{librarySummary}</span></header>
+        <header className={styles.topBar}>
+          <button className={styles.navToggle} type="button" onClick={() => { setIsNavOpen(true); setIsNavCollapsed((current) => !current); }} aria-label={isNavCollapsed ? "Expand navigation" : "Collapse navigation"} aria-expanded={isNavOpen}>
+            <span aria-hidden="true">{isNavCollapsed ? "→" : "←"}</span><span className={styles.navToggleLabel}>{isNavCollapsed ? "Open rail" : "Collapse"}</span>
+          </button>
+          <div><span>Workspace</span><span aria-hidden="true">/</span><strong>My Research</strong></div><span className={styles.connectionStatus}><span aria-hidden="true">{apiClient ? "●" : "○"}</span>{librarySummary}</span>
+        </header>
         <div className={styles.contentFrame}>
           <section className={styles.hero} aria-labelledby="research-page-title">
             <div><p className={styles.eyebrow}>Phase 02 · Workspace and entity resolution</p><h1 id="research-page-title">Research that stays inspectable.</h1><p>Build a persistent company workspace before the evidence work begins. Start with identifiers, choose your focus, and keep uncertainty visible.</p></div>

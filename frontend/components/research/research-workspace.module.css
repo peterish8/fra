@@ -96,3 +96,35 @@
 .pageFooter { color:#9a968c; }
 .navItem:focus-visible,.brand:focus-visible,.sidebarLibrary button:focus-visible,.reportOpenButton:focus-visible,.deleteTrigger:focus-visible,.closeButton:focus-visible,.successNotice button:focus-visible { outline-color:rgb(184 92 50 / 38%); }
 @media (max-width:620px) { .signalStrip { align-items:stretch; flex-direction:column; gap:10px; padding:14px 0; }.signalRule { width:100%; height:1px; }.signalItem { padding:2px 3px; }.signalItem small { white-space:normal; } }
+
+/* Persistent navigation rail. The document scrolls; this rail never does. */
+.pageShell { position:relative; }
+.sidebar { position:fixed; z-index:20; inset:0 auto 0 0; height:100vh; overflow-y:auto; overscroll-behavior:contain; transition:width 220ms cubic-bezier(.22,1,.36,1), transform 220ms cubic-bezier(.22,1,.36,1); }
+.mainContent { margin-left:246px; transition:margin-left 220ms cubic-bezier(.22,1,.36,1); }
+.navCollapsed .sidebar { width:76px; flex-basis:76px; padding-right:10px; padding-left:10px; }
+.navCollapsed .mainContent { margin-left:76px; }
+.navCollapsed .brand { justify-content:center; padding:0; }
+.navCollapsed .navLabel,.navCollapsed .sidebarLibrary,.navCollapsed .sidebarFootnote { display:none; }
+.navCollapsed .navItem { justify-content:center; padding:0; }
+.navToggle { display:inline-flex; align-items:center; gap:8px; min-height:32px; margin-right:14px; padding:0 10px; border:1px solid #c8c2b5; border-radius:3px; background:#fffefa; color:#4b4e46; font:700 11px ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.02em; cursor:pointer; transition:background 160ms ease,color 160ms ease,border-color 160ms ease; }
+.navToggle:hover { border-color:#b85c32; background:#fff7f1; color:#b85c32; }
+.navToggle > span:first-child { font-size:15px; line-height:1; }
+.navScrim { display:none; }
+.hero,.signalStrip,.researchForm,.successNotice,.librarySection,.detailPanel { animation:desk-rise 620ms cubic-bezier(.22,1,.36,1) both; }
+.signalStrip { animation-delay:70ms; }.researchForm { animation-delay:120ms; }.successNotice { animation-delay:160ms; }.librarySection { animation-delay:190ms; }.detailPanel { animation-delay:230ms; }
+@keyframes desk-rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:620px) {
+  .sidebar { width:min(84vw,300px); transform:translateX(-105%); box-shadow:12px 0 32px rgb(54 48 37 / 12%); }
+  .sidebarOpen { transform:translateX(0); }
+  .mainContent,.navCollapsed .mainContent { margin-left:0; }
+  .navCollapsed .sidebar { width:min(84vw,300px); padding:24px 15px 20px; }
+  .navCollapsed .navLabel,.navCollapsed .sidebarLibrary,.navCollapsed .sidebarFootnote { display:block; }
+  .navCollapsed .navItem { justify-content:flex-start; padding:0 11px; }
+  .navScrim { position:fixed; z-index:15; inset:0; display:block; border:0; background:rgb(32 35 31 / 28%); cursor:pointer; }
+  .topBar { position:sticky; top:0; z-index:10; background:#f3f1eb; }
+  .navToggle { margin-right:8px; padding:0 9px; }
+  .navToggleLabel { display:none; }
+  .topBar > div { min-width:0; overflow:hidden; white-space:nowrap; }
+}
+@media (min-width:621px) { .sidebarOpen { transform:none; } }
+@media (prefers-reduced-motion: reduce) { .hero,.signalStrip,.researchForm,.successNotice,.librarySection,.detailPanel { animation:none; } .sidebar,.mainContent { transition:none; } }

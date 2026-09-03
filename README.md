@@ -49,6 +49,23 @@ Start implementation with Phase 01, then advance one dependency-ordered phase at
 
 Phases 01–02 are now complete at the tested contract/boundary level. The local build includes the Next.js/FastAPI shells, typed auth boundary, Truth Ledger migration/RLS contract, report workspace flow, conservative entity resolution, registry normalization, relationship lineage, and ambiguity UI. Continue with Phase 03 only after reviewing its test-first plan; live PostgreSQL/Supabase and credentialed provider execution remain environment-dependent verification steps.
 
+## Analyst workflow extension
+
+The local product now includes dedicated analyst workflow surfaces alongside the
+core evidence workspace:
+
+- structured report intake for initiation, update, earnings, event, sector, and
+  diligence research;
+- a thesis tracker that requires a falsifier and never confuses analyst posture
+  with a canonical claim verdict;
+- earnings/filing change briefs; and
+- a print-ready, cited tearsheet view.
+
+The visible briefing and tearsheet examples are clearly labelled local fixtures
+until live source snapshots and claim versions exist. The production contracts,
+schema migration, later feature roadmap, and release prerequisites are in
+[`docs/10-planning/22-ANALYST-WORKFLOW-EXTENSIONS.md`](docs/10-planning/22-ANALYST-WORKFLOW-EXTENSIONS.md).
+
 ## Documentation groups
 
 ```text

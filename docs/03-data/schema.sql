@@ -175,6 +175,8 @@ create table reports (
   title text not null,
   primary_company_id uuid references companies(id) on delete set null,
   report_type text not null default 'COMPANY_RESEARCH',
+  research_mode text not null default 'INITIATION'
+    check (research_mode in ('INITIATION','UPDATE','EARNINGS','EVENT','SECTOR','DILIGENCE')),
   focus jsonb not null default '{}'::jsonb,
   status report_status not null default 'DRAFT',
   current_version_id uuid,
@@ -183,6 +185,24 @@ create table reports (
   deleted_at timestamptz
 );
 create index reports_owner_updated_idx on reports(owner_user_id, updated_at desc);
+
+-- Analyst-authored research posture. These are deliberately separate from
+-- canonical claims and their verification verdicts.
+create table report_thesis_points (
+  id uuid primary key default gen_random_uuid(),
+  report_id uuid not null references reports(id) on delete cascade,
+  owner_user_id uuid not null references profiles(id) on delete cascade,
+  statement text not null check (length(trim(statement)) between 8 and 2000),
+  falsifier text not null check (length(trim(falsifier)) between 8 and 2000),
+  materiality materiality_level not null default 'MEDIUM',
+  status text not null default 'OPEN'
+    check (status in ('OPEN','SUPPORTED','WEAKENED','UNCHANGED')),
+  review_note text check (review_note is null or length(review_note) <= 2000),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index report_thesis_points_report_updated_idx on report_thesis_points(report_id, updated_at desc);
+create index report_thesis_points_owner_idx on report_thesis_points(owner_user_id, updated_at desc);
 
 create table report_companies (
   report_id uuid not null references reports(id) on delete cascade,
@@ -302,6 +322,15 @@ create table claim_versions (
   created_at timestamptz not null default now()
 );
 create index claim_versions_claim_time_idx on claim_versions(claim_id, created_at desc);
+
+create table report_thesis_point_claims (
+  thesis_point_id uuid not null references report_thesis_points(id) on delete cascade,
+  claim_version_id uuid not null references claim_versions(id) on delete restrict,
+  relationship text not null default 'RELEVANT'
+    check (relationship in ('SUPPORTS','WEAKENS','RELEVANT')),
+  created_at timestamptz not null default now(),
+  primary key(thesis_point_id, claim_version_id)
+);
 
 create table claim_evidence (
   id uuid primary key default gen_random_uuid(),
@@ -505,12 +534,25 @@ create index audit_events_object_idx on audit_events(object_type, object_id, cre
 alter table profiles enable row level security;
 alter table reports enable row level security;
 alter table report_companies enable row level security;
+alter table report_thesis_points enable row level security;
+alter table report_thesis_point_claims enable row level security;
 
 create policy "users read own profile" on profiles for select using (auth.uid() = id);
 create policy "users update own profile" on profiles for update using (auth.uid() = id);
 create policy "users read own reports" on reports for select using (auth.uid() = owner_user_id);
 create policy "users create own reports" on reports for insert with check (auth.uid() = owner_user_id);
 create policy "users update own reports" on reports for update using (auth.uid() = owner_user_id);
+create policy "users read own thesis points" on report_thesis_points for select using (auth.uid() = owner_user_id);
+create policy "users create own thesis points" on report_thesis_points for insert with check (auth.uid() = owner_user_id);
+create policy "users update own thesis points" on report_thesis_points for update using (auth.uid() = owner_user_id);
+create policy "users read own thesis claim links" on report_thesis_point_claims for select using (
+  exists (select 1 from report_thesis_points where id = thesis_point_id and owner_user_id = auth.uid())
+);
+create policy "users manage own thesis claim links" on report_thesis_point_claims for all using (
+  exists (select 1 from report_thesis_points where id = thesis_point_id and owner_user_id = auth.uid())
+) with check (
+  exists (select 1 from report_thesis_points where id = thesis_point_id and owner_user_id = auth.uid())
+);
 
 -- Additional RLS policies should be added for report child tables through secure views/functions or owner joins.
 -- Research writes should be performed by trusted backend/service role, not browser clients.

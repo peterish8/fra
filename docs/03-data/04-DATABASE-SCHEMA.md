@@ -73,6 +73,22 @@ Persistent user workspace, not a generated document blob.
 
 Fields: owner, title, primary company, report type/focus, current version ID, status.
 
+`research_mode` records the requested analyst workflow: `INITIATION`,
+`UPDATE`, `EARNINGS`, `EVENT`, `SECTOR`, or `DILIGENCE`. It is planning
+metadata and must never alter a canonical claim verdict or publication gate.
+
+### `report_thesis_points`
+User-owned analyst propositions attached to a report. A point contains a
+statement, a falsifier, materiality, a research posture (`OPEN`, `SUPPORTED`,
+`WEAKENED`, or `UNCHANGED`), and an optional review note. Thesis posture is not
+a verification verdict and is kept outside immutable claim/evidence history.
+
+### `report_thesis_point_claims`
+Optional links from a thesis point to exact claim versions. Relationship values
+explain whether a cited claim version supports, weakens, or is otherwise
+relevant to a thesis. The links preserve claim-version lineage rather than
+copying claim text into a user-authored note.
+
 ### `report_companies`
 Many-to-many for comparison reports.
 
@@ -247,6 +263,9 @@ Use Postgres trigram/full-text indexes for entity/report search if needed before
 ## 6. RLS/Ownership
 
 - Users can read/write their own `reports` and user-specific report versions through authenticated policies.
+- Users can read/write only their own `report_thesis_points` and linked
+  claim-version references. This RLS scope does not grant direct write access to
+  canonical claims or evidence.
 - Public weekly watchlists and explicitly public report versions can be read through controlled views/endpoints.
 - Shared canonical company/source/evidence data is not directly writable by client roles.
 - Service-role/backend performs research writes.

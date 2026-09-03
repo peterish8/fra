@@ -17,6 +17,15 @@ class ReportDepth(StrEnum):
     DEEP = "DEEP"
 
 
+class ResearchMode(StrEnum):
+    INITIATION = "INITIATION"
+    UPDATE = "UPDATE"
+    EARNINGS = "EARNINGS"
+    EVENT = "EVENT"
+    SECTOR = "SECTOR"
+    DILIGENCE = "DILIGENCE"
+
+
 class ReportStatus(StrEnum):
     DRAFT = "DRAFT"
     RESEARCHING = "RESEARCHING"
@@ -68,6 +77,7 @@ class CreateReportRequest(BaseModel):
     subject: ReportSubject
     focus: list[str] = Field(default_factory=list, max_length=32)
     depth: ReportDepth = ReportDepth.STANDARD
+    research_mode: ResearchMode = ResearchMode.INITIATION
 
     @field_validator("title")
     @classmethod
@@ -102,6 +112,7 @@ class ReportRecord(BaseModel):
     subject: ReportSubject
     focus: list[str] = Field(default_factory=list)
     depth: ReportDepth
+    research_mode: ResearchMode = ResearchMode.INITIATION
     status: ReportStatus = ReportStatus.DRAFT
     updated_at: datetime
     deleted_at: datetime | None = None
@@ -128,6 +139,7 @@ class ReportSummary(BaseModel):
     status: ReportStatus
     current_version: int | None = None
     updated_at: datetime
+    research_mode: ResearchMode = ResearchMode.INITIATION
 
     @classmethod
     def from_record(cls, record: ReportRecord) -> ReportSummary:
@@ -137,6 +149,7 @@ class ReportSummary(BaseModel):
             status=record.status,
             current_version=record.current_version,
             updated_at=record.updated_at,
+            research_mode=record.research_mode,
         )
 
 
@@ -170,6 +183,7 @@ __all__ = [
     "ReportDetail",
     "ReportListResponse",
     "ReportRecord",
+    "ResearchMode",
     "ReportStatus",
     "ReportSubject",
     "ReportSummary",

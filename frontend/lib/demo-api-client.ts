@@ -53,6 +53,7 @@ export const demoReportApiClient: ReportApiClient = {
       subject: request.subject,
       focus: request.focus,
       depth: request.depth,
+      research_mode: request.research_mode,
     };
     demoReports = [report, ...demoReports];
     return report as T;
@@ -64,4 +65,3 @@ export const demoReportApiClient: ReportApiClient = {
     return undefined as T;
   },
 };
-

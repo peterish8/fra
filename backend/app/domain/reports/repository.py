@@ -89,6 +89,7 @@ class _CollectionReportRepository:
                 subject=request.subject,
                 focus=request.focus,
                 depth=request.depth,
+                research_mode=request.research_mode,
                 status=ReportStatus.DRAFT,
                 updated_at=now,
             )
@@ -183,6 +184,7 @@ def _record_to_storage(record: ReportRecord) -> dict[str, Any]:
         "subject": record.subject.model_dump(exclude_none=True),
         "focus": list(record.focus),
         "depth": record.depth.value,
+        "research_mode": record.research_mode.value,
         "status": record.status.value,
         "updated_at": record.updated_at,
         "deleted_at": record.deleted_at,

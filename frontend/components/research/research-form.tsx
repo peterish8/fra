@@ -5,14 +5,17 @@ import { FormEvent, useId, useState } from "react";
 import {
   DEPTH_OPTIONS,
   FOCUS_OPTIONS,
+  RESEARCH_MODE_OPTIONS,
   type CreateReportRequest,
   type ResearchDepth,
+  type ResearchMode,
 } from "./research-types";
 import styles from "./research-workspace.module.css";
 
 type ResearchFormProps = {
   disabled?: boolean;
   error?: string | null;
+  initialQuery?: string;
   onSubmit: (request: CreateReportRequest) => Promise<void>;
 };
 
@@ -24,6 +27,7 @@ type FormValues = {
   domain: string;
   focus: string[];
   depth: ResearchDepth;
+  researchMode: ResearchMode;
 };
 
 const initialValues: FormValues = {
@@ -34,6 +38,7 @@ const initialValues: FormValues = {
   domain: "",
   focus: ["financials"],
   depth: "STANDARD",
+  researchMode: "INITIATION",
 };
 
 function inputError(values: FormValues): string | null {
@@ -55,8 +60,8 @@ function generatedTitle(values: FormValues): string {
   return `${values.query.trim()} - ${focus}`;
 }
 
-export function ResearchForm({ disabled = false, error, onSubmit }: ResearchFormProps) {
-  const [values, setValues] = useState<FormValues>(initialValues);
+export function ResearchForm({ disabled = false, error, initialQuery = "", onSubmit }: ResearchFormProps) {
+  const [values, setValues] = useState<FormValues>(() => ({ ...initialValues, query: initialQuery.trim() }));
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const queryId = useId();
@@ -104,6 +109,7 @@ export function ResearchForm({ disabled = false, error, onSubmit }: ResearchForm
         },
         focus: values.focus,
         depth: values.depth,
+        research_mode: values.researchMode,
       });
       setValues(initialValues);
     } catch {
@@ -203,6 +209,19 @@ export function ResearchForm({ disabled = false, error, onSubmit }: ResearchForm
           <span className={styles.fieldHint}>This is a candidate identifier until the system confirms it.</span>
         </div>
       </div>
+
+      <fieldset className={styles.choiceGroup}>
+        <legend>Research mode</legend>
+        <p className={styles.choiceIntro}>Choose the work product before selecting its depth.</p>
+        <div className={styles.depthGrid}>
+          {RESEARCH_MODE_OPTIONS.map((option) => (
+            <label className={`${styles.depthCard} ${values.researchMode === option.value ? styles.depthCardSelected : ""}`} key={option.value}>
+              <input type="radio" name="research-mode" value={option.value} checked={values.researchMode === option.value} onChange={() => update("researchMode", option.value)} disabled={disabled || isSubmitting} />
+              <span><strong>{option.label}</strong><small>{option.description}</small></span><span className={styles.radioMark} aria-hidden="true" />
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <fieldset className={styles.choiceGroup}>
         <legend>Research focus</legend>

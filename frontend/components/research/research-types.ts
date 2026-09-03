@@ -1,4 +1,5 @@
 export type ResearchDepth = "FAST" | "STANDARD" | "DEEP";
+export type ResearchMode = "INITIATION" | "UPDATE" | "EARNINGS" | "EVENT" | "SECTOR" | "DILIGENCE";
 
 export type ReportStatus = "DRAFT" | "RESEARCHING" | "READY" | "VERIFIED" | string;
 
@@ -14,6 +15,7 @@ export type CreateReportRequest = {
   subject: ReportSubject;
   focus: string[];
   depth: ResearchDepth;
+  research_mode: ResearchMode;
 };
 
 export type ReportSummary = {
@@ -25,6 +27,7 @@ export type ReportSummary = {
   subject?: ReportSubject;
   focus?: string[];
   depth?: ResearchDepth;
+  research_mode?: ResearchMode;
 };
 
 export type ReportDetail = ReportSummary & {
@@ -57,6 +60,15 @@ export const DEPTH_OPTIONS: Array<{ value: ResearchDepth; label: string; descrip
   { value: "FAST", label: "Fast", description: "A focused first pass" },
   { value: "STANDARD", label: "Standard", description: "Balanced coverage for most workspaces" },
   { value: "DEEP", label: "Deep", description: "Broader, more deliberate verification" },
+];
+
+export const RESEARCH_MODE_OPTIONS: Array<{ value: ResearchMode; label: string; description: string }> = [
+  { value: "INITIATION", label: "Initiation", description: "Build the first evidence-backed company view" },
+  { value: "UPDATE", label: "Update", description: "Revisit what changed since the prior version" },
+  { value: "EARNINGS", label: "Earnings", description: "Read results, guidance, and open questions" },
+  { value: "EVENT", label: "Event", description: "Assess a filing, rating action, or material event" },
+  { value: "SECTOR", label: "Sector", description: "Compare shared drivers across a peer set" },
+  { value: "DILIGENCE", label: "Diligence", description: "Investigate disclosure, identity, and risk evidence" },
 ];
 
 export const STATUS_OPTIONS = [

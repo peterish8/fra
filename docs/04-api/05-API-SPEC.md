@@ -23,7 +23,8 @@ Request:
   "title": "NVIDIA — Deep Research",
   "subject": {"query": "NVIDIA", "country_code": "US"},
   "focus": ["financials", "growth", "risks", "disclosure"],
-  "depth": "DEEP"
+  "depth": "DEEP",
+  "research_mode": "INITIATION"
 }
 ```
 
@@ -55,6 +56,33 @@ Soft-delete user workspace. Must not destroy shared canonical evidence reference
 Opening or deleting a workspace owned by another user is rejected by the
 backend authorization boundary; deleted workspaces are not returned by list,
 open, or repeat-delete operations.
+
+`research_mode` is one of `INITIATION`, `UPDATE`, `EARNINGS`, `EVENT`,
+`SECTOR`, or `DILIGENCE`. It communicates the analyst workflow requested for a
+workspace; it neither changes a claim verdict nor grants a report verification
+status.
+
+### Analyst workflow extensions
+
+#### `GET|POST /v1/reports/{report_id}/thesis`
+List or create analyst-authored thesis points. A point has a proposition and a
+falsifier and is owner-scoped. Its status is one of `OPEN`, `SUPPORTED`,
+`WEAKENED`, or `UNCHANGED` and is deliberately distinct from the canonical
+claim verdict vocabulary.
+
+#### `PATCH /v1/reports/{report_id}/thesis/{thesis_point_id}`
+Update an analyst thesis posture or review note. This endpoint cannot mutate
+claim text, evidence, calculations, source-family data, or verification.
+
+#### `GET /v1/reports/{report_id}/change-brief?kind=EARNINGS|FILING`
+Return a concise source-cited delta brief. Each line item carries at least one
+source snapshot reference and all unavailable/live-data limitations remain in
+the response rather than being inferred away.
+
+#### `GET /v1/reports/{report_id}/tearsheet`
+Return a cited one-page handoff projection. It is research discovery material,
+not investment advice; it preserves source limitations and does not turn a
+thesis posture into a verified conclusion.
 
 ### Research runs
 

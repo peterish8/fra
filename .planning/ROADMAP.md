@@ -20,6 +20,21 @@ This roadmap converts the specification pack into a dependency-ordered OJT V1 bu
 - [ ] **Phase 08: Living Reports & Comparison** — Add refresh/version diffs, affected-claim updates, and cohort-aware company comparison.
 - [ ] **Phase 09: Weekly Watchlist & Discover** — Build the staged weekly funnel, atomic publication, rank history, and discovery screen.
 - [ ] **Phase 10: Hardening, Evaluation & Release** — Prove security, quality, resilience, observability, deployment, and policy readiness.
+- [ ] **Extension 11: Analyst Workflows** — Add structured research modes, thesis tracking, cited change briefs, and a tearsheet without changing truth-ledger semantics.
+
+### Extension 11: Analyst Workflows
+**Goal**: Give researchers dedicated surfaces for initiating and updating work,
+forming falsifiable theses, reading source-linked deltas, and handing off a
+concise cited report.
+
+**Contract**: Thesis posture is separate from a claim verdict; briefs and
+tearsheets are derived projections over report/claim/evidence records; live
+market data, exports, team workflows, and alerting stay out of this extension
+until their licensing and RLS contracts are approved.
+
+**Implementation artifacts**: `docs/10-planning/22-ANALYST-WORKFLOW-EXTENSIONS.md`,
+`docs/03-data/migrations/20260903_analyst_workflows.sql`, and the owner-scoped
+analyst workflow API contract.
 
 ## Phase Details
 

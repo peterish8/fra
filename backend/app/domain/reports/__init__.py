@@ -9,6 +9,7 @@ from .models import (
     ReportStatus,
     ReportSubject,
     ReportSummary,
+    ResearchMode,
 )
 from .repository import (
     FixtureReportRepositoryAdapter,
@@ -30,6 +31,7 @@ __all__ = [
     "ReportDetail",
     "ReportListResponse",
     "ReportRecord",
+    "ResearchMode",
     "ReportRepository",
     "ReportRepositoryUnavailable",
     "ReportService",

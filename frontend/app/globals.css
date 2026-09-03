@@ -592,3 +592,8 @@ main:not([class]) { background-image:linear-gradient(rgb(8 10 15 / 88%),rgb(8 10
 .route-error { display:grid; min-height:100vh; place-items:center; padding:36px 24px; }.route-error-card { width:min(100%,540px); padding:38px; border:1px solid #2d3344; border-radius:16px; background:#0e1118; box-shadow:0 18px 48px rgb(0 0 0 / 28%); }.route-error-card h1 { margin:14px 0 0; color:#f5f3fb; font-size:clamp(30px,4vw,48px); letter-spacing:-.055em; }.route-error-card p { margin:16px 0 0; color:#858ba6; line-height:1.65; }.route-error-card > div { display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:26px; }.route-primary-button { display:inline-flex; min-height:40px; align-items:center; padding:0 15px; border:1px solid #8174e8; border-radius:7px; background:#9a8cff; color:#100d1f; font-size:13px; font-weight:700; cursor:pointer; }.route-secondary-link { color:#b0a6ff; font-size:13px; font-weight:700; }.route-primary-button:focus-visible,.route-secondary-link:focus-visible { outline:3px solid rgb(190 184 255 / 42%); outline-offset:3px; }
 @keyframes route-pulse { 0%,100% { opacity:.55; } 50% { opacity:1; } }
 @media (prefers-reduced-motion: reduce) { .route-loading-line,.route-loading-panel span { animation:none; } }
+
+/* The fixed rail owns the horizontal layout. Keep route content from creating a second viewport. */
+html, body { max-width:100%; overflow-x:hidden; }
+.global-app-shell, .global-app-main, .main-content, .content-frame { min-width:0; max-width:100%; }
+.global-app-main { overflow-x:hidden; }

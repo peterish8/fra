@@ -4,9 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// Versioned so a prior prototype's collapsed preference cannot hide the new rail.
-const COLLAPSED_KEY = "financial-research-nav-collapsed-v2";
-
 type NavItem = { label: string; href: string; icon: string };
 
 const navItems: NavItem[] = [
@@ -30,10 +27,6 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    setCollapsed(window.localStorage.getItem(COLLAPSED_KEY) === "true");
-  }, []);
-
-  useEffect(() => {
     if (!mobileOpen) return;
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") setMobileOpen(false);
@@ -43,11 +36,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
   }, [mobileOpen]);
 
   function toggleCollapsed() {
-    setCollapsed((current) => {
-      const next = !current;
-      window.localStorage.setItem(COLLAPSED_KEY, String(next));
-      return next;
-    });
+    setCollapsed((current) => !current);
   }
 
   return (

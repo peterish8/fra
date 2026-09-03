@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
@@ -14,6 +15,7 @@ import {
   type ReportDetail,
   type ReportListResponse,
   type ReportSummary,
+  type ResearchMode,
 } from "./research-types";
 
 type ResearchWorkspaceProps = {
@@ -58,6 +60,7 @@ function DetailPanel({ report, isLoading, error, onClose }: { report: ReportSumm
 }
 
 export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
+  const searchParams = useSearchParams();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavCollapsed, setIsNavCollapsed] = useState(false);
   const [reports, setReports] = useState<ReportSummary[]>([]);
@@ -72,6 +75,9 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const initialQuery = searchParams.get("company") ?? searchParams.get("ticker") ?? "";
+  const requestedMode = searchParams.get("mode");
+  const initialMode: ResearchMode = requestedMode === "UPDATE" || requestedMode === "EARNINGS" || requestedMode === "EVENT" || requestedMode === "SECTOR" || requestedMode === "DILIGENCE" ? requestedMode : "INITIATION";
 
   const loadReports = useCallback(async () => {
     if (!apiClient) {
@@ -209,7 +215,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
             <div className={styles.signalItem}><span>03</span><strong>Report</strong><small>What remains uncertain</small></div>
           </div>
 
-          <ResearchForm disabled={isCreating} error={formError} onSubmit={createReport} />
+          <ResearchForm disabled={isCreating} error={formError} initialQuery={initialQuery} initialMode={initialMode} onSubmit={createReport} />
           {feedback ? <div className={styles.successNotice} role="status"><span aria-hidden="true">✓</span><span>{feedback}</span><button type="button" onClick={() => setFeedback(null)} aria-label="Dismiss notification">×</button></div> : null}
 
           <ResearchLibrary

@@ -8,7 +8,7 @@ type IconName = "discover" | "research" | "reports" | "compare" | "thesis" | "br
 type NavItem = { label: string; href: string; icon: IconName };
 
 const navGroups: Array<{ label: string; items: NavItem[] }> = [
-  { label: "Overview", items: [{ label: "Discover", href: "/", icon: "discover" }] },
+  { label: "Desk", items: [{ label: "Discover", href: "/", icon: "discover" }] },
   {
     label: "Research",
     items: [
@@ -19,7 +19,13 @@ const navGroups: Array<{ label: string; items: NavItem[] }> = [
       { label: "Change briefs", href: "/briefs", icon: "brief" },
     ],
   },
-  { label: "Account", items: [{ label: "Settings", href: "/settings", icon: "settings" }] },
+  { label: "System", items: [{ label: "Settings", href: "/settings", icon: "settings" }] },
+];
+
+const coverageItems = [
+  { ticker: "NVDA", name: "NVIDIA", href: "/research?company=NVIDIA" },
+  { ticker: "HDFCBANK", name: "HDFC Bank", href: "/research?company=HDFC%20Bank" },
+  { ticker: "TCS", name: "Tata Consultancy", href: "/research?company=TCS" },
 ];
 
 function BrandMark() {
@@ -84,11 +90,10 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
             </button>
           </div>
 
-          <div className="global-welcome">
-            <p>Research desk</p>
-            <h2>Welcome<br />back.</h2>
-            <span>Local session · private by default</span>
-          </div>
+          <section className="global-coverage" aria-label="Pinned coverage">
+            <div className="global-coverage-heading"><span className="global-nav-label">Coverage</span><small className="global-nav-label">Fixture</small></div>
+            {coverageItems.map((item) => <Link className="global-coverage-item" href={item.href} key={item.ticker} title={collapsed ? `${item.ticker} — ${item.name}` : undefined} onClick={() => setMobileOpen(false)}><strong>{item.ticker}</strong><span className="global-nav-label">{item.name}</span></Link>)}
+          </section>
 
           <nav id="global-primary-nav" className="global-primary-nav">
             {navGroups.map((group) => (

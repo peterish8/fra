@@ -16,6 +16,7 @@ type ResearchFormProps = {
   disabled?: boolean;
   error?: string | null;
   initialQuery?: string;
+  initialMode?: ResearchMode;
   onSubmit: (request: CreateReportRequest) => Promise<void>;
 };
 
@@ -60,8 +61,8 @@ function generatedTitle(values: FormValues): string {
   return `${values.query.trim()} - ${focus}`;
 }
 
-export function ResearchForm({ disabled = false, error, initialQuery = "", onSubmit }: ResearchFormProps) {
-  const [values, setValues] = useState<FormValues>(() => ({ ...initialValues, query: initialQuery.trim() }));
+export function ResearchForm({ disabled = false, error, initialQuery = "", initialMode = "INITIATION", onSubmit }: ResearchFormProps) {
+  const [values, setValues] = useState<FormValues>(() => ({ ...initialValues, query: initialQuery.trim(), researchMode: initialMode }));
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const queryId = useId();

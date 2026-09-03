@@ -2,7 +2,7 @@
 
 ## 1. Visual Direction
 
-Professional financial research + modern developer-tool clarity.
+Editorial financial research desk + modern developer-tool clarity.
 
 Keywords:
 - precise
@@ -10,12 +10,18 @@ Keywords:
 - evidence-first
 - dense but not cramped
 - editorial report readability
+- compact coverage rail
 - minimal chrome
 
+Reference interaction pattern: a researcher should see their coverage context,
+choose a research mode, identify a company/ticker, state a brief, and open a
+workspace in one contained composition. The page should read like an analyst
+desk, not a trading terminal or generic SaaS dashboard.
+
 Avoid:
-- gradients
+- decorative gradients
 - glassmorphism
-- glow
+- glow-heavy surfaces
 - excessive card nesting
 - decorative 3D
 - hover scaling
@@ -24,9 +30,11 @@ Avoid:
 ## 2. Typography
 
 Recommended:
-- UI/body: **Geist Sans** or Inter
-- numeric/tabular data: enable tabular numerals
-- code/IDs: Geist Mono or equivalent
+- UI/body: refined humanist sans such as **Avenir Next** or equivalent
+- display/report headings: a restrained editorial serif such as **Instrument
+  Serif** or a close system fallback
+- numeric/tabular data and tickers: enable tabular numerals with **IBM Plex
+  Mono** or equivalent
 
 Hierarchy:
 - page title: 28–32px desktop
@@ -35,7 +43,8 @@ Hierarchy:
 - body: 14–16px
 - evidence metadata: 12–13px, never below accessible readability
 
-Use sentence case. Avoid all-caps except tiny status/metadata labels sparingly.
+Use sentence case. Use mono uppercase sparingly for tickers and tiny metadata
+labels; do not use it as a substitute for hierarchy.
 
 ## 3. Color Tokens
 
@@ -158,4 +167,3 @@ Before approving a screen:
 - Does keyboard navigation work?
 - Is status readable without color?
 - Are dense tables still scannable?
-

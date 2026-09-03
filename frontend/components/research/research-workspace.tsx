@@ -164,7 +164,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
     <div className={`${styles.pageShell} ${isNavCollapsed ? styles.navCollapsed : ""}`}>
       <a className={styles.skipLink} href="#research-main">Skip to research workspace</a>
       {isNavOpen ? <button className={styles.navScrim} type="button" aria-label="Close navigation" onClick={() => setIsNavOpen(false)} /> : null}
-      <aside className={`${styles.sidebar} ${isNavOpen ? styles.sidebarOpen : ""}`} aria-label="Research navigation">
+      <aside id="research-navigation" className={`${styles.sidebar} ${isNavOpen ? styles.sidebarOpen : ""}`} aria-label="Research navigation">
         <Link href="/" className={styles.brand} onClick={() => setIsNavOpen(false)}><span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span><span className={styles.navLabel}>Financial Research</span></Link>
         <nav aria-label="Primary navigation" className={styles.primaryNav}>
           <Link href="/" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⌕</span><span className={styles.navLabel}>Discover</span></Link>
@@ -181,7 +181,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
 
       <main className={styles.mainContent} id="research-main">
         <header className={styles.topBar}>
-          <button className={styles.navToggle} type="button" onClick={() => { setIsNavOpen(true); setIsNavCollapsed((current) => !current); }} aria-label={isNavCollapsed ? "Expand navigation" : "Collapse navigation"} aria-expanded={isNavOpen}>
+          <button className={styles.navToggle} type="button" onClick={() => { setIsNavOpen(true); setIsNavCollapsed((current) => !current); }} aria-label={isNavCollapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="research-navigation" aria-pressed={isNavCollapsed}>
             <span aria-hidden="true">{isNavCollapsed ? "→" : "←"}</span><span className={styles.navToggleLabel}>{isNavCollapsed ? "Open rail" : "Collapse"}</span>
           </button>
           <div><span>Workspace</span><span aria-hidden="true">/</span><strong>My Research</strong></div><span className={styles.connectionStatus}><span aria-hidden="true">{apiClient ? "●" : "○"}</span>{librarySummary}</span>

@@ -153,6 +153,11 @@
 .researchForm,.librarySection,.detailPanel { background-image:linear-gradient(rgb(14 17 24 / 95%),rgb(14 17 24 / 97%)),url('/assets/evidence-texture.png'); background-position:center; background-size:100% 100%,cover; background-repeat:no-repeat; }
 @media (max-width:620px) { .hero { min-height:340px; margin-inline:0; padding:30px 22px 28px; border-radius:14px; background-position:62% center; } }
 
+/* The shared app shell owns navigation on every route. */
+.embeddedPage { display:block; min-height:auto; }
+.embeddedPage .sidebar,.embeddedPage .navToggle,.embeddedPage .navScrim { display:none; }
+.embeddedPage .mainContent { margin-left:0; }
+
 /* The headline carries the same quiet silver-to-violet light as the reference. */
 .hero h1 { color:#f5f3fb; background:linear-gradient(105deg,#ffffff 0%,#eef0f4 38%,#c9cdd6 72%,#aeb4c1 100%); background-size:190% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 14px rgb(218 221 232 / 14%)); animation:research-sheen 14s ease-in-out infinite alternate; }
 .formHeader h2,.sectionHeader h2,.detailHeader h2 { color:#f5f3fb; background:linear-gradient(105deg,#ffffff 0%,#e5e7ed 60%,#b9beca 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }

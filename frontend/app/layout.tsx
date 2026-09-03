@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { DevAuthGate } from "@/components/dev/dev-auth-gate";
+import { GlobalAppShell } from "@/components/layout/global-app-shell";
 
 import "./globals.css";
 
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body><DevAuthGate>{children}</DevAuthGate></body>
+      <body><DevAuthGate><GlobalAppShell>{children}</GlobalAppShell></DevAuthGate></body>
     </html>
   );
 }

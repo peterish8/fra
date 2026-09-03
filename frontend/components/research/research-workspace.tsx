@@ -170,7 +170,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
   }, [apiClient, isLoading, reports.length]);
 
   return (
-    <div className={`${styles.pageShell} ${isNavCollapsed ? styles.navCollapsed : ""}`}>
+    <div className={`${styles.pageShell} ${styles.embeddedPage} ${isNavCollapsed ? styles.navCollapsed : ""}`}>
       <a className={styles.skipLink} href="#research-main">Skip to research workspace</a>
       {isNavOpen ? <button className={styles.navScrim} type="button" aria-label="Close navigation" onClick={() => setIsNavOpen(false)} /> : null}
       <aside id="research-navigation" className={`${styles.sidebar} ${isNavOpen ? styles.sidebarOpen : ""}`} aria-label="Research navigation">

@@ -131,7 +131,7 @@
 
 /* Reference-matched dark workspace layer. */
 .pageShell { background:radial-gradient(circle at 11% 3%,rgb(91 79 170 / 22%),transparent 29%),#080a0f; color:#f5f3fb; }
-.sidebar { border-color:#222736; background:#0b0e14; box-shadow:16px 0 40px rgb(0 0 0 / 28%); }
+.sidebar { border-color:#222736; background-color:#0b0e14; background-image:linear-gradient(180deg,rgb(11 14 20 / 76%),rgb(11 14 20 / 97%)),url('/assets/nav-glow.png'); background-position:center,left top; background-repeat:no-repeat; background-size:cover,auto 100%; box-shadow:16px 0 40px rgb(0 0 0 / 28%); }
 .brand { color:#f5f3fb; font-family:"Avenir Next","Helvetica Neue","Segoe UI",sans-serif; }.brandMark { border-color:#343b50; background:#151925; }.brandMark i { background:#9a8cff; }
 .navItem { color:#7d84a0; }.navItem:hover { background:#151925; color:#f5f3fb; }.navItemCurrent { background:#282342; color:#f5f3fb; box-shadow:inset 0 0 0 1px rgb(154 140 255 / 16%); }
 .sidebarLibrary { border-color:#222736; }.sidebarHeading { color:#858ba6; }.sidebarHeading span:last-child { border-color:#343b50; color:#858ba6; }.sidebarLibrary button { color:#c8c9da; }.sidebarLibrary button:hover { color:#a99cff; }.sidebarLibrary button small,.sidebarLibrary p { color:#626981; }.sidebarFootnote { color:#858ba6; }

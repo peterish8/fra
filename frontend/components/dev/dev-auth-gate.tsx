@@ -9,16 +9,16 @@ function isLocalhost() {
 }
 
 export function DevAuthGate({ children }: { children: React.ReactNode }) {
-  const [ready, setReady] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
+  // Render the app shell immediately on the server. A blocking loader here
+  // would leave the whole workspace blank if a development HMR/client bundle
+  // fails before hydration. The localhost-only gate is applied after mount.
+  const [isDevHost, setIsDevHost] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
-    if (!isLocalhost()) {
-      setReady(true);
-      return;
-    }
-    setSignedIn(window.localStorage.getItem(DEV_AUTH_KEY) === "true");
-    setReady(true);
+    const local = isLocalhost();
+    setIsDevHost(local);
+    setSignedIn(!local || window.localStorage.getItem(DEV_AUTH_KEY) === "true");
   }, []);
 
   function signIn() {
@@ -26,11 +26,7 @@ export function DevAuthGate({ children }: { children: React.ReactNode }) {
     setSignedIn(true);
   }
 
-  if (!ready) {
-    return <div className="dev-auth-loading" role="status">Preparing your workspace…</div>;
-  }
-
-  if (isLocalhost() && !signedIn) {
+  if (isDevHost && !signedIn) {
     return (
       <main className="dev-auth-screen">
         <div className="dev-auth-card">
@@ -47,4 +43,3 @@ export function DevAuthGate({ children }: { children: React.ReactNode }) {
 
   return <>{children}</>;
 }
-

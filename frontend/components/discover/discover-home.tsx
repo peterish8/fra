@@ -13,7 +13,7 @@ const deskModes: Array<{ value: DeskMode; label: string; prompt: string }> = [
   { value: "INITIATION", label: "Initiation", prompt: "Build the first evidence-led view of this company." },
   { value: "EARNINGS", label: "Earnings", prompt: "Latest results versus the comparable period and prior guidance." },
   { value: "UPDATE", label: "Update", prompt: "What changed since the last report version?" },
-  { value: "DILIGENCE", label: "Question", prompt: "Test a specific question, risk, or thesis condition." },
+  { value: "DILIGENCE", label: "Diligence", prompt: "Test a specific question, risk, or thesis condition." },
 ];
 
 function EvidenceMeter({ value }: { value: number }) {
@@ -53,15 +53,16 @@ export function DiscoverHome() {
   return (
     <main className="desk-page" id="main-content">
       <header className="desk-topbar">
-        <div><span>Research workspace</span><b>Evidence desk</b></div>
-        <p>Not advice. Every material statement should trace to a source.</p>
+        <div className="desk-breadcrumb"><span>Workspace</span><i aria-hidden="true">/</i><b>Discover</b></div>
+        <p><span aria-hidden="true" />Local preview · sources and uncertainty remain visible</p>
       </header>
 
       <div className="desk-canvas">
         <section className="desk-command-panel" aria-labelledby="desk-title">
           <div className="desk-command-heading">
-            <p>Research, with the record attached</p>
-            <h1 id="desk-title">Start with a question.<br /><em>Keep the evidence.</em></h1>
+            <p>New research</p>
+            <h1 id="desk-title">Open a research workspace</h1>
+            <span>Choose the company, frame the question, and keep every conclusion connected to its record.</span>
           </div>
 
           <form onSubmit={openWorkspace}>
@@ -71,7 +72,7 @@ export function DiscoverHome() {
             <p className="desk-mode-prompt">{selectedMode.prompt}</p>
 
             <div className="desk-subject-grid">
-              <label><span>Ticker <i>(optional)</i></span><input value={ticker} onChange={(event) => setTicker(event.target.value)} placeholder="NVDA" autoCapitalize="characters" /></label>
+              <label><span>Ticker <i>Optional</i></span><input value={ticker} onChange={(event) => setTicker(event.target.value)} placeholder="NVDA" autoCapitalize="characters" /></label>
               <label><span>Company</span><input value={company} onChange={(event) => setCompany(event.target.value)} placeholder="NVIDIA" autoComplete="organization" /></label>
             </div>
             <label className="desk-brief-field"><span>Research brief</span><textarea value={brief} onChange={(event) => setBrief(event.target.value)} rows={3} placeholder="What should this research answer? A thesis, event, comparison, or diligence question is enough." /></label>
@@ -81,7 +82,7 @@ export function DiscoverHome() {
             </div>
           </form>
           <div className="desk-suggestions" aria-label="Example research prompts">
-            <span>Try</span>
+            <span>Examples</span>
             <button type="button" onClick={() => { setTicker("HDFCBANK"); setCompany("HDFC Bank"); setMode("EARNINGS"); }}>HDFC Bank earnings</button>
             <button type="button" onClick={() => { setTicker("DIXON"); setCompany("Dixon Technologies"); setMode("INITIATION"); }}>Dixon initiation</button>
             <button type="button" onClick={() => { setTicker("NVDA"); setCompany("NVIDIA"); setMode("UPDATE"); }}>NVIDIA update</button>
@@ -90,14 +91,14 @@ export function DiscoverHome() {
 
         <section className="desk-watchlist" aria-labelledby="watchlist-title">
           <div className="desk-section-heading">
-            <div><p>Coverage queue</p><h2 id="watchlist-title">Research watchlist</h2></div>
+            <div><p>Your coverage</p><h2 id="watchlist-title">Research watchlist</h2></div>
             <div className="desk-filter-list" aria-label="Watchlist filters">
               {(["All", "Public", "Needs review"] as Filter[]).map((item) => <button key={item} className={filter === item ? "desk-filter-active" : ""} type="button" onClick={() => setFilter(item)}>{item}</button>)}
             </div>
           </div>
-          <p className="desk-section-copy">A fixture-backed priority queue for research coverage—not a stock ranking or recommendation. Score and coverage remain explainable.</p>
+          <p className="desk-section-copy">A sample priority queue for research coverage—not a stock ranking or recommendation. Score and coverage remain explainable.</p>
           <div className="desk-watchlist-table" role="region" aria-label="Research watchlist table" tabIndex={0}>
-            <div className="desk-table-head" aria-hidden="true"><span>Rank</span><span>Company / research posture</span><span>Evidence coverage</span><span>Research confidence</span><span>Movement</span></div>
+            <div className="desk-table-head" aria-hidden="true"><span>Rank</span><span>Company and research posture</span><span>Evidence coverage</span><span>Research confidence</span><span>Movement</span></div>
             {entries.map((entry) => {
               const companyName = entry.name ?? "Unnamed company";
               return <article className="desk-row" key={entry.company_id}>

@@ -8,7 +8,7 @@ type IconName = "discover" | "research" | "reports" | "compare" | "thesis" | "br
 type NavItem = { label: string; href: string; icon: IconName };
 
 const navGroups: Array<{ label: string; items: NavItem[] }> = [
-  { label: "Desk", items: [{ label: "Discover", href: "/", icon: "discover" }] },
+  { label: "Workspace", items: [{ label: "Discover", href: "/", icon: "discover" }] },
   {
     label: "Research",
     items: [
@@ -19,7 +19,7 @@ const navGroups: Array<{ label: string; items: NavItem[] }> = [
       { label: "Change briefs", href: "/briefs", icon: "brief" },
     ],
   },
-  { label: "System", items: [{ label: "Settings", href: "/settings", icon: "settings" }] },
+  { label: "Preferences", items: [{ label: "Settings", href: "/settings", icon: "settings" }] },
 ];
 
 const coverageItems = [
@@ -91,7 +91,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           <section className="global-coverage" aria-label="Pinned coverage">
-            <div className="global-coverage-heading"><span className="global-nav-label">Coverage</span><small className="global-nav-label">Fixture</small></div>
+            <div className="global-coverage-heading"><span className="global-nav-label">Coverage</span><small className="global-nav-label">Sample</small></div>
             {coverageItems.map((item) => <Link className="global-coverage-item" href={item.href} key={item.ticker} title={collapsed ? `${item.ticker} — ${item.name}` : undefined} onClick={() => setMobileOpen(false)}><strong>{item.ticker}</strong><span className="global-nav-label">{item.name}</span></Link>)}
           </section>
 

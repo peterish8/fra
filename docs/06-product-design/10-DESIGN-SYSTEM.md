@@ -20,12 +20,19 @@ desk, not a trading terminal or generic SaaS dashboard.
 
 Avoid:
 - decorative gradients
-- glassmorphism
 - glow-heavy surfaces
 - excessive card nesting
 - decorative 3D
 - hover scaling
 - stock-market casino aesthetics
+
+Restrained glass is permitted only for contextual chrome: the navigation rail,
+application header, and a primary command surface may use a low-opacity fill,
+subtle border highlight, and `backdrop-filter` blur over a stable dark canvas.
+Do not apply glass treatment to evidence tables, claims, source text, or any
+surface where translucency would reduce legibility. Each glass surface needs a
+solid fallback, a visible focus state, and contrast sufficient for both text
+and interactive controls.
 
 ## 2. Typography
 

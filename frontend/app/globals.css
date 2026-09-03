@@ -561,3 +561,8 @@ main:not([class]) header p:first-child { color:#9a8cff; } main:not([class]) head
 .intro h1, main:not([class]) h1, .dev-auth-card h1 { color:#f5f3fb; background:linear-gradient(105deg,#ffffff 0%,#eef0f4 38%,#c9cdd6 72%,#aeb4c1 100%); background-size:190% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 14px rgb(218 221 232 / 14%)); animation:headline-sheen 14s ease-in-out infinite alternate; }
 @keyframes headline-sheen { from { background-position:0% 50%; } to { background-position:100% 50%; } }
 @media (prefers-reduced-motion: reduce) { .intro h1,main:not([class]) h1,.dev-auth-card h1 { animation:none; } }
+
+/* Keep the generated atmosphere present across the non-workspace pages too. */
+.app-shell { background-image:linear-gradient(rgb(8 10 15 / 72%),rgb(8 10 15 / 94%)),url('/assets/research-ambient.png'); background-position:center top; background-size:cover; background-attachment:fixed; }
+main:not([class]) { background-image:linear-gradient(rgb(8 10 15 / 88%),rgb(8 10 15 / 97%)),url('/assets/evidence-texture.png'); background-position:center; background-size:cover; background-attachment:fixed; }
+.dev-auth-screen { background-image:linear-gradient(rgb(8 10 15 / 74%),rgb(8 10 15 / 96%)),url('/assets/research-ambient.png'); background-position:center; background-size:cover; }

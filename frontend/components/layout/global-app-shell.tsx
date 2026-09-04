@@ -27,12 +27,6 @@ const navGroups: Array<{ label: string; items: NavItem[] }> = [
 
 const adminNavGroup = { label: "Administration", items: [{ label: "Usage & access", href: "/admin", icon: "admin" as const }] };
 
-const coverageItems = [
-  { ticker: "NVDA", name: "NVIDIA", href: "/research?company=NVIDIA" },
-  { ticker: "HDFCBANK", name: "HDFC Bank", href: "/research?company=HDFC%20Bank" },
-  { ticker: "TCS", name: "Tata Consultancy", href: "/research?company=TCS" },
-];
-
 function BrandMark() {
   return <span className="global-brand-mark" aria-hidden="true"><i /><i /><i /></span>;
 }
@@ -96,11 +90,6 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
               <span aria-hidden="true">{collapsed ? "→" : "←"}</span>
             </button>
           </div>
-
-          <section className="global-coverage" aria-label="Pinned coverage">
-            <div className="global-coverage-heading"><span className="global-nav-label">Coverage</span><small className="global-nav-label">Sample</small></div>
-            {coverageItems.map((item) => <Link className="global-coverage-item" href={item.href} key={item.ticker} title={collapsed ? `${item.ticker} — ${item.name}` : undefined} onClick={() => setMobileOpen(false)}><strong>{item.ticker}</strong><span className="global-nav-label">{item.name}</span></Link>)}
-          </section>
 
           <nav id="global-primary-nav" className="global-primary-nav">
             {[...navGroups, ...(isLocalPreview && role === "admin" ? [adminNavGroup] : [])].map((group) => (

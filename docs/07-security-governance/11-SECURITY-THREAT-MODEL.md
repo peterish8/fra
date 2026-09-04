@@ -149,6 +149,10 @@ If access is blocked: `ACCESS_RESTRICTED` and use permitted fallback/source.
 - RLS on user-owned tables.
 - Admin actions require separate role/claim and audit log.
 - Service-role key never enters browser.
+- Administrative read endpoints require the same verified role claim. A
+  localhost preview role picker is not an identity issuer and cannot grant a
+  production administrator claim. Fixture operational data is disabled outside
+  development/test application factories.
 
 ## 6. Data Classification
 
@@ -204,4 +208,3 @@ If evidence corruption is found:
 3. create corrected superseding records
 4. preserve audit trail
 5. rerun evaluation suite
-

@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.api.admin import router as admin_router
 from app.api.analyst import include_analyst_router
 from app.api.companies import include_company_router
 from app.api.comparisons import router as comparisons_router
@@ -20,6 +21,7 @@ from app.api.scoring import include_score_router
 from app.api.sources import include_source_router
 from app.api.watchlists import router as watchlists_router
 from app.config.settings import Settings, get_settings
+from app.domain.admin_usage import FixtureAdminUsageRepository
 from app.domain.analyst import AnalystWorkflowRepository
 from app.observability.middleware import RequestLoggingMiddleware
 from app.security.auth import AuthenticatedUser, TokenVerifier, verify_access_token
@@ -71,6 +73,8 @@ def create_app(
     application.state.settings = resolved_settings
     application.state.token_verifier = token_verifier or verify_access_token
     application.state.analyst_workflow_repository = AnalystWorkflowRepository()
+    if resolved_settings.app_env in {"development", "test"}:
+        application.state.admin_usage_repository = FixtureAdminUsageRepository()
 
     application.add_middleware(RequestLoggingMiddleware)
     application.add_exception_handler(HTTPException, _http_exception_response)
@@ -97,6 +101,7 @@ def create_app(
     application.include_router(health_router)
     application.include_router(versioned_health_router)
     application.include_router(me_router)
+    application.include_router(admin_router)
     include_company_router(application)
     include_report_router(application)
     include_analyst_router(application)

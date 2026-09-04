@@ -4,7 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type IconName = "discover" | "research" | "reports" | "compare" | "thesis" | "brief" | "settings";
+import { useDevSession } from "@/components/dev/dev-auth-gate";
+import sessionStyles from "./local-session.module.css";
+
+type IconName = "discover" | "research" | "reports" | "compare" | "thesis" | "brief" | "settings" | "admin";
 type NavItem = { label: string; href: string; icon: IconName };
 
 const navGroups: Array<{ label: string; items: NavItem[] }> = [
@@ -21,6 +24,8 @@ const navGroups: Array<{ label: string; items: NavItem[] }> = [
   },
   { label: "Preferences", items: [{ label: "Settings", href: "/settings", icon: "settings" }] },
 ];
+
+const adminNavGroup = { label: "Administration", items: [{ label: "Usage & access", href: "/admin", icon: "admin" as const }] };
 
 const coverageItems = [
   { ticker: "NVDA", name: "NVIDIA", href: "/research?company=NVIDIA" },
@@ -41,6 +46,7 @@ function NavIcon({ name }: { name: IconName }) {
     thesis: <><path d="M5 19.5V8.4A2.4 2.4 0 0 1 7.4 6H19v13.5H7.4A2.4 2.4 0 0 0 5 21.9" /><path d="M9 10h6M9 14h5" /><path d="M5 8.5h2" /></>,
     brief: <><path d="M6 3.5h9l4 4V21A2.5 2.5 0 0 1 16.5 23.5h-10A2.5 2.5 0 0 1 4 21V6A2.5 2.5 0 0 1 6.5 3.5Z" /><path d="M15 3.8V8h4.1M8 13h8M8 17h5" /><path d="m16.5 13 1.2 1.2 2.3-2.5" /></>,
     settings: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.12 2.12-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56v.08h-3v-.08a1.7 1.7 0 0 0-1.03-1.56A1.7 1.7 0 0 0 8.8 19l-.06.06-2.12-2.12.06-.06A1.7 1.7 0 0 0 7.02 15 1.7 1.7 0 0 0 5.46 14H5.4v-3h.08a1.7 1.7 0 0 0 1.56-1.03A1.7 1.7 0 0 0 6.7 8.1l-.06-.06 2.12-2.12.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1.03-1.56v-.08h3v.08a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.12 2.12-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.98 11h.08v3h-.08A1.7 1.7 0 0 0 19.4 15Z" /></>,
+    admin: <><rect x="4.5" y="4" width="15" height="16" rx="2" /><path d="M8 9h8M8 13h5M8 17h3" /><circle cx="17.5" cy="16.5" r="2" /></>,
   };
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
@@ -51,6 +57,7 @@ function isCurrent(pathname: string, href: string) {
 
 export function GlobalAppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { isLocalPreview, role, signOut } = useDevSession();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -96,7 +103,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
           </section>
 
           <nav id="global-primary-nav" className="global-primary-nav">
-            {navGroups.map((group) => (
+            {[...navGroups, ...(isLocalPreview && role === "admin" ? [adminNavGroup] : [])].map((group) => (
               <div className="global-nav-group" key={group.label}>
                 <p className="global-nav-section">{group.label}</p>
                 {group.items.map((item) => {
@@ -110,6 +117,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="global-sidebar-footer"><span className="global-status-dot" aria-hidden="true" /><span className="global-nav-label">Evidence before explanation.</span></div>
+          {isLocalPreview ? <button type="button" className={sessionStyles.session} onClick={signOut} aria-label={`Sign out of local ${role === "admin" ? "administrator" : "researcher"} session`}><strong className="global-nav-label">Local {role === "admin" ? "administrator" : "researcher"}</strong><span className="global-nav-label">Sign out</span></button> : null}
         </div>
       </aside>
 

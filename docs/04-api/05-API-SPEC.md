@@ -218,6 +218,19 @@ Not exposed to ordinary users:
 - scoring config activation
 - evaluation suite execution
 
+#### `GET /v1/admin/usage-overview`
+
+Return a read-only, privacy-minimised view of registered-account count, active
+accounts, research-run volume, and per-account research-run allowance. It
+requires a verified `admin` identity role claim; an authenticated non-admin
+receives `ADMIN_REQUIRED`. It never returns provider credentials, access
+tokens, raw research data, or provider configuration.
+
+Development and test responses are explicitly labelled `data_mode: FIXTURE`.
+Staging and production return `ADMIN_USAGE_UNAVAILABLE` until the durable quota
+and audit aggregation repository is configured. The localhost role picker is a
+preview control, not an authentication or authorization mechanism.
+
 Protect through admin role/service identity; do not rely on obscurity.
 
 ## 4. Publication Gate API Behavior
@@ -253,6 +266,8 @@ If a client requests a verified report and gate conditions are unmet, return str
 
 Canonical codes include:
 - `UNAUTHENTICATED`
+- `ADMIN_REQUIRED`
+- `ADMIN_USAGE_UNAVAILABLE`
 - `FORBIDDEN`
 - `NOT_FOUND`
 - `VALIDATION_ERROR`

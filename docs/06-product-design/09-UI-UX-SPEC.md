@@ -22,6 +22,8 @@ Discover / Search
 - **My Research** — persistent personal reports.
 - **Compare** — multi-company comparison.
 - **Settings** — account, plan/quotas, provider-independent user preferences.
+- **Administration** — role-gated operational view of account activity and
+  research-run quotas. It is absent for non-administrators.
 
 ### Left sidebar
 ChatGPT-like persistence, but each item is a research workspace:
@@ -44,6 +46,19 @@ Sidebar requirements:
 - last updated
 - status indicator
 - collapsible on desktop; drawer on mobile
+
+### Administration / usage
+
+An administrator sees a compact, read-only operational screen with total
+accounts, recent active accounts, research-run volume, and a per-user quota
+table. Every quota row shows used/allowed runs and a textual state such as
+`Available`, `Near limit`, or `At limit`; color is supportive only. The screen
+must label fixture data as fixture data and state the observation window. It
+must not expose provider keys, tokens, raw user content, or provider internals.
+
+For local preview only, the sign-in gate may offer Researcher and Administrator
+roles. Production roles come from the verified identity boundary, never from a
+browser-selected value.
 
 ## 3. Core Screens
 
@@ -289,4 +304,3 @@ On mobile, tables become stacked metric/claim rows rather than horizontal overfl
 - Paginate/virtualize large claim/source lists.
 - Preserve scroll/tab state when opening/closing evidence drawer.
 - Optimistic UI only for safe local actions (favorite/title), not research completion/verdict changes.
-

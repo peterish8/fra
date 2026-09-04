@@ -303,6 +303,20 @@ paths:
       summary: Get latest public research watchlist
       responses:
         '200': {description: Watchlist}
+  /admin/usage-overview:
+    get:
+      summary: Return administrator-only account usage and research quota summary
+      responses:
+        '200':
+          description: Privacy-minimised administrative usage overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUsageOverview'
+        '403':
+          description: Verified identity lacks the administrator role claim
+        '503':
+          description: Administrative usage data is not configured
 components:
   securitySchemes:
     bearerAuth:
@@ -324,6 +338,29 @@ components:
     ClaimVerdict:
       type: string
       enum: [UNVERIFIED, VERIFIED, PARTIALLY_SUPPORTED, CONTRADICTED, INSUFFICIENT_EVIDENCE, STALE]
+    AdminUsageOverview:
+      type: object
+      required: [data_mode, generated_at, observation_window_hours, registered_users, active_users_in_window, research_runs_in_window, users]
+      properties:
+        data_mode: {type: string, enum: [FIXTURE, LIVE]}
+        generated_at: {type: string, format: date-time}
+        observation_window_hours: {type: integer, minimum: 1, maximum: 168}
+        registered_users: {type: integer, minimum: 0}
+        active_users_in_window: {type: integer, minimum: 0}
+        research_runs_in_window: {type: integer, minimum: 0}
+        users:
+          type: array
+          items: {$ref: '#/components/schemas/AdminUserUsage'}
+    AdminUserUsage:
+      type: object
+      required: [user_id, display_name, role, research_runs_used, research_runs_limit, quota_status]
+      properties:
+        user_id: {type: string}
+        display_name: {type: string}
+        role: {type: string, enum: [USER, ADMIN]}
+        research_runs_used: {type: integer, minimum: 0}
+        research_runs_limit: {type: integer, minimum: 1}
+        quota_status: {type: string, enum: [AVAILABLE, NEARING_LIMIT, AT_LIMIT]}
     CreateReportRequest:
       type: object
       required: [title, subject]

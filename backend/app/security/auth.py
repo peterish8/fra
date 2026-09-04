@@ -146,10 +146,30 @@ async def get_current_user(
         raise _auth_error(request) from None
 
 
+_current_user_dependency = Depends(get_current_user)
+
+
+async def require_admin(
+    request: Request,
+    current_user: AuthenticatedUser = _current_user_dependency,
+) -> AuthenticatedUser:
+    """Require an administrator role from an already verified identity claim."""
+
+    if current_user.role.casefold() == "admin":
+        return current_user
+    raise stable_http_error(
+        status_code=403,
+        code="ADMIN_REQUIRED",
+        message="Administrator access is required for this resource.",
+        request_id=_request_id(request),
+    )
+
+
 __all__ = [
     "AuthenticatedUser",
     "TokenVerificationError",
     "TokenVerifier",
     "get_current_user",
+    "require_admin",
     "verify_access_token",
 ]

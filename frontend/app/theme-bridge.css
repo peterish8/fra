@@ -521,6 +521,7 @@ body {
 .dev-auth-button,
 .route-primary-button {
   border-color: var(--border);
+  border-radius: 10px;
   background: linear-gradient(180deg, var(--control-highlight), transparent), var(--control-surface);
   box-shadow:
     inset 0 1px 0 var(--control-highlight),
@@ -579,6 +580,7 @@ body {
 .global-app-main :where(input:not([type]), input[type="text"], input[type="search"], textarea, select),
 .dev-auth-card :where(input:not([type]), input[type="text"], input[type="search"], textarea, select) {
   border-color: var(--border);
+  border-radius: 10px;
   background: var(--control-inset);
   box-shadow:
     inset 0 2px 4px rgb(0 0 0 / 32%),
@@ -608,6 +610,28 @@ body {
 .global-nav-item-current::after {
   box-shadow: none;
 }
+
+/* Shared surface geometry: the page remains a calm canvas while every bounded
+   work area has a softened, deliberate edge. */
+.foundation-panel,
+.demo-snapshot,
+.report-summary,
+.claims-panel,
+.evidence-inspector,
+.comparison-table-wrap,
+.settings-surface,
+.analyst-surface,
+.tearsheet,
+.dev-auth-card,
+.route-error-card,
+.global-app-main .panel {
+  border-radius: 14px;
+}
+
+.comparison-table-wrap,
+.claims-panel,
+.evidence-inspector,
+.global-app-main .panel { overflow: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   .global-collapse-button,

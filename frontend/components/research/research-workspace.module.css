@@ -182,3 +182,11 @@
 .loadingTrace i:nth-child(1) { width:100%; }.loadingTrace i:nth-child(2) { width:68%; animation-delay:120ms; }.loadingTrace i:nth-child(3) { width:39%; animation-delay:240ms; }
 @keyframes library-trace { 0%,100% { opacity:.32; transform:scaleX(.55); } 45% { opacity:1; transform:scaleX(1); } }
 @media (prefers-reduced-motion: reduce) { .loadingTrace i { animation:none; } }
+
+/* Rounded work surfaces keep the research worksheet approachable without
+   removing the dividers that make dense evidence easy to scan. */
+.researchForm,.librarySection,.detailPanel { border-radius:16px; overflow:hidden; }
+.field input,.searchBox,.filterBox select { border-radius:10px; }
+.choiceCard,.depthCard { border-radius:11px; }
+.primaryButton,.secondaryButton,.deleteButton,.cancelButton,.closeButton { border-radius:10px; }
+.reportGlyph,.itemCount { border-radius:9px; }

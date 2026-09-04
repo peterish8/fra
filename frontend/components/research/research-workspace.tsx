@@ -53,6 +53,10 @@ function DetailPanel({ report, isLoading, error, onClose }: { report: ReportSumm
             <span aria-hidden="true">i</span>
             <p>This workspace contains research metadata only so far. No claims, evidence, or company identity has been invented in this view.</p>
           </div>
+          <div className={styles.detailActions}>
+            <Link href={`/reports/${encodeURIComponent(report.report_id)}`}>Open report reader</Link>
+            <Link href={`/reports/${encodeURIComponent(report.report_id)}/history`}>Version history</Link>
+          </div>
         </>
       ) : null}
     </section>
@@ -186,7 +190,7 @@ export function ResearchWorkspace({ apiClient }: ResearchWorkspaceProps) {
           <Link href="/" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⌕</span><span className={styles.navLabel}>Discover</span></Link>
           <Link href="/research" className={`${styles.navItem} ${styles.navItemCurrent}`} aria-current="page" onClick={() => setIsNavOpen(false)}><span aria-hidden="true">▤</span><span className={styles.navLabel}>My Research</span></Link>
           <Link href="/compare" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⇄</span><span className={styles.navLabel}>Compare</span></Link>
-          <Link href="/" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⚙</span><span className={styles.navLabel}>Settings</span></Link>
+          <Link href="/settings" className={styles.navItem} onClick={() => setIsNavOpen(false)}><span aria-hidden="true">⚙</span><span className={styles.navLabel}>Settings</span></Link>
         </nav>
         <div className={styles.sidebarLibrary}>
           <div className={styles.sidebarHeading}><span>Recent research</span><span>{reports.length}</span></div>

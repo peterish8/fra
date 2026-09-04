@@ -100,4 +100,3 @@ For architecturally significant changes, add/update an ADR.
 For schema changes, add a migration and update `docs/03-data/04-DATABASE-SCHEMA.md`.
 For endpoint changes, update `docs/04-api/openapi.yaml` and `docs/04-api/05-API-SPEC.md`.
 For scoring changes, update versioned scoring docs/config and preserve historical score-version metadata.
-

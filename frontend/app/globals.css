@@ -807,3 +807,153 @@ html, body { max-width:100%; overflow-x:hidden; }
   .desk-command-heading > span { font-size:13px; }
   .desk-subject-grid { gap:12px; }
 }
+
+/* Compact mode is an icon rail, not a vertically typeset duplicate of coverage. */
+.global-app-shell-collapsed .global-coverage { display:none; }
+.global-app-shell-collapsed .global-primary-nav { margin-top:42px; }
+
+/* Design-audit refinement: calm glass belongs to navigation and commands;
+   research records keep an opaque, high-contrast reading surface. */
+.global-brand { flex:1; }
+.global-brand-row { gap:6px; }
+.global-brand-copy strong { font-size:15px; }
+.desk-watchlist-table,
+.analyst-surface,
+.tearsheet,
+.route-error-card { background:#151716; box-shadow:inset 0 1px 0 rgb(255 255 255 / 4%); }
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .global-sidebar,
+  .desk-topbar,
+  .desk-command-panel,
+  .analyst-topbar {
+    -webkit-backdrop-filter:blur(16px) saturate(108%);
+    backdrop-filter:blur(16px) saturate(108%);
+  }
+
+  .desk-watchlist-table,
+  .analyst-surface,
+  .tearsheet,
+  .route-error-card {
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+}
+
+/* Report deep links keep location and history within the same evidence surface. */
+.report-route-nav {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px 12px;
+  width:min(100%,1120px);
+  margin:28px auto 0;
+  padding:0 clamp(20px,5vw,72px);
+  color:#9a9c93;
+  font-size:12px;
+  font-weight:600;
+}
+.report-route-nav a { color:#d5d6cf; }
+.report-route-nav a:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.report-route-history { margin-left:auto; }
+.report-history-page {
+  width:min(100%,860px);
+  margin:0 auto;
+  padding:58px clamp(20px,5vw,72px) 56px;
+  color:#e8e9e3;
+}
+.report-history-header { margin-bottom:28px; }
+.report-history-kicker {
+  margin:0 0 10px;
+  color:#b7b8ad;
+  font:600 10px "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.report-history-header h1 {
+  margin:0;
+  color:#f2f3ee;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(34px,4.4vw,52px);
+  font-weight:400;
+  letter-spacing:-.05em;
+}
+.report-history-header p { margin:12px 0 0; color:#b0b3ac; }
+.report-history-header a {
+  display:inline-flex;
+  margin-top:18px;
+  color:#d5d6cf;
+  font-size:13px;
+  font-weight:600;
+}
+.report-history-header a:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+
+/* Evidence-led reports: score context reads as one strip, not four dashboard cards. */
+.report-page { width:min(100%,1120px); margin:0 auto; padding:58px clamp(20px,5vw,72px) 56px; color:#e8e9e3; }
+.report-page-header { max-width:780px; margin-bottom:30px; }
+.report-page-header > p:first-child { margin:0 0 10px; color:#b7b8ad; font:600 10px "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.12em; text-transform:uppercase; }
+.report-page h1 { margin:0; color:#f2f3ee; font-family:Georgia,"Times New Roman",serif; font-size:clamp(38px,4.8vw,58px); font-weight:400; letter-spacing:-.06em; line-height:.98; }
+.report-page-header > p:last-child { max-width:690px; margin:16px 0 0; color:#b0b3ac; font-size:15px; line-height:1.65; }
+.report-quality-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:30px; border-top:1px solid #383a34; border-bottom:1px solid #383a34; background:#151716; }
+.report-score-card { min-height:196px; padding:22px 20px 20px; border-left:1px solid #383a34; }
+.report-score-card:first-child { border-left:0; }
+.report-score-card h3 { margin:0; color:#f0f1eb; font-size:14px; font-weight:600; line-height:1.35; }
+.report-score-value { min-height:38px; margin:22px 0 6px; color:#f7f7f1; font:400 27px/1.1 "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:-.07em; }
+.report-score-coverage { margin:0; color:#c4c6bf; font-size:12px; }
+.report-score-card small { display:block; margin-top:15px; color:#95988f; font-size:11px; line-height:1.55; }
+.report-section-nav { display:flex; flex-wrap:wrap; gap:10px 20px; margin:18px 0 0; }
+.report-section-nav a { color:#cfd1c9; font-size:12px; font-weight:600; }
+.report-section-nav a:hover { color:#fff; text-decoration:underline; text-underline-offset:4px; }
+.report-summary,
+.claims-panel,
+.evidence-inspector { margin-top:30px; border:1px solid #383a34; background:#151716; box-shadow:none; }
+.report-summary { padding:25px 26px; }
+.report-summary h2,
+.claims-panel h2,
+.evidence-inspector h2 { margin:0; color:#f0f1eb; font-family:Georgia,"Times New Roman",serif; font-size:25px; font-weight:400; letter-spacing:-.04em; }
+.report-summary p { max-width:720px; margin:11px 0 0; color:#b1b4ac; line-height:1.65; }
+.claims-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px 26px 17px; border-bottom:1px solid #30322c; }
+.claims-panel label { display:inline-flex; align-items:center; gap:8px; color:#b8bbb2; font-size:12px; }
+.claims-panel select { min-height:34px; border:1px solid #3e4039; border-radius:5px; background:#0e0f0c; color:#e5e6df; padding:0 9px; font:inherit; }
+.claims-table-wrap { overflow-x:auto; }
+.claims-panel table { width:100%; min-width:800px; border-collapse:collapse; color:#d8dad3; font-size:13px; }
+.claims-panel th,.claims-panel td { padding:15px 14px; border-top:1px solid #2b2d27; text-align:left; vertical-align:top; }
+.claims-panel thead th { border-top:0; color:#92958c; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+.claims-panel tbody tr:hover { background:#1a1c18; }
+.claims-panel td:first-child { min-width:280px; color:#e7e8e1; }
+.claims-panel td:nth-child(3),.claims-panel td:nth-child(4) { color:#d7cda9; font:600 10px "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.05em; }
+.claims-panel button,.evidence-inspector button { min-height:32px; border:1px solid #44463f; border-radius:5px; background:#20211c; color:#e0e1da; padding:0 10px; font:600 11px "Avenir Next","Helvetica Neue",sans-serif; cursor:pointer; }
+.claims-panel button:hover,.evidence-inspector button:hover { border-color:#6a6d63; background:#292b25; }
+.evidence-inspector { padding:24px 26px; }
+.evidence-inspector > button { float:right; }
+.evidence-inspector > p { max-width:760px; margin:15px 0; color:#daddd5; line-height:1.6; }
+.evidence-inspector dl { display:grid; grid-template-columns:140px 1fr; gap:8px 16px; margin:18px 0; padding:16px 0; border-top:1px solid #30322c; border-bottom:1px solid #30322c; color:#c4c6bf; font-size:13px; }
+.evidence-inspector dt { color:#8f9288; }.evidence-inspector dd { margin:0; }
+
+/* Comparison keeps the same evidence table on desktop and becomes labeled rows on mobile. */
+.comparison-panel { margin-top:28px; border:1px solid #383a34; border-radius:10px; background:#151716; box-shadow:none; overflow:hidden; }
+.comparison-panel > header { padding:27px 28px 20px; border-bottom:1px solid #30322c; }
+.comparison-panel h1 { margin:0; color:#f0f1eb; font-family:Georgia,"Times New Roman",serif; font-size:clamp(36px,4.2vw,52px); font-weight:400; letter-spacing:-.06em; line-height:1; }
+.comparison-panel header p { max-width:680px; margin:14px 0 0; color:#b0b3ab; font-size:14px; line-height:1.6; }
+.comparison-table-wrap { overflow-x:auto; }
+.comparison-panel table { width:100%; min-width:720px; border-collapse:collapse; color:#d9dbd4; font-size:13px; }
+.comparison-panel th,.comparison-panel td { padding:16px 14px; border-top:1px solid #2d2f29; text-align:left; vertical-align:top; }
+.comparison-panel thead th { border-top:0; color:#94978d; font:700 10px "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; text-transform:uppercase; }
+.comparison-panel tbody th { width:27%; color:#d7d9d1; font:600 11px "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.05em; }
+.comparison-panel td { color:#e8e9e2; font-variant-numeric:tabular-nums; }
+.comparison-value { white-space:nowrap; }
+.comparison-panel td small { display:block; margin-top:6px; color:#d4b68c; font-size:10px; line-height:1.4; }
+.comparison-panel td button { display:block; min-height:30px; margin-top:9px; border:1px solid #44463f; border-radius:5px; background:#20211c; color:#dddeda; padding:0 9px; font:600 11px "Avenir Next","Helvetica Neue",sans-serif; cursor:pointer; }
+.comparison-panel td button:hover { border-color:#6a6d63; background:#292b25; }
+
+@media (max-width:620px) {
+  .report-page { padding:66px 18px 38px; }
+  .report-quality-strip { grid-template-columns:1fr 1fr; }
+  .report-score-card { min-height:174px; padding:18px 16px; border-top:1px solid #383a34; }
+  .report-score-card:nth-child(odd) { border-left:0; }.report-score-card:nth-child(-n+2) { border-top:0; }
+  .report-score-value { margin-top:17px; font-size:23px; }
+  .report-summary { padding:20px 18px; }.claims-panel-heading { align-items:flex-start; flex-direction:column; padding:19px 18px 15px; }.evidence-inspector { padding:20px 18px; }
+  .evidence-inspector dl { grid-template-columns:1fr; gap:4px; }.evidence-inspector dd { margin-bottom:8px; }
+  .comparison-panel { margin:68px 0 0; border-radius:9px; }.comparison-panel > header { padding:22px 18px 18px; }.comparison-panel h1 { font-size:37px; }
+  .comparison-table-wrap { overflow:visible; } main:not([class]) .comparison-panel table { min-width:0; }.comparison-panel thead { display:none; }.comparison-panel tbody,.comparison-panel tr { display:block; }.comparison-panel tbody tr { padding:16px 18px; border-top:1px solid #30322c; }.comparison-panel tbody th { display:block; width:auto; padding:0 0 12px; border:0; color:#aaada4; }.comparison-panel tbody td { display:grid; grid-template-columns:minmax(78px,.8fr) minmax(0,1.2fr); gap:5px 12px; padding:11px 0; border-top:1px solid #272923; }.comparison-panel tbody td::before { color:#92958c; content:attr(data-company); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }.comparison-panel tbody td .comparison-value,.comparison-panel tbody td small,.comparison-panel tbody td button { grid-column:2; min-width:0; }.comparison-panel tbody td .comparison-value { justify-self:end; }.comparison-panel tbody td button { justify-self:start; margin-top:2px; }
+}

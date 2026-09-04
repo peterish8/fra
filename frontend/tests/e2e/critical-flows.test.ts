@@ -22,6 +22,10 @@ describe("critical browser-flow contracts", () => {
       const page = route === "reports" ? "reports/page.tsx" : `${route}/page.tsx`;
       expect(() => readFileSync(resolve(__dirname, `../../app/${page}`), "utf8")).not.toThrow();
     }
+    expect(() => readFileSync(resolve(__dirname, "../../app/reports/[reportId]/page.tsx"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(__dirname, "../../app/reports/[reportId]/history/page.tsx"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(__dirname, "../../app/reports/[reportId]/not-found.tsx"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(__dirname, "../../app/global-error.tsx"), "utf8")).not.toThrow();
   });
 
   it("renders report, evidence, contradicted filter, and empty states with accessible affordances", () => {

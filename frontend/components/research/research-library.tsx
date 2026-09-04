@@ -38,10 +38,10 @@ function StatusBadge({ status }: { status: ReportStatus }) {
 function LibraryLoading() {
   return (
     <div className={styles.loadingState} role="status" aria-live="polite">
-      <span className={styles.loadingMark} aria-hidden="true">◌</span>
+      <span className={styles.loadingTrace} aria-hidden="true"><i /><i /><i /></span>
       <div>
-        <strong>Loading your research library</strong>
-        <p>Fetching only workspaces available to your authenticated account.</p>
+        <strong>Opening your research library</strong>
+        <p>Loading workspaces available to this account.</p>
       </div>
     </div>
   );

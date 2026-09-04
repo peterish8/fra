@@ -274,3 +274,119 @@ body {
   background: #151715;
   box-shadow: inset 0 1px rgb(255 255 255 / 2%), var(--shadow-subtle);
 }
+
+/* Route transitions are a short orientation moment, not a fake preview of a
+   dashboard. The moving trace echoes a record being brought into view. */
+.route-loading {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(4rem, 11vw, 9rem) 1.5rem;
+  background: var(--bg);
+}
+
+.route-loading::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40rem 20rem at 73% 14%, rgb(137 123 162 / 9%), transparent 65%),
+    linear-gradient(90deg, transparent, rgb(236 236 230 / 3%), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.route-loading-inner {
+  position: relative;
+  width: min(100%, 40rem);
+  padding-left: clamp(1.25rem, 3vw, 2rem);
+  border-left: 1px solid var(--border);
+}
+
+.route-loading-trace,
+.research-trace {
+  display: grid;
+  width: 3rem;
+  gap: 0.28rem;
+  margin-bottom: 1.4rem;
+}
+
+.route-loading-trace i,
+.research-trace i {
+  display: block;
+  height: 1px;
+  transform-origin: left center;
+  background: #a7a49e;
+  animation: evidence-trace 1.7s cubic-bezier(.45, 0, .55, 1) infinite;
+}
+
+.route-loading-trace i:nth-child(1),
+.research-trace i:nth-child(1) { width: 100%; }
+.route-loading-trace i:nth-child(2),
+.research-trace i:nth-child(2) { width: 68%; animation-delay: 120ms; }
+.route-loading-trace i:nth-child(3),
+.research-trace i:nth-child(3) { width: 39%; animation-delay: 240ms; }
+
+.route-loading-kicker {
+  margin: 0;
+  color: #aaa9a1;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  text-transform: none;
+}
+
+.route-loading h1 {
+  max-width: 34rem;
+  margin: 0.8rem 0 0;
+  color: #ecece6;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.1rem, 5vw, 3.65rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.99;
+}
+
+.route-loading-copy {
+  max-width: 31rem;
+  margin: 1.1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.route-loading-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 2rem;
+  color: #c7c6bf;
+  font-size: 0.78rem;
+}
+
+.route-loading-status > span {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: #aaa1bc;
+  box-shadow: 0 0 0 0 rgb(170 161 188 / 35%);
+  animation: evidence-pulse 1.7s ease-out infinite;
+}
+
+@keyframes evidence-trace {
+  0%, 100% { opacity: 0.32; transform: scaleX(0.55); }
+  45% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes evidence-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(170 161 188 / 0%); }
+  45% { box-shadow: 0 0 0 0.44rem rgb(170 161 188 / 0%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loading-trace i,
+  .research-trace i,
+  .route-loading-status > span { animation: none; }
+}

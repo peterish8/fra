@@ -4,6 +4,7 @@ import { DevAuthGate } from "@/components/dev/dev-auth-gate";
 import { GlobalAppShell } from "@/components/layout/global-app-shell";
 
 import "./globals.css";
+import "./theme-bridge.css";
 
 export const metadata: Metadata = {
   title: "Financial Research Agent",

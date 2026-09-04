@@ -1,0 +1,276 @@
+/*
+ * Shared midnight desk palette.
+ *
+ * Page modules may keep their own information hierarchy, but they consume this
+ * same canvas, surface, border, and restrained-violet accent language. Violet
+ * is atmospheric context, never a competing page theme or data-surface fill.
+ */
+:root {
+  color-scheme: dark;
+  --bg: #0a0c0e;
+  --surface: #141615;
+  --surface-subtle: #1a1c1a;
+  --border: #30332f;
+  --border-strong: #464a45;
+  --text: #ecece6;
+  --text-soft: #d2d3cc;
+  --text-muted: #92958d;
+  --accent: #aaa1bc;
+  --accent-soft: #23212a;
+  --success: #8fca9d;
+  --warning: #d5b573;
+  --danger: #d38a80;
+  --info: #aeb8ca;
+  --shadow-subtle: 0 18px 42px rgb(0 0 0 / 16%);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.global-app-shell,
+.global-app-main,
+.desk-page,
+.analyst-page,
+.settings-page {
+  background-color: var(--bg);
+}
+
+.global-app-shell::before,
+.desk-page::before,
+.analyst-page::before,
+.settings-page::before {
+  background:
+    radial-gradient(58rem 32rem at 74% -10%, rgb(137 123 162 / 9%), transparent 62%),
+    radial-gradient(42rem 26rem at 7% 74%, rgb(121 132 146 / 7%), transparent 66%);
+}
+
+/* The analyst workflow keeps its editorial structure but loses the old violet
+   terminal look so it belongs to the same research desk as Discover and Admin. */
+.analyst-page {
+  position: relative;
+  isolation: isolate;
+  background-image: none;
+  color: var(--text);
+}
+
+.analyst-topbar {
+  border-color: rgb(235 239 241 / 10%);
+  background: rgb(10 12 14 / 74%);
+  color: var(--text-muted);
+}
+
+.analyst-topbar > button {
+  border-color: var(--border);
+  background: rgb(255 255 255 / 3%);
+  color: var(--text-soft);
+}
+
+.analyst-topbar > button:hover {
+  border-color: var(--border-strong);
+  background: rgb(255 255 255 / 6%);
+  color: var(--text);
+}
+
+.analyst-hero > p,
+.analyst-heading > div > p,
+.analyst-thesis-form > p,
+.tearsheet > header p,
+.tearsheet-columns > div > p {
+  color: #aaa69d;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-weight: 600;
+  letter-spacing: .1em;
+}
+
+.analyst-hero h1,
+.tearsheet h1 {
+  background: linear-gradient(105deg, #f4f4ef 0%, #e7e7e1 42%, #c7c8c3 78%, #b9b9b5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: none;
+}
+
+.analyst-hero h1 em,
+.tearsheet h1 em {
+  color: #c9c6cf;
+  -webkit-text-fill-color: #c9c6cf;
+}
+
+.analyst-hero > span,
+.analyst-rule p,
+.analyst-thesis-item > div:not(.analyst-thesis-top) p,
+.analyst-thesis-item small,
+.analyst-thesis-form > small,
+.analyst-brief-item p,
+.analyst-brief-item aside small,
+.analyst-brief-sheet footer,
+.tearsheet > header > span,
+.tearsheet footer {
+  color: var(--text-muted);
+}
+
+.analyst-rule,
+.analyst-rule > div,
+.analyst-heading,
+.analyst-thesis-item,
+.analyst-brief-toolbar,
+.analyst-brief-item,
+.analyst-brief-item aside,
+.analyst-brief-sheet footer,
+.tearsheet,
+.tearsheet > header,
+.tearsheet-lede,
+.tearsheet-columns > div,
+.tearsheet footer {
+  border-color: var(--border);
+}
+
+.analyst-rule b {
+  border-color: #5b5862;
+  color: #cecbd4;
+}
+
+.analyst-rule strong,
+.analyst-heading h2,
+.analyst-thesis-item h3,
+.analyst-thesis-form h2,
+.analyst-brief-item h3,
+.tearsheet-lede span,
+.tearsheet-columns h2 {
+  color: var(--text);
+}
+
+.analyst-surface,
+.tearsheet {
+  background: #151715;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%), 0 22px 56px rgb(0 0 0 / 13%);
+}
+
+.analyst-heading > span,
+.analyst-status-open,
+.analyst-brief-toolbar button:hover,
+.analyst-brief-toolbar button.active {
+  border-color: var(--border-strong);
+  background: #211f24;
+  color: #d2ced8;
+}
+
+.analyst-thesis-top button,
+.analyst-brief-toolbar a,
+.analyst-brief-item aside a,
+.tearsheet-columns a {
+  color: #cbc7d2;
+}
+
+.analyst-thesis-top button:hover,
+.analyst-brief-toolbar a:hover {
+  color: #f0efe9;
+}
+
+.analyst-thesis-form textarea {
+  border-color: var(--border);
+  background: #0d0f0e;
+  color: var(--text);
+}
+
+.analyst-thesis-form textarea:focus {
+  border-color: #aaa7a1;
+  outline-color: rgb(225 224 214 / 12%);
+}
+
+.analyst-thesis-form button {
+  border-color: #e7e5da;
+  background: #e7e5da;
+  color: #191a16;
+}
+
+.analyst-thesis-form button:hover { background: #f4f2e8; }
+
+.analyst-brief-sheet footer { background: #1a1c19; }
+.tearsheet > header { background: radial-gradient(circle at 87% 0%, rgb(140 129 159 / 9%), transparent 30%); }
+.tearsheet-lede p,
+.tearsheet-columns > div > span { color: #b8bbb3; }
+.tearsheet-lede strong { color: #858880; }
+
+/* The entity-resolution module uses design tokens, so this keeps it in the
+   shared dark system without weakening its evidence and status semantics. */
+.global-app-main .panel {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.global-app-main .panelHeader,
+.global-app-main .candidateGroup,
+.global-app-main .resolutionReasons,
+.global-app-main .legalRecord,
+.global-app-main .confirmRow { border-color: var(--border); }
+
+.global-app-main .candidateCard,
+.global-app-main .radioMark,
+.global-app-main .secondaryButton { background: #191b19; }
+
+.global-app-main .candidateCardSelected { border-color: #b6b1bf; background: #25232a; }
+.global-app-main .candidateCardSelected .radioMark { border-color: #b6b1bf; }
+.global-app-main .evidenceList code,
+.global-app-main .nextStep { background: #1b1d1b; }
+.global-app-main .researchGateBlocked { background: #241f19; }
+.global-app-main .researchGateOpen { background: #17211a; }
+
+/* Keep the localhost chooser on the same canvas instead of the older purple
+   card treatment. */
+.dev-auth-screen { background-image: radial-gradient(48rem 28rem at 69% 5%, rgb(129 115 154 / 10%), transparent 58%); }
+.dev-auth-card { border-color: var(--border); background: #141615; box-shadow: 0 20px 55px rgb(0 0 0 / 25%); }
+.dev-auth-kicker { color: #aba7b1; }
+.dev-auth-mark { border-color: var(--border-strong); background: #20211f; }
+.dev-auth-mark span { background: #c5c1cb; }
+.dev-auth-button { border-color: #e7e5da; background: #e7e5da; color: #181914; }
+.dev-auth-button:hover { background: #f4f2e8; }
+
+/* Settings predates the shared desk shell, so give it the same calm material
+   palette without turning its account controls into a separate violet app. */
+.settings-page {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  color: var(--text);
+}
+
+.settings-topbar {
+  position: relative;
+  z-index: 1;
+}
+
+.settings-topbar p,
+.settings-kicker {
+  color: #aaa9a1;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  text-transform: none;
+}
+
+.settings-topbar h1,
+.settings-surface h2 {
+  color: #e9e9e3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.settings-topbar > span,
+.settings-surface > p:last-child {
+  color: var(--text-muted);
+}
+
+.settings-surface {
+  position: relative;
+  z-index: 1;
+  border-color: var(--border);
+  border-radius: 12px;
+  background: #151715;
+  box-shadow: inset 0 1px rgb(255 255 255 / 2%), var(--shadow-subtle);
+}

@@ -216,3 +216,96 @@
 .detailMeta div { border-radius:11px; }
 @media (max-width:620px) { .hero { padding:24px 20px; border-radius:20px; }.heroAside { display:block; min-width:0; margin-top:22px; }.signalStrip { grid-template-columns:1fr; gap:7px; border-radius:15px; }.signalItem { border-radius:11px; }.researchForm,.librarySection,.detailPanel { border-radius:15px; }.formHeader,.choiceGroup { padding:15px; border-radius:12px; }.libraryList { margin-right:0; margin-left:0; }.reportOpenButton { padding-left:15px; } }
 @supports not (backdrop-filter: blur(1px)) { .hero,.signalStrip,.researchForm,.librarySection,.detailPanel { background-color:#171916; } }
+
+/* Selection controls use a recessed, instrument-like treatment. The indicator
+   carries state without introducing bright utility-checkbox blocks into the
+   research worksheet. */
+.choiceCard,
+.depthCard {
+  border-color: rgb(235 239 241 / 11%);
+  background: rgb(9 11 10 / 22%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    inset 0 -12px 26px rgb(0 0 0 / 10%),
+    0 1px 0 rgb(255 255 255 / 2%);
+}
+
+.choiceCard {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  column-gap: 10px;
+  align-content: start;
+}
+
+.depthCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px;
+  gap: 12px;
+  align-items: start;
+}
+
+.choiceCard > span:last-child,
+.depthCard > span:first-of-type { min-width: 0; }
+
+.choiceCard strong,
+.depthCard strong {
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.choiceCard small,
+.depthCard small {
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+.choiceCheck,
+.radioMark {
+  align-self: start;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(224 227 229 / 38%);
+  background: rgb(6 8 7 / 44%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 44%), 0 1px 0 rgb(255 255 255 / 5%);
+  color: #d9d8d0;
+}
+
+.choiceCheck {
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.radioMark { border-radius: 999px; }
+
+.choiceCardSelected,
+.depthCardSelected {
+  border-color: rgb(213 206 224 / 50%);
+  background: rgb(171 162 189 / 9%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    inset 0 -13px 26px rgb(0 0 0 / 13%),
+    0 1px 0 rgb(255 255 255 / 3%);
+}
+
+.choiceCardSelected .choiceCheck {
+  border-color: rgb(213 206 224 / 57%);
+  background: rgb(171 162 189 / 16%);
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 10%), 0 1px 0 rgb(0 0 0 / 26%);
+  color: #e7e5df;
+}
+
+.depthCardSelected .radioMark {
+  border: 1px solid rgb(213 206 224 / 57%);
+  background: radial-gradient(circle at center, #dedbd3 0 3px, rgb(171 162 189 / 13%) 3.5px 100%);
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 10%), 0 1px 0 rgb(0 0 0 / 26%);
+}
+
+.choiceCard:has(input:focus-visible),
+.depthCard:has(input:focus-visible) {
+  outline: 2px solid rgb(213 206 224 / 68%);
+  outline-offset: 2px;
+}
+
+.choiceCard:has(input:disabled),
+.depthCard:has(input:disabled) { cursor: not-allowed; opacity: 0.58; }

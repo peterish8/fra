@@ -254,8 +254,7 @@ def classify_reconciliation(
             comparable=False,
             members=members,
             explanation=(
-                "A comparable observation lacks a valid numeric value; "
-                "no value was assumed."
+                "A comparable observation lacks a valid numeric value; no value was assumed."
             ),
             first_key=first_key,
             second_key=second_key,
@@ -278,8 +277,7 @@ def classify_reconciliation(
             comparable=True,
             members=members,
             explanation=(
-                "Comparable values differ only within the explicit metric "
-                "rounding tolerance."
+                "Comparable values differ only within the explicit metric rounding tolerance."
             ),
             first_key=first_key,
             second_key=second_key,

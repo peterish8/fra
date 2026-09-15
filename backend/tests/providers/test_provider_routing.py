@@ -46,7 +46,7 @@ def _mapping(value: Any) -> Mapping[str, Any]:
 
 
 def _result_for(normalize: Any, provider: dict[str, Any], operation: str) -> Any:
-    payload = {"items": [{"url": "https://evidence.example.test/item"}]}
+    payload: dict[str, Any] = {"items": [{"url": "https://evidence.example.test/item"}]}
     if operation == "extract":
         payload = {"text": "Permitted public evidence"}
     return normalize(

@@ -51,7 +51,9 @@ def test_freshness_policy_marks_claim_state_by_type_and_age(case: dict[str, Any]
         }
     )
     result = evaluate(
-        case["claim_type"], NOW - timedelta(days=case["age_days"]), evaluated_at=NOW,
+        case["claim_type"],
+        NOW - timedelta(days=case["age_days"]),
+        evaluated_at=NOW,
         policy=policy,
         invalidated=case.get("invalidated", False),
     )

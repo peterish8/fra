@@ -53,9 +53,7 @@ def test_source_family_benchmark_reports_independence_not_url_count() -> None:
                 for index, source in enumerate(sources)
             },
         )
-        count = independent_family_count(
-            [source.source_id for source in sources], relationships
-        )
+        count = independent_family_count([source.source_id for source in sources], relationships)
         assert count == case["expected_independent_families"], case["id"]
         # A provider can multiply URLs/observations without adding support.
         supports_conflict = count >= 2
@@ -84,6 +82,7 @@ def test_conflict_benchmark_reports_false_positive_and_negative_labels(
     for case in _cases()["classification_cases"]:
         output = classify_conflict(case["left"], case["right"])
         actual = _classification(output)
+        output_map: Any
         if hasattr(output, "model_dump"):
             output_map = output.model_dump()
         else:

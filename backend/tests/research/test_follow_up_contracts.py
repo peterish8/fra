@@ -51,7 +51,7 @@ def test_follow_up_stops_on_sufficiency_no_progress_budget_or_provider_degradati
     evidence_index = iter(range(1, 100))
 
     def retrieve(_query: Any) -> list[dict[str, Any]]:
-        item = next(results, {})
+        item: dict[str, Any] = next(results, {})
         if item.get("provider_status") == "TEMPORARY_FAILURE":
             raise degraded_type("fixture provider degraded")
         if not item.get("new_evidence"):

@@ -61,9 +61,7 @@ class EvidenceGap(BaseModel):
     @classmethod
     def normalize_reasons(cls, value: Iterable[str]) -> tuple[str, ...]:
         return tuple(
-            dict.fromkeys(
-                str(item).strip().upper() for item in value if str(item).strip()
-            )
+            dict.fromkeys(str(item).strip().upper() for item in value if str(item).strip())
         )
 
 
@@ -209,7 +207,8 @@ class FollowUpLoop:
         gap: EvidenceGap | Mapping[str, Any] | None = None,
         retrieve: Callable[
             [FollowUpQuery], Sequence[EvidenceReference | Mapping[str, Any] | UUID | str]
-        ] | None = None,
+        ]
+        | None = None,
         *,
         verify: Callable[..., Any] | None = None,
         reserve: Callable[[int], Any] | None = None,
@@ -273,8 +272,10 @@ class FollowUpLoop:
 
             progress = _lineage_fingerprint(lineage) != before
             resolved = _verification_sufficient(verify, current, tuple(lineage))
-            stop_reason = FollowUpStopReason.SUFFICIENT if resolved else (
-                None if progress else FollowUpStopReason.NO_PROGRESS
+            stop_reason = (
+                FollowUpStopReason.SUFFICIENT
+                if resolved
+                else (None if progress else FollowUpStopReason.NO_PROGRESS)
             )
             iterations.append(
                 FollowUpIteration(

@@ -45,9 +45,7 @@ def _items(value: Any, name: str) -> list[Any]:
 @pytest.mark.parametrize("case", _cases()["routing_cases"], ids=lambda case: case["id"])
 def test_deep_research_routes_only_eligible_work(case: dict[str, Any]) -> None:
     router_type = _symbol("app.providers.research.router", "DeepResearchRouter")
-    adapter_type = _symbol(
-        "app.providers.research.fixture", "FixtureDeepResearchAdapter"
-    )
+    adapter_type = _symbol("app.providers.research.fixture", "FixtureDeepResearchAdapter")
     adapter = adapter_type(
         payload={"evidence": [{"source_id": "fixture-source", "excerpt": "Candidate evidence."}]}
     )
@@ -60,9 +58,7 @@ def test_deep_research_routes_only_eligible_work(case: dict[str, Any]) -> None:
 
 
 def test_deep_research_result_is_non_authoritative() -> None:
-    adapter_type = _symbol(
-        "app.providers.research.fixture", "FixtureDeepResearchAdapter"
-    )
+    adapter_type = _symbol("app.providers.research.fixture", "FixtureDeepResearchAdapter")
     request_type = _symbol("app.providers.research.contracts", "DeepResearchRequest")
     adapter = adapter_type(
         provider="fixture",
@@ -88,8 +84,13 @@ def test_adversarial_planner_seeks_counterevidence_without_declaring_false() -> 
             "materiality": "HIGH",
         },
         evidence_gaps=[
-            "newer", "definition", "market exit", "regulator", "restatement",
-            "estimate", "counterexample",
+            "newer",
+            "definition",
+            "market exit",
+            "regulator",
+            "restatement",
+            "estimate",
+            "counterexample",
         ],
         max_queries=8,
         unresolved=True,
@@ -97,8 +98,14 @@ def test_adversarial_planner_seeks_counterevidence_without_declaring_false() -> 
     assert _field(plan, "eligible") is True
     focuses = {str(_field(item, "focus")) for item in _items(plan, "queries")}
     assert focuses == {
-        "CONTRADICTION", "NEWER_EVIDENCE", "DEFINITION_CHANGE", "MARKET_EXIT",
-        "REGULATORY_ACTION", "RESTATEMENT", "ALTERNATIVE_ESTIMATE", "COUNTEREXAMPLE",
+        "CONTRADICTION",
+        "NEWER_EVIDENCE",
+        "DEFINITION_CHANGE",
+        "MARKET_EXIT",
+        "REGULATORY_ACTION",
+        "RESTATEMENT",
+        "ALTERNATIVE_ESTIMATE",
+        "COUNTEREXAMPLE",
     }
     rendered = " ".join(str(item).casefold() for item in _items(plan, "queries"))
     assert "declare false" not in rendered
@@ -106,9 +113,7 @@ def test_adversarial_planner_seeks_counterevidence_without_declaring_false() -> 
 
 
 def test_adversarial_result_is_evidence_only() -> None:
-    normalize = _symbol(
-        "app.domain.verification.adversarial", "normalize_adversarial_result"
-    )
+    normalize = _symbol("app.domain.verification.adversarial", "normalize_adversarial_result")
     result = normalize(
         {
             "claim_id": "claim-1",

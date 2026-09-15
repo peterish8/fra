@@ -27,9 +27,7 @@ def _mapping(value: Any) -> dict[str, Any]:
     pytest.fail("reconciliation returned a non-object result", pytrace=False)
 
 
-@pytest.mark.parametrize(
-    "case", _cases()["classification_cases"], ids=lambda case: case["id"]
-)
+@pytest.mark.parametrize("case", _cases()["classification_cases"], ids=lambda case: case["id"])
 def test_reconciliation_classifies_only_comparable_financial_records(case: dict[str, Any]) -> None:
     result = classify_conflict(case["left"], case["right"])
     output = _mapping(result)
@@ -73,7 +71,4 @@ def test_restatement_preserves_prior_fact_and_links_superseding_fact() -> None:
     assert set(result["members"]) == {"prior", "restated"}
     assert case["right"]["supersedes_id"] == case["left"]["observation_id"]
     assert result["status"] == "RESOLVED"
-    assert (
-        "histor" in result["explanation"].lower()
-        or "supersed" in result["explanation"].lower()
-    )
+    assert "histor" in result["explanation"].lower() or "supersed" in result["explanation"].lower()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from email.message import Message
 from urllib.error import HTTPError
 from urllib.request import Request
 
@@ -46,15 +47,13 @@ def test_sec_company_facts_uses_descriptive_user_agent_and_normalizes_facts() ->
     assert result.facts[0].official is True
     assert result.facts[0].period == "FY2025"
     assert requests[0].full_url.endswith("/api/xbrl/companyfacts/CIK0000320193.json")
-    assert requests[0].get_header("User-agent") == (
-        "Financial Research Agent research@example.com"
-    )
+    assert requests[0].get_header("User-agent") == ("Financial Research Agent research@example.com")
 
 
 def test_sec_company_facts_maps_rate_limits_without_leaking_response() -> None:
     def transport(request: Request, timeout: float) -> bytes:
         del request, timeout
-        raise HTTPError("https://data.sec.gov", 429, "rate limited", {}, None)
+        raise HTTPError("https://data.sec.gov", 429, "rate limited", Message(), None)
 
     result = SECCompanyFactsHttpAdapter(
         user_agent="Financial Research Agent research@example.com", transport=transport

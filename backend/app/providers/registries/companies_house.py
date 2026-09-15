@@ -63,9 +63,7 @@ class CompaniesHouseHttpAdapter:
             as_of=as_of,
         )
 
-    def _fetch(
-        self, query: Mapping[str, str]
-    ) -> tuple[Mapping[str, Any] | None, ProviderStatus]:
+    def _fetch(self, query: Mapping[str, str]) -> tuple[Mapping[str, Any] | None, ProviderStatus]:
         number = _normalize_company_number(query.get("company_number"))
         if number is None:
             return None, ProviderStatus.NO_RESULTS

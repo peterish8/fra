@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from email.message import Message
 from urllib.error import HTTPError
 from urllib.request import Request
 
@@ -48,7 +49,7 @@ def test_finnhub_news_normalizes_articles_and_sends_token() -> None:
 def test_finnhub_news_maps_rate_limit_without_leaking_response() -> None:
     def transport(request: Request, timeout: float) -> bytes:
         del request, timeout
-        raise HTTPError("https://finnhub.io", 429, "rate limited", {}, None)
+        raise HTTPError("https://finnhub.io", 429, "rate limited", Message(), None)
 
     result = FinnhubNewsAdapter(api_key="test-key", transport=transport).fetch_company_news("NVDA")
 

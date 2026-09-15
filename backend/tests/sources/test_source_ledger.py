@@ -125,17 +125,19 @@ def test_snapshot_is_immutable_after_creation() -> None:
         authority_tier="C1",
         canonical_url="https://news.example.test/article/immutable",
     )
-    result = service.record_snapshot(input_type(
-        source_id=source.source_id,
-        content="Immutable evidence.",
-        retrieved_at="2026-09-01T09:00:00Z",
-        redirect_chain=[],
-        retention_mode="EXCERPT_ONLY",
-        permitted_excerpt="Immutable evidence.",
-    ))
+    result = service.record_snapshot(
+        input_type(
+            source_id=source.source_id,
+            content="Immutable evidence.",
+            retrieved_at="2026-09-01T09:00:00Z",
+            redirect_chain=[],
+            retention_mode="EXCERPT_ONLY",
+            permitted_excerpt="Immutable evidence.",
+        )
+    )
 
     with pytest.raises((AttributeError, TypeError, ValueError)):
-        result.content_hash = "sha256:tampered"  # type: ignore[misc]
+        result.content_hash = "sha256:tampered"
 
 
 def test_source_and_snapshot_reuse_canonical_identity_without_mutating_history() -> None:

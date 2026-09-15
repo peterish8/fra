@@ -59,7 +59,9 @@ def normalize_news_result(
 
     provider_name = provider.strip().upper()
     status = str(
-        provider_status.value if isinstance(provider_status, ProviderStatus) else provider_status or ""
+        provider_status.value
+        if isinstance(provider_status, ProviderStatus)
+        else provider_status or ""
     ).upper()
     if status in _FAILURE_STATUSES or payload is None:
         reason_code = status or "NO_RESULTS"

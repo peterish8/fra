@@ -93,11 +93,7 @@ def _family_components(
 
     ids = set(selected_ids)
     ids.update(member.source_id for member in member_list)
-    ids.update(
-        member.root_source_id
-        for member in member_list
-        if member.root_source_id is not None
-    )
+    ids.update(member.root_source_id for member in member_list if member.root_source_id is not None)
     accepted_relationships = tuple(
         relationship
         for relationship in relationships
@@ -183,9 +179,7 @@ def source_family_summaries(
             or (member.root_source_id is not None and member.root_source_id in component)
             or member.source_id in component_root_ids
         ]
-        root_ids = {
-            member.root_source_id or member.source_id for member in component_members
-        }
+        root_ids = {member.root_source_id or member.source_id for member in component_members}
         root_source_id = min(root_ids or component, key=str)
         canonical_urls = tuple(
             sorted(

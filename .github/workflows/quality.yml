@@ -29,7 +29,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 20.19.4
+          # @supabase/supabase-js's realtime client requires a native
+          # WebSocket implementation, only available in Node.js 22+.
+          node-version: 22.23.2
       - name: Install pinned frontend dependencies
         run: |
           corepack enable
@@ -113,7 +115,7 @@ jobs:
       - name: Set up Node.js for dependency scan
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 20.19.4
+          node-version: 22.23.2
       - name: Install pinned frontend dependencies for audit
         working-directory: frontend
         run: |

@@ -7,12 +7,14 @@ from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.admin import router as admin_router
 from app.api.analyst import include_analyst_router
 from app.api.companies import include_company_router
 from app.api.comparisons import router as comparisons_router
+from app.api.news import include_news_router
 from app.api.reports import include_report_router
 from app.api.routes.health import router as health_router
 from app.api.routes.health import versioned_router as versioned_health_router
@@ -77,6 +79,20 @@ def create_app(
         application.state.admin_usage_repository = FixtureAdminUsageRepository()
 
     application.add_middleware(RequestLoggingMiddleware)
+    if resolved_settings.app_env in {"development", "test"}:
+        application.add_middleware(
+            CORSMiddleware,
+            allow_origin_regex=r"^http://(localhost|127\.0\.0\.1):\d+$",
+            allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+            allow_headers=["Authorization", "Content-Type", "Accept"],
+        )
+    else:
+        application.add_middleware(
+            CORSMiddleware,
+            allow_origins=[resolved_settings.app_base_url],
+            allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+            allow_headers=["Authorization", "Content-Type", "Accept"],
+        )
     application.add_exception_handler(HTTPException, _http_exception_response)
 
     async def validation_exception_response(
@@ -106,6 +122,7 @@ def create_app(
     include_report_router(application)
     include_analyst_router(application)
     application.include_router(comparisons_router)
+    include_news_router(application)
     application.include_router(watchlists_router)
     include_source_router(application)
     include_score_router(application)

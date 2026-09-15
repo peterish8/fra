@@ -66,6 +66,7 @@ class Settings(BaseSettings):
     twelve_data_api_key: SecretStr | None = None
     companies_house_api_key: SecretStr | None = None
     open_corporates_api_key: SecretStr | None = None
+    finnhub_api_key: SecretStr | None = None
 
     llm_api_key: SecretStr
     llm_provider: str

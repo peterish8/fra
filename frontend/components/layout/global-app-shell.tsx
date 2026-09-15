@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useDevSession } from "@/components/dev/dev-auth-gate";
+import { SidebarGoogleSignIn } from "./sidebar-google-signin";
 import sessionStyles from "./local-session.module.css";
 
 type IconName = "discover" | "news" | "research" | "reports" | "compare" | "thesis" | "brief" | "settings" | "admin";
@@ -93,7 +94,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
             <Link className="global-brand" href="/" onClick={() => setMobileOpen(false)}>
               <BrandMark /><span className="global-brand-copy global-nav-label"><strong>Financial Research</strong><small>Evidence intelligence</small></span>
             </Link>
-            <button className="global-collapse-button" type="button" onClick={toggleCollapsed} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="global-primary-nav" aria-expanded={!collapsed} aria-pressed={collapsed}>
+            <button className="global-collapse-button" type="button" onClick={toggleCollapsed} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"} aria-controls="global-primary-nav" aria-expanded={!collapsed} aria-pressed={collapsed} suppressHydrationWarning>
               <span aria-hidden="true">{collapsed ? "→" : "←"}</span>
             </button>
           </div>
@@ -113,6 +114,7 @@ export function GlobalAppShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="global-sidebar-footer"><span className="global-status-dot" aria-hidden="true" /><span className="global-nav-label">Evidence before explanation.</span></div>
+          <SidebarGoogleSignIn />
           {isLocalPreview ? <button type="button" className={sessionStyles.session} onClick={signOut} aria-label={`Sign out of local ${role === "admin" ? "administrator" : "researcher"} session`}><strong className="global-nav-label">Local {role === "admin" ? "administrator" : "researcher"}</strong><span className="global-nav-label">Sign out</span></button> : null}
         </div>
       </aside>

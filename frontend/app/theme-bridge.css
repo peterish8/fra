@@ -514,12 +514,22 @@ body {
 }
 
 /* Tactile control language: controls rise by a small solid lower edge and
-   press into the canvas. Data panels deliberately stay quieter than controls. */
+   press into the canvas. Data panels deliberately stay quieter than controls.
+   ".global-app-main :where(button)" (not "...button") keeps this branch at
+   zero added specificity — otherwise the class+type compound would always
+   outrank the plain-class "primary calls to action" override below it,
+   regardless of source order, silently graying out every primary button
+   (desk-run-button, auth-button, route-primary-button, ...) rendered inside
+   the shell. That was live before this comment was added; if you're touching
+   this rule, keep the :where() or the same bug comes back. */
 .global-collapse-button,
 .global-mobile-trigger,
-.global-app-main button,
+.global-sidebar-google-button,
+.global-app-main :where(button),
 .dev-auth-button,
-.route-primary-button {
+.route-primary-button,
+.auth-button,
+.auth-button-secondary {
   border-color: var(--border);
   border-radius: 10px;
   background: linear-gradient(180deg, var(--control-highlight), transparent), var(--control-surface);
@@ -537,9 +547,12 @@ body {
 
 .global-collapse-button:hover,
 .global-mobile-trigger:hover,
-.global-app-main button:hover,
+.global-sidebar-google-button:hover:not(:disabled),
+.global-app-main :where(button):hover,
 .dev-auth-button:hover,
-.route-primary-button:hover {
+.route-primary-button:hover,
+.auth-button:hover:not(:disabled),
+.auth-button-secondary:hover:not(:disabled) {
   border-color: var(--border-strong);
   background-color: var(--control-surface-hover);
   transform: none;
@@ -547,18 +560,23 @@ body {
 
 .global-collapse-button:active,
 .global-mobile-trigger:active,
-.global-app-main button:active,
+.global-sidebar-google-button:active:not(:disabled),
+.global-app-main :where(button):active,
 .dev-auth-button:active,
-.route-primary-button:active {
+.route-primary-button:active,
+.auth-button:active:not(:disabled),
+.auth-button-secondary:active:not(:disabled) {
   transform: translateY(2px);
   box-shadow: inset 0 2px 4px rgb(0 0 0 / 32%);
 }
 
+/* Primary calls to action (never secondary/utility buttons) share one cream fill. */
 .desk-run-button,
 .primaryButton,
 .analyst-thesis-form button,
 .dev-auth-button,
-.route-primary-button {
+.route-primary-button,
+.auth-button {
   border-color: #e7e5da;
   background: linear-gradient(180deg, rgb(255 255 255 / 55%), transparent 42%), #e7e5da;
   color: #181914;
@@ -573,12 +591,14 @@ body {
 .primaryButton:hover,
 .analyst-thesis-form button:hover,
 .dev-auth-button:hover,
-.route-primary-button:hover {
+.route-primary-button:hover,
+.auth-button:hover:not(:disabled) {
   background-color: #f5f3e9;
 }
 
-.global-app-main :where(input:not([type]), input[type="text"], input[type="search"], textarea, select),
-.dev-auth-card :where(input:not([type]), input[type="text"], input[type="search"], textarea, select) {
+.global-app-main :where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select),
+.dev-auth-card :where(input:not([type]), input[type="text"], input[type="search"], textarea, select),
+.auth-card :where(input[type="email"], input[type="password"], input[type="text"]) {
   border-color: var(--border);
   border-radius: 10px;
   background: var(--control-inset);
@@ -587,8 +607,10 @@ body {
     0 1px 0 rgb(255 255 255 / 4%);
 }
 
-.global-app-main :where(input:not([type]), input[type="text"], input[type="search"], textarea, select):focus,
-.global-app-main :where(input:not([type]), input[type="text"], input[type="search"], textarea, select):focus-within {
+.global-app-main :where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select):focus,
+.global-app-main :where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select):focus-within,
+.auth-card :where(input[type="email"], input[type="password"], input[type="text"]):focus,
+.auth-card :where(input[type="email"], input[type="password"], input[type="text"]):focus-within {
   border-color: #a9a59f;
   box-shadow:
     0 0 0 3px rgb(229 228 220 / 10%),

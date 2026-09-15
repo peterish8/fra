@@ -46,7 +46,9 @@ def score_research_confidence(
     coverage_pct = (
         (coverage_result.score if coverage_result.score is not None else 0.0)
         if isinstance(coverage_result, ScoreResult)
-        else float(coverage) if isinstance(coverage, (int, float)) else 0.0
+        else float(coverage)
+        if isinstance(coverage, (int, float))
+        else 0.0
     )
     quality_denominator = sum(
         materiality_weight(record.materiality)

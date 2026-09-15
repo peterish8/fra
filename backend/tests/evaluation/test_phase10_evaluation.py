@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 from uuid import UUID
 
 import pytest
@@ -15,12 +16,12 @@ import pytest
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "golden_cases.json"
 
 
-def _cases() -> dict[str, object]:
+def _cases() -> dict[str, Any]:
     with FIXTURE_PATH.open(encoding="utf-8") as fixture:
         return json.load(fixture)
 
 
-def _field(value: object, name: str) -> object:
+def _field(value: object, name: str) -> Any:
     if isinstance(value, dict):
         return value[name]
     return getattr(value, name)
@@ -29,17 +30,23 @@ def _field(value: object, name: str) -> object:
 def test_golden_profiles_cover_release_demo_matrix() -> None:
     profiles = _cases()["profiles"]
     assert len(profiles) >= 7
-    assert {
-        profile["jurisdiction"] for profile in profiles if profile["jurisdiction"]
-    } >= {"US", "IN", "GB"}
+    assert {profile["jurisdiction"] for profile in profiles if profile["jurisdiction"]} >= {
+        "US",
+        "IN",
+        "GB",
+    }
     assert {profile["expected"] for profile in profiles} >= {
-        "RICH_EVIDENCE", "OFFICIAL_REGISTRY_REQUIRED", "INSUFFICIENT_EVIDENCE",
-        "WEBSITE_NOT_AVAILABLE", "REQUIRE_USER_CHOICE", "RESTATEMENT_VISIBLE",
+        "RICH_EVIDENCE",
+        "OFFICIAL_REGISTRY_REQUIRED",
+        "INSUFFICIENT_EVIDENCE",
+        "WEBSITE_NOT_AVAILABLE",
+        "REQUIRE_USER_CHOICE",
+        "RESTATEMENT_VISIBLE",
     }
 
 
 @pytest.mark.parametrize("case", _cases()["citation_cases"], ids=lambda case: case["id"])
-def test_verified_publication_requires_complete_citation_coverage(case: dict[str, object]) -> None:
+def test_verified_publication_requires_complete_citation_coverage(case: dict[str, Any]) -> None:
     from app.domain.reports.publication import PublicationGateInput, evaluate_publication_gate
 
     claim_ids = [UUID(str(value)) for value in case["claim_ids"]]
@@ -102,7 +109,7 @@ def test_numeric_benchmark_meets_ninety_nine_percent_deterministic_gate() -> Non
                     if case["id"] == "negative_parentheses"
                     else case["numeric_value"]
                 )
-                result = normalize_financial_value(
+                result: object = normalize_financial_value(
                     value, unit=case["unit"], currency=case.get("currency")
                 )
                 actual = _field(result, "normalized_value")
@@ -150,9 +157,7 @@ def test_entity_benchmark_requires_abstention_for_ambiguity_and_sparse_identity(
         assert _field(result, "research_allowed") is False
 
 
-@pytest.mark.parametrize(
-    "case", _cases()["prompt_injection_cases"], ids=lambda case: case["id"]
-)
+@pytest.mark.parametrize("case", _cases()["prompt_injection_cases"], ids=lambda case: case["id"])
 def test_prompt_injection_stays_data_and_cannot_escape_evidence_wrapper(
     case: dict[str, str],
 ) -> None:

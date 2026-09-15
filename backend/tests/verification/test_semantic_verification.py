@@ -55,9 +55,7 @@ def _mapping(value: Any) -> Mapping[str, Any]:
 def test_semantic_verifier_returns_labeled_outcome_from_claim_evidence_pair(
     case: dict[str, Any],
 ) -> None:
-    request_type = _symbol(
-        "app.domain.verification.semantic", "SemanticVerificationRequest"
-    )
+    request_type = _symbol("app.domain.verification.semantic", "SemanticVerificationRequest")
     verify = _symbol("app.domain.verification.semantic", "verify_semantic")
     claim = case["claim"]
     evidence = case["evidence"]
@@ -82,9 +80,7 @@ def test_semantic_verifier_returns_labeled_outcome_from_claim_evidence_pair(
 
 
 def test_semantic_verifier_has_no_outside_knowledge_rescue_path() -> None:
-    request_type = _symbol(
-        "app.domain.verification.semantic", "SemanticVerificationRequest"
-    )
+    request_type = _symbol("app.domain.verification.semantic", "SemanticVerificationRequest")
     verify = _symbol("app.domain.verification.semantic", "verify_semantic")
     case = next(
         case

@@ -55,16 +55,12 @@ def _mapping(value: Any) -> Mapping[str, Any]:
 def test_canonical_verdict_engine_distinguishes_all_evidence_states(case: dict[str, Any]) -> None:
     input_type = _symbol("app.domain.verification.verdicts", "VerdictInput")
     determine = _symbol("app.domain.verification.verdicts", "determine_verdict")
-    semantic_type = _symbol(
-        "app.domain.verification.semantic", "SemanticOutcome"
-    )
+    semantic_type = _symbol("app.domain.verification.semantic", "SemanticOutcome")
     numeric_passed = (
         None if case["numeric_check"] == "NOT_APPLICABLE" else case["numeric_check"] == "PASS"
     )
     temporal_passed = (
-        None
-        if case["temporal_check"] == "NOT_APPLICABLE"
-        else case["temporal_check"] == "PASS"
+        None if case["temporal_check"] == "NOT_APPLICABLE" else case["temporal_check"] == "PASS"
     )
     value = input_type(
         semantic_outcomes=[semantic_type(case["verification_outcome"])],
@@ -90,9 +86,7 @@ def test_canonical_verdict_engine_distinguishes_all_evidence_states(case: dict[s
 def test_publication_gate_exposes_each_blocker_and_ready_quality_state(
     case: dict[str, Any],
 ) -> None:
-    gate_type = _symbol(
-        "app.domain.reports.publication", "PublicationGateInput"
-    )
+    gate_type = _symbol("app.domain.reports.publication", "PublicationGateInput")
     evaluate = _symbol(
         "app.domain.reports.publication",
         "evaluate_publication_gate",
@@ -118,9 +112,7 @@ def test_publication_gate_exposes_each_blocker_and_ready_quality_state(
                 "paragraphs": [
                     {
                         "text": "Revenue increased.",
-                        "claim_version_ids": []
-                        if case["unmapped_facts"]
-                        else claim_ids[:1],
+                        "claim_version_ids": [] if case["unmapped_facts"] else claim_ids[:1],
                     }
                 ],
             }
@@ -169,9 +161,7 @@ def test_unmapped_synthesis_facts_are_rejected_before_verified_publication() -> 
         "sections": [
             {
                 "key": "financials",
-                "paragraphs": [
-                    {"text": "Revenue doubled last year.", "claim_version_ids": []}
-                ],
+                "paragraphs": [{"text": "Revenue doubled last year.", "claim_version_ids": []}],
             }
         ]
     }

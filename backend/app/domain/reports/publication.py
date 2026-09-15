@@ -103,9 +103,11 @@ def evaluate_publication_gate(
     if value.citation_coverage is not None:
         coverage = value.citation_coverage
     elif value.claim_version_ids:
-        coverage = len(set(value.citation_verified_ids) & set(value.claim_version_ids)) / len(
-            set(value.claim_version_ids)
-        ) * 100
+        coverage = (
+            len(set(value.citation_verified_ids) & set(value.claim_version_ids))
+            / len(set(value.claim_version_ids))
+            * 100
+        )
     else:
         coverage = 100.0
     blockers: list[str] = []

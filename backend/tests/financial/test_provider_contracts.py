@@ -63,7 +63,7 @@ def test_official_first_fallback_status_and_lineage_are_normalized(case: dict[st
             }
         ]
     }
-    official_payload = payload
+    official_payload: dict[str, Any] = payload
     fallback_payload = {
         "facts": [{"metric": "revenue", "value": 200, "unit": "million", "currency": "USD"}]
     }
@@ -108,10 +108,13 @@ def test_official_first_fallback_status_and_lineage_are_normalized(case: dict[st
         expected_status_value = "SUCCESS"
     assert str(output.get("status")) == expected_status_value
     if case["expected_provider"] is not None:
-        assert output.get("provider") == {
-            "OFFICIAL": "OFFICIAL_FILING",
-            "FALLBACK": "FALLBACK",
-        }[case["expected_provider"]]
+        assert (
+            output.get("provider")
+            == {
+                "OFFICIAL": "OFFICIAL_FILING",
+                "FALLBACK": "FALLBACK",
+            }[case["expected_provider"]]
+        )
     assert output.get("retrieved_at")
     assert output.get("latency_ms") is not None
     assert output.get("cost_usd_estimate") is not None

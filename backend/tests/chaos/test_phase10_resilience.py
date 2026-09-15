@@ -102,9 +102,7 @@ def test_budget_exhaustion_preserves_partial_run_without_creating_a_second_versi
     decision = service.consume_budget(run.run_id, cost_usd=2)
     assert decision.allowed is False
     assert service.get_run(run.run_id).status == "PARTIAL"
-    assert service.ensure_report_version(
-        run.run_id, lambda: "11111111-1111-4111-8111-111111111111"
-    )
+    assert service.ensure_report_version(run.run_id, lambda: "11111111-1111-4111-8111-111111111111")
     assert service.ensure_report_version(
         run.run_id, lambda: "22222222-2222-4222-8222-222222222222"
     ) == UUID("11111111-1111-4111-8111-111111111111")

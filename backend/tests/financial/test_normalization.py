@@ -47,9 +47,7 @@ def _mapping(value: Any) -> dict[str, Any]:
     pytest.fail("financial normalizer returned a non-object result", pytrace=False)
 
 
-@pytest.mark.parametrize(
-    "case", _cases()["normalization_cases"], ids=lambda case: case["id"]
-)
+@pytest.mark.parametrize("case", _cases()["normalization_cases"], ids=lambda case: case["id"])
 def test_values_retain_originals_and_normalize_units_deterministically(
     case: dict[str, Any],
 ) -> None:
@@ -70,18 +68,18 @@ def test_values_retain_originals_and_normalize_units_deterministically(
     if case["numeric_value"] is None:
         assert original is None
     else:
+        assert original is not None
         assert float(original) == pytest.approx(case["numeric_value"])
     actual_value = output.get("normalized_value", output.get("value"))
     if case["expected_value"] is not None:
+        assert actual_value is not None
         assert float(actual_value) == pytest.approx(case["expected_value"])
     else:
         assert actual_value is None
     assert output.get("normalized_unit", output.get("unit")) == case["expected_unit"]
 
 
-@pytest.mark.parametrize(
-    "case", _cases()["period_cases"], ids=lambda case: case["id"]
-)
+@pytest.mark.parametrize("case", _cases()["period_cases"], ids=lambda case: case["id"])
 def test_period_labels_are_typed_before_comparison(case: dict[str, Any]) -> None:
     classify = _symbol(
         ("app.domain.financial.normalization", "app.domain.financial.normalizer"),
@@ -93,9 +91,7 @@ def test_period_labels_are_typed_before_comparison(case: dict[str, Any]) -> None
     assert str(output.get("kind", output.get("period_kind"))) == case["expected_kind"]
 
 
-@pytest.mark.parametrize(
-    "case", _cases()["fx_cases"], ids=lambda case: case["id"]
-)
+@pytest.mark.parametrize("case", _cases()["fx_cases"], ids=lambda case: case["id"])
 def test_fx_requires_explicit_rate_and_date_and_preserves_currency_identity(
     case: dict[str, Any],
 ) -> None:

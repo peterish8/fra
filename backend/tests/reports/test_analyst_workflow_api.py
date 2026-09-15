@@ -61,6 +61,7 @@ def test_thesis_tracker_is_owner_scoped_and_separate_from_claim_verdicts(
     assert updated.json()["status"] == "WEAKENED"
     assert updated.json()["review_note"] == "Cash conversion needs a period-aligned check."
 
+
 def test_other_user_cannot_read_another_reports_thesis_points(
     other_user_report_client: TestClient,
 ) -> None:

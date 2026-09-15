@@ -136,7 +136,11 @@ jobs:
         run: python -m pip install --disable-pip-version-check --no-cache-dir -e ".[dev]" pip-audit==2.9.0
       - name: Backend dependency scan
         working-directory: backend
-        run: pip-audit --strict
+        # --strict fails the whole audit if ANY dependency can't be looked
+        # up on PyPI - which the project's own editable install (-e .) never
+        # can be, since it isn't published there. --skip-editable alone
+        # still fails on real vulnerabilities in third-party dependencies.
+        run: pip-audit --skip-editable
 
   research-evaluation:
     name: Research evaluation smoke (fixture/local only)

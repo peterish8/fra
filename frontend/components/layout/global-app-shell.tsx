@@ -7,11 +7,17 @@ import { useEffect, useState } from "react";
 import { useDevSession } from "@/components/dev/dev-auth-gate";
 import sessionStyles from "./local-session.module.css";
 
-type IconName = "discover" | "research" | "reports" | "compare" | "thesis" | "brief" | "settings" | "admin";
+type IconName = "discover" | "news" | "research" | "reports" | "compare" | "thesis" | "brief" | "settings" | "admin";
 type NavItem = { label: string; href: string; icon: IconName };
 
 const navGroups: Array<{ label: string; items: NavItem[] }> = [
-  { label: "Workspace", items: [{ label: "Discover", href: "/", icon: "discover" }] },
+  {
+    label: "Workspace",
+    items: [
+      { label: "Discover", href: "/", icon: "discover" },
+      { label: "Daily News", href: "/news", icon: "news" },
+    ],
+  },
   {
     label: "Research",
     items: [
@@ -34,6 +40,7 @@ function BrandMark() {
 function NavIcon({ name }: { name: IconName }) {
   const paths: Record<IconName, React.ReactNode> = {
     discover: <><circle cx="12" cy="12" r="6.5" /><path d="m16.8 16.8 3.7 3.7" /></>,
+    news: <><path d="M5.5 4.5h13A1.5 1.5 0 0 1 20 6v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19V6a1.5 1.5 0 0 1 1.5-1.5Z" /><path d="M7.5 7.5h5v4h-5zM7.5 14h9M7.5 17h9M14.5 8.5h3M14.5 10.5h3" /></>,
     research: <><path d="M5 4.5h10.5a3.5 3.5 0 0 1 3.5 3.5v11.5H8.5A3.5 3.5 0 0 0 5 23V4.5Z" /><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4" /></>,
     reports: <><path d="M6 3.5h9l4 4V21A2.5 2.5 0 0 1 16.5 23.5h-10A2.5 2.5 0 0 1 4 21V6A2.5 2.5 0 0 1 6.5 3.5Z" /><path d="M15 3.8V8h4.1M8 12h8M8 16h8M8 20h5" /></>,
     compare: <><path d="M7 7h12M15 3l4 4-4 4M17 17H5M9 13l-4 4 4 4" /></>,

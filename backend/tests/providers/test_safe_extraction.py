@@ -125,10 +125,15 @@ def test_site_policy_restrictions_stop_extraction_before_adapter_call(reason: st
 def test_safe_extraction_rejects_ssrf_target_before_site_policy_or_adapter() -> None:
     adapter = _RecordingAdapter()
     policy_calls: list[str] = []
+
+    def record_policy_call(url: str) -> dict[str, bool]:
+        policy_calls.append(url)
+        return {"allowed": True}
+
     safe = SafeExtractionAdapter(
         adapter,
         resolver=lambda hostname: ["127.0.0.1"],
-        site_policy_checker=lambda url: policy_calls.append(url) or {"allowed": True},
+        site_policy_checker=record_policy_call,
     )
 
     result = safe.extract("http://attacker.example.test/admin")

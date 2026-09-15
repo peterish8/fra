@@ -60,17 +60,18 @@ def test_derived_formulas_are_deterministic_and_versioned(case: dict[str, Any]) 
         result = calculate(case["numerator"], case["denominator"])
     else:
         compare = _symbol("within_tolerance")
-        result = compare(
-            Decimal(str(case["left"])), Decimal(str(case["right"])), metric="revenue"
-        )
+        result = compare(Decimal(str(case["left"])), Decimal(str(case["right"])), metric="revenue")
         assert result is case["expected"]
         return
     output = _mapping(result)
     if case.get("expected_error"):
-        assert str(output["status"]) == {
-            "DIVIDE_BY_ZERO": "DIVIDE_BY_ZERO",
-            "INSUFFICIENT_DATA": "NOT_REPORTED",
-        }[case["expected_error"]]
+        assert (
+            str(output["status"])
+            == {
+                "DIVIDE_BY_ZERO": "DIVIDE_BY_ZERO",
+                "INSUFFICIENT_DATA": "NOT_REPORTED",
+            }[case["expected_error"]]
+        )
         assert output["output"] is None
         return
     assert float(output["output"]) == pytest.approx(case["expected"])

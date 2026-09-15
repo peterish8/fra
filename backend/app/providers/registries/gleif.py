@@ -66,9 +66,7 @@ class GLEIFHttpAdapter:
             as_of=as_of,
         )
 
-    def _fetch(
-        self, query: Mapping[str, str]
-    ) -> tuple[Mapping[str, Any] | None, ProviderStatus]:
+    def _fetch(self, query: Mapping[str, str]) -> tuple[Mapping[str, Any] | None, ProviderStatus]:
         lei = _normalize_lei(query.get("lei"))
         if lei is None:
             return None, ProviderStatus.NO_RESULTS

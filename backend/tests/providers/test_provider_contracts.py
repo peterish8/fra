@@ -89,13 +89,11 @@ def test_provider_result_normalizes_status_lineage_and_retry_classification(case
     assert _field(result, "provider_request_id", "request_id") == case["provider_request_id"]
     assert _field(result, "retrieved_at") == case["retrieved_at"]
     assert _field(result, "latency_ms") == case["latency_ms"]
-    assert str(_field(result, "cost_usd_estimate", "estimated_cost_usd")) == case[
-        "cost_usd_estimate"
-    ]
+    assert (
+        str(_field(result, "cost_usd_estimate", "estimated_cost_usd")) == case["cost_usd_estimate"]
+    )
     assert _field(result, "error_code") == case["error_code"]
-    assert _field(result, "retry_classification", "retryability") == case[
-        "retry_classification"
-    ]
+    assert _field(result, "retry_classification", "retryability") == case["retry_classification"]
 
     metadata = _mapping(_field(result, "safe_metadata", "metadata", "raw_metadata"))
     assert set(expected["metadata_keys"]).issubset(metadata)

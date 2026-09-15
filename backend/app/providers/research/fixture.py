@@ -63,8 +63,11 @@ class FixtureDeepResearchAdapter:
             retry_classification=(
                 "RETRYABLE"
                 if str(self.status).upper()
-                in {ProviderStatus.TIMEOUT.value, ProviderStatus.RATE_LIMITED.value,
-                    ProviderStatus.TEMPORARY_FAILURE.value}
+                in {
+                    ProviderStatus.TIMEOUT.value,
+                    ProviderStatus.RATE_LIMITED.value,
+                    ProviderStatus.TEMPORARY_FAILURE.value,
+                }
                 else "NOT_RETRYABLE"
             ),
         )

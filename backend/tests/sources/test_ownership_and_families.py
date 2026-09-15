@@ -152,8 +152,7 @@ def test_source_families_collapse_fake_consensus_but_retain_urls(case: dict[str,
 
     assert len(family_groups) == case["expected_family_count"]
     source_origins = {
-        source.source_id: case["sources"][index]["origin"]
-        for index, source in enumerate(sources)
+        source.source_id: case["sources"][index]["origin"] for index, source in enumerate(sources)
     }
     independent_groups = [
         group
@@ -161,10 +160,7 @@ def test_source_families_collapse_fake_consensus_but_retain_urls(case: dict[str,
         if not any(source_origins[source_id] == "company" for source_id in group)
     ]
     assert len(independent_groups) == case["expected_independent_family_count"]
-    assert any(
-        case["expected_relationship"] in str(relationship)
-        for relationship in relationships
-    )
+    assert any(case["expected_relationship"] in str(relationship) for relationship in relationships)
     assert len(sources) == len(case["sources"])
 
 

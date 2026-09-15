@@ -160,8 +160,7 @@ def evaluate_freshness(
     threshold = active_policy.threshold_for(claim_type)
     normalized_type = _claim_type_key(claim_type) or "default"
     if invalidated or (
-        threshold.invalidate_after_days is not None
-        and age_days > threshold.invalidate_after_days
+        threshold.invalidate_after_days is not None and age_days > threshold.invalidate_after_days
     ):
         state = FreshnessState.INVALIDATED
         reason = "Evidence exceeded the invalidation window or was superseded."

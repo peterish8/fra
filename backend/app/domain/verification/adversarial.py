@@ -107,7 +107,8 @@ def is_adversarial_eligible(
         materiality in {"HIGH", "CRITICAL"}
         or key_conclusion
         or one_sided_support
-        or unresolved and materiality in {"MEDIUM", "HIGH", "CRITICAL"}
+        or unresolved
+        and materiality in {"MEDIUM", "HIGH", "CRITICAL"}
     )
 
 

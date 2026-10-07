@@ -11,6 +11,11 @@ current codebase. Read in order:
 3. [`03-PAIN-POINT-VALIDATION.md`](03-PAIN-POINT-VALIDATION.md) — checks the
    pivot against real market data and competitors, corrects it, and
    explains how the tech would work.
+4. [`04-CA-GAP-ANALYSIS.md`](04-CA-GAP-ANALYSIS.md) — the Chartered
+   Accountant market: what is already taken, and the audit gap (finding
+   fake vendors and hidden related parties from outside evidence).
+
+**Status:** options are open. Which problem to solve has not been decided.
 
 These are research notes, not decisions. Anything here that changes product
 scope must still be recorded in `docs/10-planning/21-OPEN-DECISIONS.md` or an

@@ -48,7 +48,9 @@ Progress: [██████████] 100%
 
 ### Pending Todos
 
-None yet. Use `.planning/todos/pending/` for newly discovered ideas during implementation.
+- Review `.planning/research/` (2026-10-07): code audit, pivot options away from investment advice, and pain-point validation. Product direction is undecided until recorded in `docs/10-planning/21-OPEN-DECISIONS.md`.
+
+Use `.planning/todos/pending/` for newly discovered ideas during implementation.
 
 ### Blockers/Concerns
 

@@ -1,0 +1,119 @@
+/* Top glass pill navigation: brand left, centered pill, account actions right. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: linear-gradient(180deg, rgb(14 15 12 / 94%) 55%, rgb(14 15 12 / 0%));
+}
+
+.brand { justify-self: start; min-width: 0; }
+.brandName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.pill {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border: 1px solid rgb(255 255 255 / 13%);
+  border-radius: 999px;
+  background: rgb(112 124 190 / 34%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%), 0 10px 30px rgb(0 0 0 / 26%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+.pill::-webkit-scrollbar { display: none; }
+
+.group { display: flex; align-items: center; gap: 2px; }
+
+.divider {
+  flex: 0 0 1px;
+  width: 1px;
+  height: 16px;
+  margin: 0 6px;
+  background: rgb(255 255 255 / 20%);
+}
+
+.item {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 86%);
+  font: 500 14px/1 "Inter", "Avenir Next", "Helvetica Neue", system-ui, sans-serif;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease;
+}
+.item:hover { background: rgb(255 255 255 / 11%); color: #fff; }
+.current {
+  background: rgb(255 255 255 / 21%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%);
+}
+.item:focus-visible, .brand:focus-visible { outline: 3px solid rgb(190 184 255 / 55%); outline-offset: 2px; }
+
+.actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+}
+.actions :global(.global-sidebar-google) { position: relative; margin: 0; }
+.actions :global(.global-sidebar-google-button) {
+  width: auto;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 6%);
+  white-space: nowrap;
+}
+.actions :global(.global-sidebar-google-error) {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 5;
+  width: max-content;
+  max-width: 260px;
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 10px;
+  background: #1a1b17;
+}
+
+.main { min-height: calc(100vh - 66px); background: #0e0f0c; }
+
+/* Mid-width: keep one row by collapsing account labels to icons / short text. */
+@media (max-width: 1500px) {
+  .actions :global(.global-sidebar-google-button) { padding: 0 11px; }
+  .actions :global(.global-sidebar-google-button) span { display: none; }
+  .actions > button strong { display: none; }
+}
+
+@media (max-width: 1100px) {
+  .header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 10px; padding: 12px 16px; }
+  .pill { grid-column: 1 / -1; grid-row: 2; }
+  .item { padding: 0 12px; }
+  .main { min-height: calc(100vh - 112px); }
+}
+
+@media (max-width: 560px) {
+  .brandName { display: none; }
+  .item { padding: 0 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .item { transition: none; } }
+@media print { .header { display: none; } }

@@ -41,6 +41,7 @@ export function SidebarGoogleSignIn() {
         onClick={handleClick}
         disabled={isBusy}
         title="Continue with Google"
+        aria-label={isBusy ? "Redirecting to Google" : "Continue with Google"}
         suppressHydrationWarning
       >
         <GoogleIcon />

@@ -194,7 +194,7 @@ main:not([class]) ul { display: grid; gap: 10px; margin: 0; padding: 0; list-sty
 @media (prefers-reduced-motion: reduce) { .route-loading-line,.route-loading-panel span { animation:none; } }
 
 /* The fixed rail owns the horizontal layout. Keep route content from creating a second viewport. */
-html, body { max-width:100%; overflow-x:hidden; }
+html, body { max-width:100%; overflow-x:hidden; overflow-x:clip; }
 .global-app-shell, .global-app-main, .main-content, .content-frame { min-width:0; max-width:100%; }
 .global-app-main { overflow-x:hidden; }
 
